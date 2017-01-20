@@ -110,7 +110,7 @@ public class Inscriptions implements Serializable
 	
 	public Personne createPersonne(String nom, String prenom, String mail)
 	{
-		Personne personne = new Personne(this, nom, prenom, mail);
+		Personne personne = new Personne(this,nom, prenom, mail);
 		candidats.add(personne);
 		return personne;
 	}
