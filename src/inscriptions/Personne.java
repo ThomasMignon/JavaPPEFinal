@@ -15,6 +15,8 @@ public class Personne extends Candidat
 	private static final long serialVersionUID = 4434646724271327254L;
 	private String prenom, mail;
 	private Set<Equipe> equipes;
+	private int id_personne;
+
 	private BDD bdd = new BDD();
 	
 	public Personne(Inscriptions inscriptions, String nom, String prenom, String mail)
@@ -65,6 +67,24 @@ public class Personne extends Candidat
 	public void setMail(String mail)
 	{
 		this.mail = mail;
+	}
+	
+	/**
+	 * Retourne l'id de la personne.
+	 * @param mail
+	 */
+	
+	public int getId_personne() {
+		return id_personne;
+	}
+	
+	/**
+	 * Modifie l'id de la personne.
+	 * @param mail
+	 */
+
+	public void setId_personne(int id_personne) {
+		this.id_personne = id_personne;
 	}
 
 	/**

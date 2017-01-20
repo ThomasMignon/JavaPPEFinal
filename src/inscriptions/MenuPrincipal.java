@@ -58,7 +58,7 @@ public class MenuPrincipal
 			
 			@Override
 			public void elementSelectionne(int indice, Personne element) {
-				System.out.println("Id : "+element.getId+" Prénom : "+element.getNom()+" Nom : "+element.getPrenom());
+				System.out.println("Id : "+element.getId_personne()+" Prénom : "+element.getNom()+" Nom : "+element.getPrenom());
 				
 			}
 		};

@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
+import persistance.BDD;
+
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
  * inscrits à un événement, les inscriptions sont closes à la date dateCloture.
@@ -20,6 +22,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	private Set<Candidat> candidats;
 	private LocalDate dateCloture;
 	private boolean enEquipe = false;
+	BDD bdd = new BDD();
 
 	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe)
 	{
@@ -28,6 +31,7 @@ public class Competition implements Comparable<Competition>, Serializable
 		this.nom = nom;
 		this.dateCloture = dateCloture;
 		candidats = new TreeSet<>();
+		bdd.save(this);
 	}
 	
 	/**

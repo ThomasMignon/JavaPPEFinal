@@ -16,6 +16,8 @@ public class Equipe extends Candidat
 {
 	private static final long serialVersionUID = 4147819927233466035L;
 	private SortedSet<Personne> membres = new TreeSet<>();
+	private int id_equipe;
+
 	BDD bdd = new BDD();
 	
 	public Equipe(Inscriptions inscriptions, String nom)
@@ -24,6 +26,22 @@ public class Equipe extends Candidat
 		bdd.save(this);
 	}
 
+	/**
+	 * Retourne l'id de l'équipe.
+	 */
+	
+	public int getId_equipe() {
+		return id_equipe;
+	}
+	
+	/**
+	 * Modifie l'id de l'équipe.
+	 */
+
+	public void setId_equipe(int id_equipe) {
+		this.id_equipe = id_equipe;
+	}
+	
 	/**
 	 * Retourne l'ensemble des personnes formant l'équipe.
 	 */
