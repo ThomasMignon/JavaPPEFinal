@@ -2,7 +2,10 @@ package inscriptions;
 
 import static org.junit.Assert.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -31,6 +34,8 @@ public class InscriptionTest
 		personneTest1 = new Personne(inscriptionTest, "Blabla", "Moi", "moi@gmail.com");
 		personneTest2 = new Personne(inscriptionTest, "Bloblo", "Toi", "toi@gmail.com");
 		
+		equipeTest = new Equipe(inscriptionTest,"blabla");
+		
 		assertEquals("getPrenom", "Gaetan", personneTest.getPrenom());//Vérification du prénom
 		assertEquals("getPrenom", "Moi", personneTest1.getPrenom());
 		assertEquals("getPrenom", "Toi", personneTest2.getPrenom());
@@ -54,9 +59,20 @@ public class InscriptionTest
 		personneTest1.setNom("papa");
 		personneTest2.setNom("pupu");
 		
-		assertEquals("compareTo",0,personneTest.compareTo(personneTest1));
+		assertEquals("compareTo",0,personneTest.compareTo(personneTest1));//Vérification de la fonction CompareTo
 		assertEquals("compareTo",-20,personneTest1.compareTo(personneTest2));
 		assertEquals("compareTo",-20,personneTest.compareTo(personneTest2));
+		
+		equipeTest.add(personneTest);
+		
+		boolean trouver = false;
+		Set<Equipe> getEquipe = personneTest.getEquipes(); // Test du getEquipe
+		if(getEquipe.contains(equipeTest))
+		{
+			trouver=true;
+		}
+		assertEquals("getEquipes",true,trouver);
+		
 		
 	}
 	
@@ -78,6 +94,10 @@ public class InscriptionTest
 		equipeTest = inscriptionTest.createEquipe("YoyoTeam");
 		equipeTest1 = inscriptionTest.createEquipe("LalaTeam");
 		equipeTest2 = inscriptionTest.createEquipe("LoloTeam");
+		
+		
+		
+		//TODO : GetMembre
 	}
 
 }
