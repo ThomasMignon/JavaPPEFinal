@@ -55,6 +55,7 @@ public class BDD{
 				while (result.next()) {
 				    idUser2 = result.getInt( "id_candidat" );
 				}
+				personne.setId_personne(idUser2);
 				String requete3 ="Insert into candidat(id_personne,nom) values ('"+idUser2+"','"+personne.getNom()+"')";
 				st.executeUpdate(requete3);
 				
@@ -73,13 +74,13 @@ public class BDD{
 			st = cn.createStatement();	
 			String requete ="Insert into equipe(id_equipe) values (NULL)";
 			st.executeUpdate(requete);	
-			String requete2 ="Select MAX(id_equipe) From equipe ";
+			String requete2 ="Select id_equipe From equipe";
 			ResultSet result = st.executeQuery(requete2);
 			int idequipe = 0;
 			while (result.next()) {
 			    idequipe = result.getInt( "id_equipe" );
 			}
-			String requete3 ="Insert into candidat(id_,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
+			String requete3 ="Insert into candidat(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
 			st.executeUpdate(requete3);
 			
 		} catch (ClassNotFoundException e) {
@@ -98,7 +99,7 @@ public class BDD{
 			
 			int equipe = competition.estEnEquipe() ? 1 : 0;;
 			
-			String requete ="Insert into competiton(date,nom,equipe) values ('"+competition.getDateCloture()+"','"+competition.getNom()+"','"+equipe+"')";
+			String requete ="Insert into competition(date,nom,enequipe) values ('"+competition.getDateCloture()+"','"+competition.getNom()+"','"+equipe+"')";
 			st.executeUpdate(requete);		
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -108,13 +109,14 @@ public class BDD{
 				
 	}
 	
-	public void deletePersonne(int id)
+	
+	public void delete(Personne personne)
 	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection(url, login,password);
 			st = cn.createStatement();	
-			String requete ="UPDATE personnes SET deleted_at = NOW() WHERE id_candidat = "+id;
+			String requete ="UPDATE personnes SET deleted_at = NOW() WHERE id_candidat = ";
 			st.executeUpdate(requete);	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

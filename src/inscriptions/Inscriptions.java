@@ -244,7 +244,9 @@ public class Inscriptions implements Serializable
 	
 	public static void main(String[] args)
 	{
-		
+		Inscriptions inscri = new Inscriptions();
+		LocalDate date = LocalDate.of(2016, 12, 12);
+		Equipe equipe = new Equipe(inscri, "Les Beau Gosses du 93");
 //		MenuPrincipal menu = new MenuPrincipal();
 //		menu.start();
 //		try
