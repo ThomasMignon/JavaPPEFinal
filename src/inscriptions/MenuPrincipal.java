@@ -32,6 +32,7 @@ public class MenuPrincipal
 	        Menu menuPrincipal = new Menu("Menu Principal");
 	        menuPrincipal.ajoute(getMenuVoirUnePersonne());
 	        menuPrincipal.ajoute(getOptionAjouterPersonne());
+	        menuPrincipal.ajoute(getOptionAjouterEquipe());
 	        menuPrincipal.ajoute(getOptionSauvegarde());
 	        menuPrincipal.ajouteQuitter("q");
 	        return menuPrincipal;
@@ -42,7 +43,7 @@ public class MenuPrincipal
 	
 	static Option getOptionSauvegarde()
 	{
-		return new Option("Sauvegarder","3",getActionSauvegarde());
+		return new Option("Sauvegarder","s",getActionSauvegarde());
 	}
 	
 	static Action getActionSauvegarde()
@@ -66,7 +67,7 @@ public class MenuPrincipal
 				};
 	}
 	
-	//Voir une personne 
+	//Voir une personne ou équipe
 	
 	static Menu getMenuVoirUnePersonne()
 	{
@@ -86,9 +87,13 @@ public class MenuPrincipal
 	
 	static Liste<Equipe> getListeVoirUneEquipe()
 	{
-		return new Liste<>("Liste des équipes","2",getActionListeVoirUneEquipe());
+		
+		Liste<Equipe> liste= new Liste<>("Liste des équipes","2",getActionListeVoirUneEquipe());
+		liste.ajouteRevenir("r");
+		return liste;
 	}
 	
+	//Liste personne
 	static ActionListe<Personne> getActionListeVoirUnePersonne() 
 	{
 		return new ActionListe<Personne>() {
@@ -112,6 +117,7 @@ public class MenuPrincipal
 		
 	}
 	
+	//Liste equipe
 	static ActionListe<Equipe> getActionListeVoirUneEquipe() 
 	{
 		return new ActionListe<Equipe>() {
@@ -125,13 +131,18 @@ public class MenuPrincipal
 			@Override
 			public void elementSelectionne(int indice, Equipe element) 
 			{
-				System.out.println("Id : "+indice+" Nom : "+element.getNom());
+				System.out.println("Nom : "+element.getNom());
+				Menu menuEquipe = new Menu("Actions disponibles");
+				menuEquipe.ajoute(getOptionSupprimerEquipe(element));
+				menuEquipe.ajouteRevenir("r");
+				menuEquipe.start();
 			}
 		};
 		
 	}
 
 	//Ajouter personne
+	
 	static Option getOptionAjouterPersonne()
 	{
 		return new Option("Ajouter une personne","2",getActionAjouterPersonne());
@@ -152,6 +163,55 @@ public class MenuPrincipal
 		};
 	}
 	
+	//Ajouter equipe
+	
+	static Option getOptionAjouterEquipe()
+	{
+		return new Option("Ajouter une equipe","3",getActionAjouterEquipe());
+	}
+	
+	private static Action getActionAjouterEquipe()
+	{
+		return new Action ()
+				{
+					@Override
+					public void optionSelectionnee()
+					{
+						String nom= utilitaires.EntreesSorties.getString("Nom : ");
+								inscriptions.createEquipe(nom);
+					}
+				};
+	}
+	
+	
+	//Ajouter une compétition
+	
+	static Option getOptionAjouterCompetition()
+	{
+		return new Option("Ajouter une competition","4",getActionAjouterCompetition());
+	}
+	
+	private static Action getActionAjouterCompetition()
+	{
+		return new Action()
+				{
+					@Override
+					public void optionSelectionnee() 
+					{
+						String nom= utilitaires.EntreesSorties.getString("Nom : ");
+						System.out.println("Date de cloture : ");
+						int jour=utilitaires.EntreesSorties.getInt("Jour : "),
+								mois=utilitaires.EntreesSorties.getInt("Mois : "),
+								annee=utilitaires.EntreesSorties.getInt("Annee : ");
+						boolean enEquipe = false;
+						String reponse = "";
+						while(reponse.equals("o") || reponse.equals("n"))
+						{
+							//TODO: EnEquipe ou pas 
+						}
+					}
+				};
+	}
 	//Supprimer une personne 
 	
 	static Option getOptionSupprimerPersonne(Personne personne)
@@ -167,6 +227,26 @@ public class MenuPrincipal
 					{
 						personne.delete();
 						System.out.println(personne.getPrenom()+" à été supprimer !");
+						menuPrincipal.start();
+					}
+				};
+	}
+	
+	//Supprimer une équipe
+	
+	static Option getOptionSupprimerEquipe(Equipe equipe)
+	{
+		return new Option("Suppreimer "+equipe.getNom(),"1",getActionSupprimerEquipe(equipe));
+	}
+	
+	private static Action getActionSupprimerEquipe(Equipe equipe)
+	{
+		return new Action()
+				{
+					public void optionSelectionnee()
+					{
+						equipe.delete();
+						System.out.println(equipe.getNom()+" à été supprimer !");
 						menuPrincipal.start();
 					}
 				};
