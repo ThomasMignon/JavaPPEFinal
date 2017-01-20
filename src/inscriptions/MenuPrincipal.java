@@ -1,30 +1,18 @@
 package inscriptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import utilitaires.ligneDeCommande.*;
 
 public class MenuPrincipal 
 {
 	private Menu menuPrincipal = new Menu("Menu Principal");
-	private Inscriptions inscriptions;
+	private static Inscriptions inscriptions;
 	public MenuPrincipal()
 	{
 		inscriptions = Inscriptions.getInscriptions();
 		Menu menuPrincipal = new Menu("Menu Principal");
-		Menu voirPersonne = new Menu("Voir une personne","1");
-		Menu ajouterPersonne = new Menu("Ajouter une personne","2");
-		Menu supprimerPersonne = new Menu("Supprimer une personne","3");
-		menuPrincipal.ajoute(voirPersonne);
-		menuPrincipal.ajoute(ajouterPersonne);
-		menuPrincipal.ajoute(supprimerPersonne);
-		menuPrincipal.ajouteQuitter("q");
-		
-		ajouterPersonne.setAction(new Action()
-				{
-					public void optionSelectionnee()
-					{
-						menuAjouterPersonne();
-					}
-				});
 		
 		this.menuPrincipal=menuPrincipal;
 	}
@@ -34,13 +22,66 @@ public class MenuPrincipal
 		menuPrincipal.start();
 	}
 	
-	public void menuAjouterPersonne()
+	//Menu principal
+	static Menu getMenuPrincipal()
 	{
-		String nom = "";
-		String prenom = "";
-		String mail = "";
-		System.out.println("Nom : ");
-		System.out.println("Prénom : ");
-		System.out.println("Mail : ");
+	        Menu menuPrincipal = new Menu("Menu Principal");
+	        menuPrincipal.ajoute(getOptionAjouterPersonne());
+	        menuPrincipal.ajouteQuitter("q");
+	        return menuPrincipal;
+	}
+	
+	
+	//Voir une personne 
+	
+	static Menu getMenuVoirUnePersonne()
+	{
+		Menu menuVoirUnePersonne = new Menu("Voir une personne", "1");
+		menuVoirUnePersonne.ajoute(getListeVoirUnePersonne());
+		return menuVoirUnePersonne;
+	}
+	
+	static Liste<Personne> getListeVoirUnePersonne()
+	{
+		return new Liste<>("Liste des personnes",getActionListeVoirUnePersonne());
+	}
+	
+	static ActionListe<Personne> getActionListeVoirUnePersonne() 
+	{
+		return new ActionListe<Personne>() {
+			
+			@Override
+			public List<Personne> getListe()
+			{
+				return new ArrayList<>(inscriptions.getPersonnes());
+			}
+			
+			@Override
+			public void elementSelectionne(int indice, Personne element) {
+				System.out.println("Id : "+element.getId+" Prénom : "+element.getNom()+" Nom : "+element.getPrenom());
+				
+			}
+		};
+		
+	}
+
+	//Ajouter personne
+	static Option getOptionAjouterPersonne()
+	{
+		return new Option("Ajouter une personne","2",getActionAjouterPersonne());
+	}
+
+	private static Action getActionAjouterPersonne() 
+	{
+		return new Action ()
+		{
+			public void optionSelectionnee()
+			{
+				String nom= utilitaires.EntreesSorties.getString("Nom : "),
+                prenom = utilitaires.EntreesSorties.getString("Prénom : "),
+                mail = utilitaires.EntreesSorties.getString("Mail : ");
+				inscriptions.createPersonne(nom, prenom, mail);
+			}
+		};
 	}
 }
