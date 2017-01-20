@@ -1,4 +1,5 @@
-package inscriptions;
+package persistance;
+import inscriptions.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,21 +41,21 @@ public class BDD{
 		
 	}
 	
-	public void save(Personne personne) 
+	public void savePersonne(Personne personne) 
 	{	
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				cn = DriverManager.getConnection(url, login,password);
 				st = cn.createStatement();	
-				String requete ="Insert into personnes(prenom,mail) values ('"+prenom+"','"+mail+"')";
+				String requete ="Insert into personnes(prenom,mail) values ('"+personne.getPrenom()+"','"+personne.getMail()+"')";
 				st.executeUpdate(requete);	
-				String requete2 ="Select id_candidat From personnes Where prenom ='" + prenom + "' And mail = '" + mail + "' And deleted_at IS NULL";
+				String requete2 ="Select id_candidat From personnes Where prenom ='" + personne.getPrenom() + "' And mail = '" + personne.getMail() + "' And deleted_at IS NULL";
 				ResultSet result = st.executeQuery(requete2);
 				int idUser2 = 0;
 				while (result.next()) {
 				    idUser2 = result.getInt( "id_candidat" );
 				}
-				String requete3 ="Insert into candidat(id_personne,nom) values ('"+idUser2+"','"+nom+"')";
+				String requete3 ="Insert into candidat(id_personne,nom) values ('"+idUser2+"','"+personne.getNom()+"')";
 				st.executeUpdate(requete3);
 				
 			} catch (ClassNotFoundException e) {
