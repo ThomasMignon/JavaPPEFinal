@@ -41,7 +41,7 @@ public class BDD{
 		
 	}
 	
-	public void savePersonne(Personne personne) 
+	public void save(Personne personne) 
 	{	
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
@@ -63,6 +63,48 @@ public class BDD{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+				
+	}
+	public void save(Equipe equipe) 
+	{	
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = DriverManager.getConnection(url, login,password);
+			st = cn.createStatement();	
+			String requete ="Insert into equipe(id_equipe) values (NULL)";
+			st.executeUpdate(requete);	
+			String requete2 ="Select MAX(id_equipe) From equipe ";
+			ResultSet result = st.executeQuery(requete2);
+			int idequipe = 0;
+			while (result.next()) {
+			    idequipe = result.getInt( "id_equipe" );
+			}
+			String requete3 ="Insert into candidat(id_,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
+			st.executeUpdate(requete3);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+	}
+	public void save(Competition competition) 
+	{	
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = DriverManager.getConnection(url, login,password);
+			st = cn.createStatement();	
+			
+			int equipe = competition.estEnEquipe() ? 1 : 0;;
+			
+			String requete ="Insert into competiton(date,nom,equipe) values ('"+competition.getDateCloture()+"','"+competition.getNom()+"','"+equipe+"')";
+			st.executeUpdate(requete);		
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 				
 	}
 	

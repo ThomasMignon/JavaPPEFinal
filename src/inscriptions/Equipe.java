@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import persistance.BDD;
+
 /**
  * Représente une Equipe. C'est-à-dire un ensemble de personnes pouvant 
  * s'inscrire à une compétition.
@@ -14,10 +16,12 @@ public class Equipe extends Candidat
 {
 	private static final long serialVersionUID = 4147819927233466035L;
 	private SortedSet<Personne> membres = new TreeSet<>();
+	BDD bdd = new BDD();
 	
 	public Equipe(Inscriptions inscriptions, String nom)
 	{
 		super(inscriptions, nom);
+		bdd.save(this);
 	}
 
 	/**

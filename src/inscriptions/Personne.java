@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
+import persistance.*;
+
 /**
  * Représente une personne physique pouvant s'inscrire à une compétition.
  */
@@ -13,6 +15,7 @@ public class Personne extends Candidat
 	private static final long serialVersionUID = 4434646724271327254L;
 	private String prenom, mail;
 	private Set<Equipe> equipes;
+	private BDD bdd = new BDD();
 	
 	public Personne(Inscriptions inscriptions, String nom, String prenom, String mail)
 	{
@@ -20,6 +23,7 @@ public class Personne extends Candidat
 		this.prenom = prenom;
 		this.mail = mail;
 		equipes = new TreeSet<>();
+		bdd.save(this);
 	}
 
 	/**
@@ -40,6 +44,7 @@ public class Personne extends Candidat
 	public void setPrenom(String prenom)
 	{
 		this.prenom = prenom;
+		bdd.save(this);
 	}
 
 	/**
