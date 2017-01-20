@@ -10,7 +10,8 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import test.*;
+
+import utilitaires.ligneDeCommande.*;
 
 /**
  * Point d'entrée dans l'application, un seul objet de type Inscription
@@ -238,22 +239,13 @@ public class Inscriptions implements Serializable
 	public String toString()
 	{
 		return "Candidats : " + getCandidats().toString()
-			+ "\nCompetitions  " + getCompetitions().toString();
+			+ "\nCompetitions : " + getCompetitions().toString();
 	}
 	
 	public static void main(String[] args)
 	{
-		/*Inscriptions inscriptions = Inscriptions.getInscriptions();
-		Competition flechettes = inscriptions.createCompetition("Mondial de fléchettes", null, false);
-		Personne tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty"), 
-				boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
-		flechettes.add(tony);
-		Equipe lesManouches = inscriptions.createEquipe("Les Manouches");
-		lesManouches.add(boris);
-		lesManouches.add(tony);
-		System.out.println(inscriptions);
-		lesManouches.delete();
-		System.out.println(inscriptions);
+		MenuPrincipal menu = new MenuPrincipal();
+		menu.start();
 		try
 		{
 			inscriptions.sauvegarder();
@@ -261,9 +253,6 @@ public class Inscriptions implements Serializable
 		catch (IOException e)
 		{
 			System.out.println("Sauvegarde impossible." + e);
-		}*/
-		Test test = new Test();
-		test.testPersonne(inscriptions = new Inscriptions(),"Ga�tan","Limentour","gaetalim@gmail.com");
-		
+		}
 	}
 }

@@ -57,6 +57,10 @@ public class Equipe extends Candidat
 	public void delete()
 	{
 		super.delete();
+		for(Personne m : membres)
+		{
+			m.remove(this);
+		}
 	}
 	
 	@Override
