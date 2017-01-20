@@ -63,7 +63,7 @@ public class InscriptionTest
 		assertEquals("compareTo",-20,personneTest1.compareTo(personneTest2));
 		assertEquals("compareTo",-20,personneTest.compareTo(personneTest2));
 		
-		equipeTest.add(personneTest);
+		personneTest.add(equipeTest); // Vérification de l'ajout d'une personne dans une équipe
 		
 		boolean trouver = false;
 		Set<Equipe> getEquipe = personneTest.getEquipes(); // Test du getEquipe
@@ -72,6 +72,16 @@ public class InscriptionTest
 			trouver=true;
 		}
 		assertEquals("getEquipes",true,trouver);
+		
+		
+		personneTest.remove(equipeTest);
+		boolean trouver2 = false;
+		Set<Equipe> getEquipe2 = personneTest.getEquipes(); // Test du getEquipe
+		if(getEquipe.contains(equipeTest))
+		{
+			trouver2=true;
+		}
+		assertEquals("remove",false,trouver2);
 		
 		
 	}
