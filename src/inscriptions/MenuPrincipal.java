@@ -1,6 +1,8 @@
 package inscriptions;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,20 +69,22 @@ public class MenuPrincipal
 				};
 	}
 	
-	//Voir une personne ou équipe
+	//Gérer une personne ou équipe
 	
 	static Menu getMenuVoirUnePersonne()
 	{
-		Menu menuVoirUnePersonne = new Menu("Personne ou équipe ?", "Voir une personne ou une équipe","1");
+		Menu menuVoirUnePersonne = new Menu("Personne ou équipe ?", "Gérer une personne ou une équipe","1");
 		menuVoirUnePersonne.ajoute(getListeVoirUnePersonne());
 		menuVoirUnePersonne.ajoute(getListeVoirUneEquipe());
+		menuVoirUnePersonne.ajoute(getListeSupprimerUnePersonne());
+		// TODO : menuVoirUnePersonne.ajoute(getListeSupprimerUneEquipe());
 		menuVoirUnePersonne.ajouteRevenir("r");
 		return menuVoirUnePersonne;
 	}
 	
 	static Liste<Personne> getListeVoirUnePersonne()
 	{
-		Liste<Personne> liste = new Liste<>("Liste des personnes","1",getActionListeVoirUnePersonne());
+		Liste<Personne> liste = new Liste<>("Voir une personne","1",getActionListeVoirUnePersonne());
 		liste.ajouteRevenir("r");
 		return liste;
 	}
@@ -88,12 +92,19 @@ public class MenuPrincipal
 	static Liste<Equipe> getListeVoirUneEquipe()
 	{
 		
-		Liste<Equipe> liste= new Liste<>("Liste des équipes","2",getActionListeVoirUneEquipe());
+		Liste<Equipe> liste= new Liste<>("Voir une équipe","2",getActionListeVoirUneEquipe());
 		liste.ajouteRevenir("r");
 		return liste;
 	}
 	
-	//Liste personne
+	static Liste<Personne> getListeSupprimerUnePersonne()
+	{
+		Liste<Personne> liste = new Liste<>("Supprimer une personne","3",getActionListeSupprimerUnePersonne());
+		liste.ajouteRevenir("r");
+		return liste;
+	}
+	
+	//Liste voir personne
 	static ActionListe<Personne> getActionListeVoirUnePersonne() 
 	{
 		return new ActionListe<Personne>() {
@@ -107,17 +118,47 @@ public class MenuPrincipal
 			@Override
 			public void elementSelectionne(int indice, Personne element) 
 			{
-				System.out.println(" Prénom : "+element.getPrenom()+" Nom : "+element.getNom()+" Mail : "+element.getMail());
-				Menu menuPersonne = new Menu("Actions disponibles");
-				menuPersonne.ajoute(getOptionSupprimerPersonne(element));
-				menuPersonne.ajouteRevenir("r");
-				menuPersonne.start();
+				
+			}
+
+			@Override
+			public Option getOption(Personne element) 
+			{
+				return new Option("Afficher "+element.getPrenom()+" "+element.getNom(),null,getActionAfficherPersonne(element));
 			}
 		};
 		
 	}
 	
-	//Liste equipe
+	private static Action getActionAfficherPersonne(Personne element) 
+	{
+		return new Action()
+				{
+					public void optionSelectionnee()
+					{
+						System.out.print("Prénom : "+element.getPrenom()+" Nom : "+element.getNom()+" Mail : "+element.getMail());
+						if(!element.getEquipes().isEmpty())
+						{
+							element.getEquipes().toString();
+						}
+						else
+						{
+							System.out.println(element.getPrenom()+"n'a pas d'équipe");
+						}
+						
+						if(!element.getCompetitions().isEmpty())
+						{
+							element.getCompetitions().toString();
+						}
+						else
+						{
+							System.out.println(element.getPrenom()+"ne participe à aucune compétition");
+						}
+					}
+				};
+	}
+	
+	//Liste voir equipe
 	static ActionListe<Equipe> getActionListeVoirUneEquipe() 
 	{
 		return new ActionListe<Equipe>() {
@@ -131,16 +172,91 @@ public class MenuPrincipal
 			@Override
 			public void elementSelectionne(int indice, Equipe element) 
 			{
-				System.out.println("Nom : "+element.getNom());
-				Menu menuEquipe = new Menu("Actions disponibles");
-				menuEquipe.ajoute(getOptionSupprimerEquipe(element));
-				menuEquipe.ajouteRevenir("r");
-				menuEquipe.start();
+				
+			}
+
+			@Override
+			public Option getOption(Equipe element) 
+			{
+				return new Option("Afficher "+element.getNom(),null, getActionAfficherEquipe(element));
 			}
 		};
 		
 	}
+	
+	private static Action getActionAfficherEquipe(Equipe element)
+	{
+		return new Action()
+				{
+					public void optionSelectionnee()
+					{
+						System.out.println("Nom : "+element.getNom());
+						if(!element.getCompetitions().isEmpty())
+						{
+							element.getCompetitions().toString();
+						}
+						else
+						{
+							System.out.println(element.getNom()+"ne participe à aucune compétition");
+						}
+					}
+				};
+	}
+	
+	//Liste supprimer une personne 
+	private static ActionListe<Personne> getActionListeSupprimerUnePersonne()
+	{
+		return new ActionListe<Personne>()
+		{
 
+			@Override
+			public List<Personne> getListe() 
+			{
+				return new ArrayList<>(inscriptions.getPersonnes());
+			}
+
+			@Override
+			public void elementSelectionne(int indice, Personne element) 
+			{
+				
+			}
+
+			@Override
+			public Option getOption(Personne element) {
+				// TODO Auto-generated method stub
+				return new Option("Supprimer "+element.getPrenom()+" "+element.getNom(),null,getActionSupprimerPersonne(element));
+			}
+			
+		};
+	}
+	
+	//Liste supprimer une equipe 
+	private static ActionListe<Equipe> getActionListeSupprimerUneEquipe()
+	{
+		return new ActionListe<Equipe>()
+				{
+
+					@Override
+					public List<Equipe> getListe() 
+					{
+						return new ArrayList<>(inscriptions.getEquipes());
+					}
+
+					@Override
+					public void elementSelectionne(int indice, Equipe element) 
+					{
+
+					}
+
+					@Override
+					public Option getOption(Equipe element) 
+					{
+						return new Option("Supprimer "+element.getNom(),null,getActionSupprimerEquipe(element));
+					}
+					
+				};
+	}
+	
 	//Ajouter personne
 	
 	static Option getOptionAjouterPersonne()
@@ -200,19 +316,24 @@ public class MenuPrincipal
 					{
 						String nom= utilitaires.EntreesSorties.getString("Nom : ");
 						System.out.println("Date de cloture : ");
-						int jour=utilitaires.EntreesSorties.getInt("Jour : "),
-								mois=utilitaires.EntreesSorties.getInt("Mois : "),
-								annee=utilitaires.EntreesSorties.getInt("Annee : ");
+						String jour=utilitaires.EntreesSorties.getString("Jour : "),
+								mois=utilitaires.EntreesSorties.getString("Mois : "),
+								annee=utilitaires.EntreesSorties.getString("Annee : ");
+						String dateClotureString = annee+"-"+mois+"-"+jour;
+						LocalDate dateCloture = LocalDate.parse(dateClotureString);
 						boolean enEquipe = false;
 						String reponse = "";
 						while(reponse.equals("o") || reponse.equals("n"))
 						{
-							//TODO: EnEquipe ou pas 
+							reponse=utilitaires.EntreesSorties.getString("En équipe ? o : Oui n : Non");
 						}
+						enEquipe=reponse.equals("o");
+						inscriptions.createCompetition(nom, dateCloture, enEquipe);
 					}
 				};
 	}
 	//Supprimer une personne 
+	
 	
 	static Option getOptionSupprimerPersonne(Personne personne)
 	{
@@ -236,7 +357,7 @@ public class MenuPrincipal
 	
 	static Option getOptionSupprimerEquipe(Equipe equipe)
 	{
-		return new Option("Suppreimer "+equipe.getNom(),"1",getActionSupprimerEquipe(equipe));
+		return new Option("Supprimer "+equipe.getNom(),"1",getActionSupprimerEquipe(equipe));
 	}
 	
 	private static Action getActionSupprimerEquipe(Equipe equipe)
