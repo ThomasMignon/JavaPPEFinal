@@ -23,7 +23,7 @@ public class Equipe extends Candidat
 	public Equipe(Inscriptions inscriptions, String nom)
 	{
 		super(inscriptions, nom);
-		//bdd.save(this);
+		bdd.save(this);
 	}
 
 	/**

@@ -25,7 +25,7 @@ public class Personne extends Candidat
 		this.prenom = prenom;
 		this.mail = mail;
 		equipes = new TreeSet<>();
-		//bdd.save(this);
+		bdd.save(this);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class Personne extends Candidat
 	public void setPrenom(String prenom)
 	{
 		this.prenom = prenom;
-		bdd.save(this);
+		//bdd.save(this);
 	}
 
 	/**
