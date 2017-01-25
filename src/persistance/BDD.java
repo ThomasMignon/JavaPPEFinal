@@ -1,19 +1,21 @@
 package persistance;
 import inscriptions.*;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class BDD{
+public class BDD implements Serializable
+{
 	String url = "jdbc:mysql://localhost/ppejava";
 	String login = "root";
 	String password = "";
-	Connection cn = null;
-	Statement st = null;
-	ResultSet rs = null;
+//	Connection cn = null;
+//	Statement st = null;
+	private static final long serialVersionUID = -60L;
 
 	public String selectPersonne(int id)
 	{
@@ -21,10 +23,11 @@ public class BDD{
 		String personne = "Cette personne n'existe pas";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection(url, login,password);
-			st = cn.createStatement();	
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
 			String requete ="Select * From personnes WHERE id_candidat = "+id;
-			ResultSet result = st.executeQuery(requete);
+			ResultSet result;
+			result = st.executeQuery(requete);
 			while ( result.next() ) {
 			    int idUser = result.getInt( "id_candidat" );
 			    String prenom = result.getString( "prenom" );
@@ -45,8 +48,8 @@ public class BDD{
 	{	
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				cn = DriverManager.getConnection(url, login,password);
-				st = cn.createStatement();	
+				Connection cn = DriverManager.getConnection(url, login,password);
+				Statement st = cn.createStatement();	
 				String requete ="Insert into personnes(prenom,mail) values ('"+personne.getPrenom()+"','"+personne.getMail()+"')";
 				st.executeUpdate(requete);	
 				String requete2 ="Select id_candidat From personnes Where prenom ='" + personne.getPrenom() + "' And mail = '" + personne.getMail() + "' And deleted_at IS NULL";
@@ -70,8 +73,8 @@ public class BDD{
 	{	
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection(url, login,password);
-			st = cn.createStatement();	
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
 			String requete ="Insert into equipe(id_equipe) values (NULL)";
 			st.executeUpdate(requete);	
 			String requete2 ="Select id_equipe From equipe";
@@ -94,8 +97,8 @@ public class BDD{
 	{	
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection(url, login,password);
-			st = cn.createStatement();	
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
 			
 			int equipe = competition.estEnEquipe() ? 1 : 0;;
 			
@@ -114,8 +117,8 @@ public class BDD{
 	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection(url, login,password);
-			st = cn.createStatement();	
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
 			String requete ="UPDATE personnes SET deleted_at = NOW() WHERE id_candidat = ";
 			st.executeUpdate(requete);	
 		} catch (ClassNotFoundException e) {
