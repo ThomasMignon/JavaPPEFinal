@@ -33,7 +33,7 @@ public class MenuPrincipal
 	        Menu menuPrincipal = new Menu("Menu Principal");
 	        menuPrincipal.ajoute(getListeVoirUnePersonne());
 	        menuPrincipal.ajoute(getListeVoirUneEquipe());
-	        menuPrincipal.ajoute(getMenuGestionCompetition());
+	        menuPrincipal.ajoute(getListeCompetition());
 	        menuPrincipal.ajoute(getOptionAjouterPersonne());
 	        menuPrincipal.ajoute(getOptionAjouterEquipe());
 	        menuPrincipal.ajoute(getOptionAjouterCompetition());
@@ -72,27 +72,54 @@ public class MenuPrincipal
 	
 	//Gestion compétition
 	
-	static Menu getMenuGestionCompetition()
+	static Liste<Competition> getListeCompetition()
 	{
-		Menu menuGestionCompetition = new Menu("Gérer une compétition","Gestion de compétition","3");
-		menuGestionCompetition.ajoute(getListeVoirUneCompetition());
-		menuGestionCompetition.ajoute(getListeSupprimerUneCompetition());
-		menuGestionCompetition.ajouteRevenir("r");
-		return menuGestionCompetition;
-	}
-	
-	static Liste<Competition> getListeVoirUneCompetition()
-	{
-		Liste<Competition> liste = new Liste<>("Afficher une compétition","1",getActionListeVoirUneCompetition());
+		Liste<Competition> liste = new Liste<>("Gestion de compétition","3",getActionListeGestionCompetition());
 		liste.ajouteRevenir("r");
 		return liste;
 	}
 	
-	static Liste<Competition> getListeSupprimerUneCompetition()
+	static ActionListe<Competition> getActionListeGestionCompetition()
 	{
-		Liste<Competition> liste = new Liste<>("Supprimer une compétion","2",getActionListeSupprimerUneCompetition());
-		liste.ajouteRevenir("r");
-		return liste;
+		return new ActionListe<Competition>()
+		{
+
+			@Override
+			public List<Competition> getListe()
+			{
+				return new ArrayList<>(inscriptions.getCompetitions());
+			}
+
+			@Override
+			public void elementSelectionne(int indice, Competition element) 
+			{
+				
+			}
+
+			@Override
+			public Menu getOption(Competition element) 
+			{
+				//TODO: Menu competition
+				Menu menuCompetition = new Menu("Options pour "+element.getNom(),null);
+				menuCompetition.ajoute(getOptionVoirUneCompetition(element));
+				menuCompetition.ajoute(getOptionSupprimerUneCompetition(element));;
+				menuCompetition.ajouteRevenir("r");
+				return menuCompetition;
+			}
+			
+		};
+	}
+	
+	static Option getOptionVoirUneCompetition(Competition competition)
+	{
+		Option option = new Option("Détails de "+competition.getNom(),"1",getActionAfficherUneCompetition(competition));
+		return option;
+	}
+	
+	static Option getOptionSupprimerUneCompetition(Competition competition)
+	{
+		Option option = new Option("Supprimer "+competition.getNom(),"2",getActionSupprimerUneCompetition(competition));
+		return option;
 	}
 	
 	//Gérer une personne ou équipe
@@ -121,6 +148,13 @@ public class MenuPrincipal
 		Liste<Competition> liste = new Liste<>("Ajouter "+personne.getPrenom()+" à une compétition","3",getActionListeCompetitionAjoutPersonne(personne));
 		return liste;
 	}
+	static Liste<Competition> getListeAjouterUneEquipeCompetition(Equipe equipe)
+	{
+		Liste<Competition> liste = new Liste<>("Ajouter "+equipe.getNom()+" à une compétition","2",getActionListeAjouterUneEquipeCompetition(equipe));
+		liste.ajouteRevenir("r");
+		return liste;
+	}
+	
 	static Liste<Personne> getListeSupprimerUnePersonne()
 	{
 		Liste<Personne> liste = new Liste<>("Supprimer une personne","4",getActionListeSupprimerUnePersonne());
@@ -224,8 +258,8 @@ public class MenuPrincipal
 				//return new Option("Afficher "+element.getNom(),null, getActionAfficherEquipe(element));
 				Menu menuEquipe = new Menu("Option pour "+element.getNom(),null);
 				//TODO : Ajouter des options pour les équipes
-				//TODO : Ajouter une équipe à une compétition
 				menuEquipe.ajoute(getOptionVoirUneEquipe(element));
+				menuEquipe.ajoute(getListeAjouterUneEquipeCompetition(element));
 				menuEquipe.ajouteRevenir("r");
 				return menuEquipe;
 			}
@@ -259,31 +293,6 @@ public class MenuPrincipal
 	
 	//Liste voir une compétition
 	
-	private static  ActionListe<Competition> getActionListeVoirUneCompetition()
-	{
-		return new ActionListe<Competition>()
-				{
-
-					@Override
-					public List<Competition> getListe() 
-					{
-						return new ArrayList<>(inscriptions.getCompetitions());
-					}
-
-					@Override
-					public void elementSelectionne(int indice, Competition element) 
-					{
-						
-					}
-					
-					@Override
-					public Option getOption(Competition element) 
-					{
-						return new Option("Afficher "+element.toString(),null,getActionAfficherUneCompetition(element));
-					}
-				};
-	}
-	
 	private static Action getActionAfficherUneCompetition(Competition element) 
 	{
 		return new Action()
@@ -293,7 +302,7 @@ public class MenuPrincipal
 					{
 						if(!element.getCandidats().isEmpty())
 						{
-							element.getCandidats().toString();
+							System.out.println(element.getCandidats().toString());
 						}
 						else
 						{
@@ -306,31 +315,7 @@ public class MenuPrincipal
 
 	//Liste supprimer une compétition
 	
-	private static ActionListe<Competition> getActionListeSupprimerUneCompetition()
-	{
-		return new ActionListe<Competition>()
-		{
 
-			@Override
-			public List<Competition> getListe()
-			{
-				return new ArrayList<>(inscriptions.getCompetitions());
-			}
-
-			@Override
-			public void elementSelectionne(int indice, Competition element) 
-			{
-				
-			}
-
-			@Override
-			public Option getOption(Competition element) 
-			{
-				return new Option("Supprimer "+element.getNom(),null,getActionSupprimerUneCompetition(element));
-			}
-			
-		};
-	}
 	
 	//Liste ajouter une personne dans une compétition
 	
@@ -364,6 +349,36 @@ public class MenuPrincipal
 			};
 		}
 		
+		//Liste ajouter une equipe dans une competition
+		
+		private static ActionListe<Competition> getActionListeAjouterUneEquipeCompetition(Equipe equipe)
+		{
+			return new ActionListe<Competition>()
+					{
+
+						@Override
+						public List<Competition> getListe() 
+						{
+							return new ArrayList<>(inscriptions.getCompetitions());
+						}
+
+						@Override
+						public void elementSelectionne(int indice, Competition element) 
+						{
+							element.add(equipe);
+							System.out.println(equipe.getNom()+" à bien été ajouter à "+element.getNom());
+						}
+
+						@Override
+						public Option getOption(Competition element) 
+						{
+							return null;
+						}
+				
+					};
+				
+		}
+		
 		//Liste ajouter une personne dans une équipe
 		
 		private static Liste<Equipe> getListeAjouterUnePersonneEquipe(Personne personne)
@@ -395,6 +410,7 @@ public class MenuPrincipal
 						}
 					};
 		}
+		
 		
 		//Liste ajouter une personne dans une compétition + action
 		
