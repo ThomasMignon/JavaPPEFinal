@@ -224,6 +224,7 @@ public class MenuPrincipal
 				//return new Option("Afficher "+element.getNom(),null, getActionAfficherEquipe(element));
 				Menu menuEquipe = new Menu("Option pour "+element.getNom(),null);
 				//TODO : Ajouter des options pour les équipes
+				//TODO : Ajouter une équipe à une compétition
 				menuEquipe.ajoute(getOptionVoirUneEquipe(element));
 				menuEquipe.ajouteRevenir("r");
 				return menuEquipe;

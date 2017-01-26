@@ -25,11 +25,11 @@ public class BDD implements Serializable
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
-			String requete ="Select * From personnes WHERE id_candidat = "+id;
+			String requete ="Select * From personnes WHERE id_personne = "+id;
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
-			    int idUser = result.getInt( "id_candidat" );
+			    int idUser = result.getInt( "id_personne" );
 			    String prenom = result.getString( "prenom" );
 			    String mail = result.getString( "mail" );
 			    personne = "Id user = " + idUser + " Prenom = " + prenom +" Mail = " +mail;
@@ -52,14 +52,14 @@ public class BDD implements Serializable
 				Statement st = cn.createStatement();	
 				String requete ="Insert into personnes(prenom,mail) values ('"+personne.getPrenom()+"','"+personne.getMail()+"')";
 				st.executeUpdate(requete);	
-				String requete2 ="Select id_candidat From personnes Where prenom ='" + personne.getPrenom() + "' And mail = '" + personne.getMail() + "' And deleted_at IS NULL";
+				String requete2 ="Select id_personne From personnes Where prenom ='" + personne.getPrenom() + "' And mail = '" + personne.getMail() + "' And deleted_at IS NULL";
 				ResultSet result = st.executeQuery(requete2);
 				int idUser2 = 0;
 				while (result.next()) {
-				    idUser2 = result.getInt( "id_candidat" );
+				    idUser2 = result.getInt( "id_personne" );
 				}
 				personne.setId_personne(idUser2);
-				String requete3 ="Insert into candidat(id_personne,nom) values ('"+idUser2+"','"+personne.getNom()+"')";
+				String requete3 ="Insert into candidats(id_personne,nom) values ('"+idUser2+"','"+personne.getNom()+"')";
 				st.executeUpdate(requete3);
 				
 			} catch (ClassNotFoundException e) {
@@ -75,15 +75,15 @@ public class BDD implements Serializable
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
-			String requete ="Insert into equipe(id_equipe) values (NULL)";
+			String requete ="Insert into equipes(id_equipe) values (NULL)";
 			st.executeUpdate(requete);	
-			String requete2 ="Select id_equipe From equipe";
+			String requete2 ="Select id_equipe From equipes";
 			ResultSet result = st.executeQuery(requete2);
 			int idequipe = 0;
 			while (result.next()) {
 			    idequipe = result.getInt( "id_equipe" );
 			}
-			String requete3 ="Insert into candidat(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
+			String requete3 ="Insert into candidats(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
 			st.executeUpdate(requete3);
 			
 		} catch (ClassNotFoundException e) {
@@ -102,7 +102,7 @@ public class BDD implements Serializable
 			
 			int equipe = competition.estEnEquipe() ? 1 : 0;;
 			
-			String requete ="Insert into competition(date,nom,enequipe) values ('"+competition.getDateCloture()+"','"+competition.getNom()+"','"+equipe+"')";
+			String requete ="Insert into competitions(date,nom,enequipe) values ('"+competition.getDateCloture()+"','"+competition.getNom()+"','"+equipe+"')";
 			st.executeUpdate(requete);		
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
