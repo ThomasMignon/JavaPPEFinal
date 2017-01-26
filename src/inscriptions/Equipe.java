@@ -60,6 +60,7 @@ public class Equipe extends Candidat
 	public boolean add(Personne membre)
 	{
 		membre.add(this);
+		bdd.save(membre,this);
 		return membres.add(membre);
 	}
 
