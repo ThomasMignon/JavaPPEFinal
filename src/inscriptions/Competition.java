@@ -19,6 +19,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	private static final long serialVersionUID = -2882150118573759729L;
 	private Inscriptions inscriptions;
 	private String nom;
+	private int id_candidat;
 	private Set<Candidat> candidats;
 	private LocalDate dateCloture;
 	private boolean enEquipe = false;

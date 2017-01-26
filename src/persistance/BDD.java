@@ -111,6 +111,36 @@ public class BDD implements Serializable
 		}
 				
 	}
+	public void save(Personne personne,Equipe equipe) 
+	{	
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();		
+			String requete ="Insert into attrequipe(id_personne,id_equipe) values ('"+personne.getId_personne()+"','"+equipe.getId_equipe()+"')";
+			st.executeUpdate(requete);		
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+	}
+	public void save(Candidat candidat,Competition competition) 
+	{	
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();		
+			String requete ="Insert into attrcompetition(id_candidat,id_competition) values ('"+candidat.getId_candidat()+"','"+competition.getId_competition()+"')";
+			st.executeUpdate(requete);		
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+	}
 	
 	
 	public void delete(Personne personne)
