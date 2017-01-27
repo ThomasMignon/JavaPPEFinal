@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.junit.Test;
@@ -109,5 +110,203 @@ public class InscriptionTest
 		
 		//TODO : GetMembre
 	}
+	// test compare 
+	public void testCompareTo() {
 
+		// On créé une nouvelle compétition
+
+		Competition competitionQuis = inscriptionTest.createCompetition("Visionnage de Cassettes", null, true);
+
+		//Et on compare a la compétition déjà créée plus haut
+
+		assertTrue(competitionTest.compareTo(competitionQuis) == 0);
+
+	}
+	public void testDelete() {// on  teste la supression d'une competition
+
+		SortedSet<Competition> competitionDel = inscriptionTest.getCompetitions();
+
+		competitionTest.delete();
+		assertTrue(!competitionDel.contains(competitionTest));
+
+	}
+		public void testRemove() {// on verifie la supression d'un candidat
+
+			Set<Candidat> candidats = competitionTest.getCandidats();
+
+			competitionTest.add(personneTest);
+
+			competitionTest.remove(personneTest);
+
+			assertTrue(!candidats.contains(personneTest));
+
+		}
+		public void testAddEquipe() { // verification d'ajout d' une equipe dans une competition
+
+			Set<Candidat> candidats = competitionTest.getCandidats();
+
+			Equipe fly = inscriptionTest.createEquipe("Fly - Forces libérées yaourt");
+
+			competitionTest.add(fly);
+
+			assertTrue(candidats.contains(fly));
+
+		}
+		public void testAddPersonne() { // on verifie ici l'ajout d'un candidat dans une competition
+
+			Set<Candidat> candidats = competitionTest.getCandidats();
+
+			competitionTest.add(personneTest);
+
+			assertTrue(candidats.contains(personneTest));
+
+		}
+		public class testPersonne { // inscription d'une personne
+
+			Inscriptions inscriptions = Inscriptions.getInscriptions();
+
+			Personne personne = inscriptions.createPersonne("Jannot", "Marcel", "test@foxtrop.com");
+		}
+
+			public void testGetPrenom() {
+
+				assertEquals("Marcel", personneTest.getPrenom());
+
+			}
+			public void testSetPrenom() {
+
+				personneTest.setPrenom("LaPoulette"); // On ajoute une personne appellée "LaPoulette"
+
+				assertEquals("LaPoulette", personneTest.getPrenom()); // On vérifie
+
+			}
+			public void testDelete1() { // on supprime une personne 
+
+				Set<Equipe> equipes = personneTest.getEquipes();
+
+				personneTest.delete();
+
+				assertTrue(equipes.isEmpty());
+
+			}
+			public class testEquipe {
+
+				Inscriptions inscriptions = Inscriptions.getInscriptions();
+
+				Equipe plop = inscriptions.createEquipe("Plop blob");
+
+				//Ajout des  personnnesd dans des equipes
+
+				Personne personnes = inscriptions.createPersonne("Patrick", "Manchot", "test@test.com");
+
+				Personne people = inscriptions.createPersonne("Marin", "Dodouce", "testdouce@test.com");
+
+				Personne treople = inscriptions.createPersonne("Popol", "Quidur", "testquidur@test.com");
+
+				Personne qreople = inscriptions.createPersonne("DaBro", "Breaf", "testbreaf@test.com");
+
+			
+			public void testGetMembres() {//Test GetMembres de l'equipe
+
+				SortedSet<Personne> lesMembres = plop.getMembres();
+
+				plop.add(personnes);
+
+				plop.add(people);
+
+				plop.add(treople);
+
+				plop.add(qreople);
+
+				assertEquals(lesMembres, plop.getMembres());
+
+			}
+			public void testAddpersonne() {// verification  des membres
+
+				SortedSet<Personne> lesMembres = plop.getMembres();
+
+				plop.add(personnes);
+
+				plop.add(people);
+
+				plop.add(treople);
+
+				plop.add(qreople);
+
+				assertTrue(lesMembres.contains(personnes) && lesMembres.contains(people) && lesMembres.contains(treople) && lesMembres.contains(qreople));
+
+			}
+			public void testRemovePersonnesonne() {//Test RemovePersonne
+
+				SortedSet<Personne> membres = plop.getMembres();
+
+				plop.add(personnes);
+
+				plop.add(people);
+
+				plop.add(treople);
+
+				plop.add(qreople);
+
+				plop.remove(personnes);
+
+				plop.remove(people);
+
+				plop.remove(treople);
+
+
+				// Si l'Affirmation est fausse, le résultat est correct
+
+				assertTrue(!membres.contains(personnes));
+
+			}
+		}
+			public class testCandidat {
+
+				Inscriptions inscriptions = Inscriptions.getInscriptions();
+
+				Personne personne = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com");
+
+				Personne people = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com");
+				//test GetNom
+
+				@Test
+
+				public void testGetNom() {
+
+					assertEquals("Jacqueline", personne.getNom());
+
+				}
+				public void testSetNom() {
+
+					personne.setNom("John");
+
+					assertEquals("John", personne.getNom());
+
+				}
+				public void testAdd() {// ajout d'un candiat dans competition
+
+					Set<Competition> Competitions = personne.getCompetitions();
+
+					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false);
+
+					testCompetition.add(personne);
+
+					assertTrue(Competitions.contains(testCompetition));
+
+				}
+				public void testRemove() {//TestRemove, comme pour Add mais on retire la donnée ajoutée
+
+					Set<Competition> Competitions = personne.getCompetitions();
+
+					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false);
+
+					testCompetition.add(personne);
+
+					testCompetition.remove(personne);
+
+					assertFalse(Competitions.contains(testCompetition));
+
+				}
+		}	
 }
