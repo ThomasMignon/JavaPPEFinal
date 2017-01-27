@@ -16,32 +16,42 @@ public class BDD implements Serializable
 //	Connection cn = null;
 //	Statement st = null;
 	private static final long serialVersionUID = -60L;
-
-	public String selectPersonne(int id)
+	
+	public boolean PersonneValide(Personne personne)
 	{
-		//TODO Renvoyer un array avec les donnees.
-		String personne = "Cette personne n'existe pas";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
-			String requete ="Select * From personnes WHERE id_personne = "+id;
+			String requete ="Select * From personnes p WHERE id_personne = "+personne.getId_personne()+"AND deleted_at IS NULL";
+			boolean result;
+			return result = st.executeQuery(requete) != null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public void selectPersonne(Inscriptions inscription)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
+			String requete ="Select * From personnes p,candidats c WHERE p.id_personne = c.id_candidat";
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
-			    int idUser = result.getInt( "id_personne" );
-			    String prenom = result.getString( "prenom" );
-			    String mail = result.getString( "mail" );
-			    personne = "Id user = " + idUser + " Prenom = " + prenom +" Mail = " +mail;
+			    inscription.createPersonne(result.getString( "nom" ),result.getString( "prenom" ), result.getString( "mail" ));
 			}
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		return personne;
-		
+		}	
 	}
 	
 	public void save(Personne personne) 
@@ -149,7 +159,52 @@ public class BDD implements Serializable
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
-			String requete ="UPDATE personnes SET deleted_at = NOW() WHERE id_candidat = ";
+			String requete ="UPDATE personnes SET deleted_at = NOW() WHERE id_candidat = "+personne.getId_personne();
+			st.executeUpdate(requete);	
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void delete(Equipe equipe)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
+			String requete ="UPDATE equipes SET deleted_at = NOW() WHERE id_candidat = "+equipe.getId_equipe();
+			st.executeUpdate(requete);	
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void delete(Candidat candidat)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
+			String requete ="UPDATE candidats SET deleted_at = NOW() WHERE id_candidat = "+candidat.getId_candidat();
+			st.executeUpdate(requete);	
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void delete(Competition competition)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
+			String requete ="UPDATE competitions SET deleted_at = NOW() WHERE id_candidat = "+competition.getId_competition();
 			st.executeUpdate(requete);	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
