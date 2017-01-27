@@ -19,6 +19,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	private static final long serialVersionUID = -2882150118573759729L;
 	private Inscriptions inscriptions;
 	private String nom;
+	private int id_competition;
 	private Set<Candidat> candidats;
 	private LocalDate dateCloture;
 	private boolean enEquipe = false;
@@ -61,8 +62,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public boolean inscriptionsOuvertes()
 	{
-		// TODO retourner vrai si et seulement si la date système est antérieure à la date de clôture.
-		return true;
+		return this.getDateCloture().isBefore(LocalDate.now());
 	}
 	
 	/**
@@ -89,12 +89,19 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * Modifie la date de cloture des inscriptions. Il est possible de la reculer 
 	 * mais pas de l'avancer.
 	 * @param dateCloture
+	 * @throws DateInvalide 
 	 */
 	
-	public void setDateCloture(LocalDate dateCloture)
+	public void setDateCloture(LocalDate dateCloture) throws DateInvalide
 	{
-		// TODO vérifier que l'on avance pas la date.
-		this.dateCloture = dateCloture;
+		if(this.getDateCloture().isBefore(dateCloture))
+		{
+			this.dateCloture = dateCloture;
+		}
+		else
+		{
+			throw new DateInvalide();
+		}
 	}
 	
 	/**
@@ -113,15 +120,24 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * inscriptions sont closes.
 	 * @param personne
 	 * @return
+	 * @throws DateInvalide 
 	 */
 	
-	public boolean add(Personne personne)
+	public boolean add(Personne personne) throws DateInvalide
 	{
-		// TODO vérifier que la date de clôture n'est pas passée
-		if (enEquipe)
-			throw new RuntimeException();
-		personne.add(this);
-		return candidats.add(personne);
+		if(this.getDateCloture().isAfter(LocalDate.now()))
+		{
+			if (enEquipe)
+				throw new RuntimeException();
+			personne.add(this);
+			bdd.save(personne,this);
+			return candidats.add(personne);
+		}
+		else
+		{
+			throw new DateInvalide();
+		}
+		
 	}
 
 	/**
@@ -130,15 +146,23 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * les inscriptions sont closes.
 	 * @param personne
 	 * @return
+	 * @throws DateInvalide 
 	 */
 
-	public boolean add(Equipe equipe)
+	public boolean add(Equipe equipe) throws DateInvalide
 	{
-		// TODO vérifier que la date de clôture n'est pas passée
-		if (!enEquipe)
-			throw new RuntimeException();
-		equipe.add(this);
-		return candidats.add(equipe);
+		if(this.getDateCloture().isAfter(LocalDate.now()))
+		{
+			if (!enEquipe)
+				throw new RuntimeException();
+			equipe.add(this);
+			bdd.save(equipe,this);
+			return candidats.add(equipe);
+		}
+		else
+		{
+			throw new DateInvalide();
+		}
 	}
 
 	/**
@@ -174,5 +198,13 @@ public class Competition implements Comparable<Competition>, Serializable
 	public String toString()
 	{
 		return getNom();
+	}
+
+	public int getId_competition() {
+		return id_competition;
+	}
+
+	public void setId_competition(int id_competition) {
+		this.id_competition = id_competition;
 	}
 }

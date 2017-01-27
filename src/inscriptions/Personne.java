@@ -46,7 +46,7 @@ public class Personne extends Candidat
 	public void setPrenom(String prenom)
 	{
 		this.prenom = prenom;
-		bdd.save(this);
+		//bdd.save(this);
 	}
 
 	/**
