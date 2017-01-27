@@ -15,7 +15,8 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	private static final long serialVersionUID = -6035399822298694746L;
 	private Inscriptions inscriptions;
 	private String nom;
-	private int id_candidat;
+	private int id;
+	boolean isDelete;
 
 	private Set<Competition> competitions;
 	
@@ -28,12 +29,30 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	}
 	
 	/**
+	 * Retourne si Competition est Supprimer.
+	 * @return
+	 */
+	
+	public boolean getIsDelete() {
+		return isDelete;
+	}
+
+	/**
+	 * Modifie la suppression de la competition.
+	 * @return
+	 */
+	
+	public void setIsDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+	
+	/**
 	 * Retourne l'id du candidat.
 	 * @return
 	 */
 	
 	public int getId_candidat() {
-		return id_candidat;
+		return id;
 	}
 	
 	/**
@@ -42,7 +61,7 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	 */
 
 	public void setId_candidat(int id_candidat) {
-		this.id_candidat = id_candidat;
+		this.id = id_candidat;
 	}
 
 	/**

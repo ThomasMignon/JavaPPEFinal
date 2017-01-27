@@ -17,23 +17,6 @@ public class BDD implements Serializable
 //	Statement st = null;
 	private static final long serialVersionUID = -60L;
 	
-	public boolean PersonneValide(Personne personne)
-	{
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection cn = DriverManager.getConnection(url, login,password);
-			Statement st = cn.createStatement();	
-			String requete ="Select * From personnes p WHERE id_personne = "+personne.getId_personne()+"AND deleted_at IS NULL";
-			boolean result;
-			return result = st.executeQuery(requete) != null;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
 	public void selectPersonne(Inscriptions inscription)
 	{
 		try {
@@ -68,7 +51,7 @@ public class BDD implements Serializable
 				while (result.next()) {
 				    idUser2 = result.getInt( "id_personne" );
 				}
-				personne.setId_personne(idUser2);
+				personne.setId(idUser2);
 				String requete3 ="Insert into candidats(id_personne,nom) values ('"+idUser2+"','"+personne.getNom()+"')";
 				st.executeUpdate(requete3);
 				
@@ -127,7 +110,7 @@ public class BDD implements Serializable
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();		
-			String requete ="Insert into attrequipe(id_personne,id_equipe) values ('"+personne.getId_personne()+"','"+equipe.getId_equipe()+"')";
+			String requete ="Insert into attrequipe(id_personne,id_equipe) values ('"+personne.getId()+"','"+equipe.getId()+"')";
 			st.executeUpdate(requete);		
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -159,8 +142,8 @@ public class BDD implements Serializable
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
-			String requete ="UPDATE personnes SET deleted_at = NOW() WHERE id_candidat = "+personne.getId_personne();
-			st.executeUpdate(requete);	
+			String requete ="UPDATE personnes SET deleted_at = NOW() WHERE id_candidat = "+personne.getId();
+			st.executeUpdate(requete);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -174,7 +157,7 @@ public class BDD implements Serializable
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
-			String requete ="UPDATE equipes SET deleted_at = NOW() WHERE id_candidat = "+equipe.getId_equipe();
+			String requete ="UPDATE equipes SET deleted_at = NOW() WHERE id_candidat = "+equipe.getId();
 			st.executeUpdate(requete);	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

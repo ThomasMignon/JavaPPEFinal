@@ -60,10 +60,25 @@ public class Inscriptions implements Serializable
 	
 	public SortedSet<Personne> getPersonnes()
 	{
+//		SortedSet<Personne> personnes = new TreeSet<>();
+//		for (Candidat c : getCandidats())
+//			if (c instanceof Personne)
+//				personnes.add((Personne)c);
+//		return Collections.unmodifiableSortedSet(personnes);
+		return getPersonnes(false);
+	}
+	
+	/**
+	 * Retourne toutes les personnes non-supprimés.
+	 * @return
+	 */
+	
+	public SortedSet<Personne> getPersonnes(boolean valide)
+	{
 		SortedSet<Personne> personnes = new TreeSet<>();
 		for (Candidat c : getCandidats())
-			if (c instanceof Personne)
-				personnes.add((Personne)c);
+			if (c instanceof Personne && (!valide || c.getIsDelete()))
+					personnes.add((Personne)c);
 		return Collections.unmodifiableSortedSet(personnes);
 	}
 
