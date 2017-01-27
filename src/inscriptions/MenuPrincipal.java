@@ -333,7 +333,14 @@ public class MenuPrincipal
 				@Override
 				public void elementSelectionne(int indice, Competition element) 
 				{
-					element.add(personne);
+					try 
+					{
+						element.add(personne);
+					} 
+					catch (DateInvalide e) 
+					{
+						e.printStackTrace();
+					}
 					System.out.println(personne.getPrenom()+" à bien été ajouter à "+element.getNom());
 				}
 
@@ -365,7 +372,13 @@ public class MenuPrincipal
 						@Override
 						public void elementSelectionne(int indice, Competition element) 
 						{
-							element.add(equipe);
+							try 
+							{
+								element.add(equipe);
+							} catch (DateInvalide e) 
+							{
+								e.printStackTrace();
+							}
 							System.out.println(equipe.getNom()+" à bien été ajouter à "+element.getNom());
 						}
 
