@@ -24,7 +24,8 @@ public class Competition implements Comparable<Competition>, Serializable
 	private LocalDate dateCloture;
 	private boolean enEquipe = false;
 	BDD bdd = new BDD();
-
+	boolean isDelete;
+	
 	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe)
 	{
 		this.enEquipe = enEquipe;
@@ -35,6 +36,23 @@ public class Competition implements Comparable<Competition>, Serializable
 		bdd.save(this);
 	}
 	
+	/**
+	 * Retourne si Competition est Supprimer.
+	 * @return
+	 */
+	
+	public boolean getIsDelete() {
+		return isDelete;
+	}
+
+	/**
+	 * Modifie la suppression de la competition.
+	 * @return
+	 */
+	
+	public void setIsDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
 	/**
 	 * Retourne le nom de la compétition.
 	 * @return

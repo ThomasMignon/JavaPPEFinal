@@ -16,30 +16,47 @@ public class Equipe extends Candidat
 {
 	private static final long serialVersionUID = 4147819927233466035L;
 	private SortedSet<Personne> membres = new TreeSet<>();
-	private int id_equipe;
+	private int id;
 
 	BDD bdd = new BDD();
+	boolean isDelete;
 	
 	public Equipe(Inscriptions inscriptions, String nom)
 	{
 		super(inscriptions, nom);
 		bdd.save(this);
 	}
+	
+	/**
+	 * Retourne la valeur de suppression de Equipe.
+	 */
+	
+	public boolean getIsDelete() {
+		return isDelete;
+	}
+
+	/**
+	 * Modifie la valeur de suppression de Equipe.
+	 */
+	
+	public void setIsDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
 
 	/**
 	 * Retourne l'id de l'équipe.
 	 */
 	
-	public int getId_equipe() {
-		return id_equipe;
+	public int getId() {
+		return id;
 	}
 	
 	/**
 	 * Modifie l'id de l'équipe.
 	 */
 
-	public void setId_equipe(int id_equipe) {
-		this.id_equipe = id_equipe;
+	public void setId(int id_equipe) {
+		this.id = id_equipe;
 	}
 	
 	/**

@@ -16,6 +16,7 @@ public class Personne extends Candidat
 	private String prenom, mail;
 	private Set<Equipe> equipes;
 	private int id_personne;
+	boolean isDelete;
 
 	private BDD bdd = new BDD();
 	
@@ -28,6 +29,23 @@ public class Personne extends Candidat
 		bdd.save(this);
 	}
 
+	/**
+	 * Retourne la valeur de suppression de Personne.
+	 * @return
+	 */
+	
+	public boolean getIsDelete() {
+		return isDelete;
+	}
+
+	/**
+	 * Modifie la valeur de suppression de Personne.
+	 */
+	
+	public void setIsDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+	
 	/**
 	 * Retourne le prénom de la personne.
 	 * @return
@@ -74,7 +92,7 @@ public class Personne extends Candidat
 	 * @param mail
 	 */
 	
-	public int getId_personne() {
+	public int getId() {
 		return id_personne;
 	}
 	
@@ -83,7 +101,7 @@ public class Personne extends Candidat
 	 * @param mail
 	 */
 
-	public void setId_personne(int id_personne) {
+	public void setId(int id_personne) {
 		this.id_personne = id_personne;
 	}
 
