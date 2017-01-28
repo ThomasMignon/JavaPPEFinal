@@ -2,13 +2,9 @@ package inscriptions;
 
 import static org.junit.Assert.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.junit.Test;
 
@@ -78,7 +74,7 @@ public class InscriptionTest
 		personneTest.remove(equipeTest);
 		boolean trouver2 = false;
 		Set<Equipe> getEquipe2 = personneTest.getEquipes(); // Test du getEquipe
-		if(getEquipe.contains(equipeTest))
+		if(getEquipe2.contains(equipeTest))
 		{
 			trouver2=true;
 		}
@@ -90,9 +86,9 @@ public class InscriptionTest
 	@Test
 	public void testCompetition()
 	{
-		competitionTest = inscriptionTest.createCompetition("Mondial de basket", null, true); //Création d'une compétition
-		competitionTest1 = inscriptionTest.createCompetition("Mondial de PingPong", null, false);
-		competitionTest2 = inscriptionTest.createCompetition("Mondial de Tennis", null, false);
+		competitionTest = inscriptionTest.createCompetition("Mondial de basket", LocalDate.now(), true); //Création d'une compétition
+		competitionTest1 = inscriptionTest.createCompetition("Mondial de PingPong", LocalDate.now(), false);
+		competitionTest2 = inscriptionTest.createCompetition("Mondial de Tennis", LocalDate.now(), false);
 		
 		assertEquals("estEnEquipe",true,competitionTest.estEnEquipe());//Vérification de si la compépition se déroule en équipe ou non
 		assertEquals("estEnEquipe",false,competitionTest1.estEnEquipe());
@@ -134,7 +130,12 @@ public class InscriptionTest
 
 			Set<Candidat> candidats = competitionTest.getCandidats();
 
-			competitionTest.add(personneTest);
+			try {
+				competitionTest.add(personneTest);
+			} catch (DateInvalide e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			competitionTest.remove(personneTest);
 
@@ -147,7 +148,12 @@ public class InscriptionTest
 
 			Equipe fly = inscriptionTest.createEquipe("Fly - Forces libérées yaourt");
 
-			competitionTest.add(fly);
+			try {
+				competitionTest.add(fly);
+			} catch (DateInvalide e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			assertTrue(candidats.contains(fly));
 
@@ -156,7 +162,12 @@ public class InscriptionTest
 
 			Set<Candidat> candidats = competitionTest.getCandidats();
 
-			competitionTest.add(personneTest);
+			try {
+				competitionTest.add(personneTest);
+			} catch (DateInvalide e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			assertTrue(candidats.contains(personneTest));
 
@@ -290,7 +301,12 @@ public class InscriptionTest
 
 					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false);
 
-					testCompetition.add(personne);
+					try {
+						testCompetition.add(personne);
+					} catch (DateInvalide e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 					assertTrue(Competitions.contains(testCompetition));
 
@@ -301,7 +317,12 @@ public class InscriptionTest
 
 					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false);
 
-					testCompetition.add(personne);
+					try {
+						testCompetition.add(personne);
+					} catch (DateInvalide e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 					testCompetition.remove(personne);
 

@@ -115,6 +115,14 @@ public class Inscriptions implements Serializable
 		return personne;
 	}
 	
+	public Personne editePersonne(Personne personne,String nom,String prenom,String mail)
+	{
+		personne.setPrenom(prenom);
+		personne.setNom(nom);
+		personne.setMail(mail);
+		return personne;
+	}
+	
 	/**
 	 * Créée une Candidat de type équipe. Ceci est le seul moyen, il n'y a pas
 	 * de constructeur public dans {@link Equipe}.

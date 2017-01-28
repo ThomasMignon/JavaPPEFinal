@@ -100,10 +100,10 @@ public class BDD implements Serializable
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
 			
-			int equipe = competition.estEnEquipe() ? 1 : 0;;
+			int equipe = competition.estEnEquipe() ? 1 : 0;
 			
 			String requete ="Insert into competitions(date,nom,enequipe) values ('"+competition.getDateCloture()+"','"+competition.getNom()+"','"+equipe+"')";
-			st.executeUpdate(requete);		
+			st.executeUpdate(requete);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
