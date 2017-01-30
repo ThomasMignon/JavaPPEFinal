@@ -12,7 +12,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import dialogue.MenuPrincipal;
-import utilitaires.ligneDeCommande.*;
 
 /**
  * Point d'entrée dans l'application, un seul objet de type Inscription
@@ -123,6 +122,12 @@ public class Inscriptions implements Serializable
 	 * @param mail
 	 * @return
 	 */
+	
+	public Competition editeCompetition(Competition competition, String nom)
+	{
+		competition.setNom(nom);
+		return competition;
+	}
 	
 	public Personne createPersonne(String nom, String prenom, String mail)
 	{

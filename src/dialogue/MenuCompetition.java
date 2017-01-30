@@ -63,6 +63,7 @@ public class MenuCompetition
 				Menu menuCompetition = new Menu("Options pour "+element.getNom(),null);
 				menuCompetition.ajoute(getOptionVoirUneCompetition(element));
 				menuCompetition.ajoute(getOptionSupprimerUneCompetition(element));
+				menuCompetition.ajoute(getOptionEditerUneCompetition(element));
 				menuCompetition.ajoute(getListeSupprimerUneCandidatCompetition(element));
 				menuCompetition.ajouteRevenir("r");
 				menuCompetition.setRetourAuto(true);
@@ -78,17 +79,11 @@ public class MenuCompetition
 		return option;
 	}
 	
-	static Option getOptionSupprimerUneCompetition(Competition competition)
-	{
-		Option option = new Option("Supprimer "+competition.getNom(),"2",getActionSupprimerUneCompetition(competition));
-		return option;
-	}
-	
 	//Supprimer une personne d'une competition
 	
 	static Liste<Candidat> getListeSupprimerUneCandidatCompetition(Competition competition)
 	{
-		Liste<Candidat> liste = new Liste<>("Supprimer un candidat de "+competition.getNom(),"3",getListeActionSupprimerUnCandidatCompetition(competition));
+		Liste<Candidat> liste = new Liste<>("Supprimer un candidat de "+competition.getNom(),"4",getListeActionSupprimerUnCandidatCompetition(competition));
 		liste.ajouteRevenir("r");
 		return liste;
 	}
@@ -178,7 +173,34 @@ public class MenuCompetition
 				};
 	}
 	
+	//Editer une competition
+	
+	private static Option getOptionEditerUneCompetition(Competition competition)
+	{
+		Option option = new Option("Editer "+competition.getNom(),"4",getActionEditerUneCompetition(competition));
+		return option;
+	}
+	
+	private static Action getActionEditerUneCompetition(Competition competition)
+	{
+		return new Action()
+				{
+
+					@Override
+					public void optionSelectionnee() 
+					{
+						String nom= utilitaires.EntreesSorties.getString("Nom : ");
+								inscriptions.editeCompetition(competition,nom);
+					}
+			
+				};
+	}
 	//Supprimer une compétition
+	private static Option getOptionSupprimerUneCompetition(Competition competition)
+	{
+		Option option = new Option("Supprimer "+competition.getNom(),"2",getActionSupprimerUneCompetition(competition));
+		return option;
+	}
 	private static Action getActionSupprimerUneCompetition(Competition element)
 	{
 		return new Action()
