@@ -1,9 +1,14 @@
-package inscriptions;
+package dialogue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import inscriptions.Competition;
+import inscriptions.DateInvalide;
+import inscriptions.Equipe;
+import inscriptions.Inscriptions;
+import inscriptions.Personne;
 import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.ActionListe;
 import utilitaires.ligneDeCommande.Liste;
@@ -12,12 +17,10 @@ import utilitaires.ligneDeCommande.Option;
 
 public class MenuPersonne
 {
-	private static Menu menuPersonne;
 	private static Inscriptions inscriptions;
 	public MenuPersonne()
 	{
 		inscriptions = Inscriptions.getInscriptions();
-		menuPersonne=getMenuPersonne();
 	}
 	
 	public Inscriptions getInscriptions()

@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import dialogue.MenuPrincipal;
 import utilitaires.ligneDeCommande.*;
 
 /**
