@@ -21,6 +21,7 @@ public class MenuPersonne
 	public MenuPersonne()
 	{
 		inscriptions = Inscriptions.getInscriptions();
+		
 	}
 	
 	public Inscriptions getInscriptions()

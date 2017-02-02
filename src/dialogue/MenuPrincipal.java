@@ -2,6 +2,7 @@ package dialogue;
 
 import java.io.IOException;
 import inscriptions.Inscriptions;
+import persistance.BDD;
 import utilitaires.ligneDeCommande.*;
 
 public class MenuPrincipal 

@@ -12,6 +12,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import dialogue.MenuPrincipal;
+import persistance.BDD;
 
 /**
  * Point d'entrée dans l'application, un seul objet de type Inscription
@@ -27,7 +28,6 @@ public class Inscriptions implements Serializable
 	
 	private SortedSet<Competition> competitions = new TreeSet<>();
 	private SortedSet<Candidat> candidats = new TreeSet<>();
-
 	public Inscriptions()
 	{
 		
@@ -186,12 +186,14 @@ public class Inscriptions implements Serializable
 	public static Inscriptions getInscriptions()
 	{
 		
-		if (inscriptions == null)
-		{
-			inscriptions = readObject();
-			if (inscriptions == null)
-				inscriptions = new Inscriptions();
-		}
+//		if (inscriptions == null)
+//		{
+//			inscriptions = readObject();
+//			if (inscriptions == null)
+//				inscriptions = new Inscriptions();
+//		}
+		BDD bdd = new BDD();
+		bdd.selectPersonne(inscriptions);
 		return inscriptions;
 	}
 
