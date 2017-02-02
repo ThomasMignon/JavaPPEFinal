@@ -27,9 +27,9 @@ public class InscriptionTest
 	@Test
 	public void testPersonne() 
 	{
-		personneTest = new Personne(inscriptionTest, "Limentour", "Gaetan", "gaetalim@gmail.com"); 
-		personneTest1 = new Personne(inscriptionTest, "Blabla", "Moi", "moi@gmail.com");
-		personneTest2 = new Personne(inscriptionTest, "Bloblo", "Toi", "toi@gmail.com");
+		personneTest = new Personne(inscriptionTest, "Limentour", "Gaetan", "gaetalim@gmail.com",false); 
+		personneTest1 = new Personne(inscriptionTest, "Blabla", "Moi", "moi@gmail.com",false);
+		personneTest2 = new Personne(inscriptionTest, "Bloblo", "Toi", "toi@gmail.com",false);
 		
 		equipeTest = new Equipe(inscriptionTest,"blabla");
 		
@@ -176,7 +176,7 @@ public class InscriptionTest
 
 			Inscriptions inscriptions = Inscriptions.getInscriptions();
 
-			Personne personne = inscriptions.createPersonne("Jannot", "Marcel", "test@foxtrop.com");
+			Personne personne = inscriptions.createPersonne("Jannot", "Marcel", "test@foxtrop.com",false);
 		}
 
 			public void testGetPrenom() {
@@ -208,13 +208,13 @@ public class InscriptionTest
 
 				//Ajout des  personnnesd dans des equipes
 
-				Personne personnes = inscriptions.createPersonne("Patrick", "Manchot", "test@test.com");
+				Personne personnes = inscriptions.createPersonne("Patrick", "Manchot", "test@test.com",false);
 
-				Personne people = inscriptions.createPersonne("Marin", "Dodouce", "testdouce@test.com");
+				Personne people = inscriptions.createPersonne("Marin", "Dodouce", "testdouce@test.com",false);
 
-				Personne treople = inscriptions.createPersonne("Popol", "Quidur", "testquidur@test.com");
+				Personne treople = inscriptions.createPersonne("Popol", "Quidur", "testquidur@test.com",false);
 
-				Personne qreople = inscriptions.createPersonne("DaBro", "Breaf", "testbreaf@test.com");
+				Personne qreople = inscriptions.createPersonne("DaBro", "Breaf", "testbreaf@test.com",false);
 
 			
 			public void testGetMembres() {//Test GetMembres de l'equipe
@@ -276,9 +276,9 @@ public class InscriptionTest
 
 				Inscriptions inscriptions = Inscriptions.getInscriptions();
 
-				Personne personne = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com");
+				Personne personne = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com",false);
 
-				Personne people = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com");
+				Personne people = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com",false);
 				//test GetNom
 
 				@Test

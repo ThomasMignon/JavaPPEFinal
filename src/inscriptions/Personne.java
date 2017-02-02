@@ -19,13 +19,16 @@ public class Personne extends Candidat
 
 	private BDD bdd = new BDD();
 	
-	public Personne(Inscriptions inscriptions, String nom, String prenom, String mail)
+	public Personne(Inscriptions inscriptions, String nom, String prenom, String mail,boolean save)
 	{
 		super(inscriptions, nom);
 		this.prenom = prenom;
 		this.mail = mail;
 		equipes = new TreeSet<>();
-		bdd.save(this);
+		if(save)
+		{
+			bdd.save(this);
+		}
 	}
 
 	/**

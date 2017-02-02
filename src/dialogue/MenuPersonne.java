@@ -269,7 +269,7 @@ public class MenuPersonne
 						String nom= utilitaires.EntreesSorties.getString("Nom : "),
 		                prenom = utilitaires.EntreesSorties.getString("Prénom : "),
 		                mail = utilitaires.EntreesSorties.getString("Mail : ");
-						inscriptions.createPersonne(nom, prenom, mail);
+						inscriptions.createPersonne(nom, prenom, mail,true);
 					}
 				};
 			}

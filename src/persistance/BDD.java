@@ -23,11 +23,11 @@ public class BDD implements Serializable
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
-			String requete ="Select * From personnes p,candidats c WHERE p.id_personne = c.id_candidat";
+			String requete ="Select * From personnes p,candidats c WHERE p.id_personne = c.id_personne";
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
-			    inscription.createPersonne(result.getString( "nom" ),result.getString( "prenom" ), result.getString( "mail" ));
+			    inscription.createPersonne(result.getString( "nom" ),result.getString( "prenom" ), result.getString( "mail" ),false);
 			}
 
 		} catch (ClassNotFoundException e) {
