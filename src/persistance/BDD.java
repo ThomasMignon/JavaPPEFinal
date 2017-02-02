@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 public class BDD implements Serializable
 {
@@ -28,6 +29,47 @@ public class BDD implements Serializable
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
 			    inscription.createPersonne(result.getString( "nom" ),result.getString( "prenom" ), result.getString( "mail" ),false);
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public void selectEquipe(Inscriptions inscription)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
+			String requete ="Select * From equipe e,candidats c WHERE e.id_equipe = c.id_equipe";
+			ResultSet result;
+			result = st.executeQuery(requete);
+			while ( result.next() ) {
+			    inscription.createEquipe(result.getString( "nom" ));
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public void selectCompetitions(Inscriptions inscription)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
+			String requete ="Select * From equipe e,candidats c WHERE e.id_equipe = c.id_equipe";
+			ResultSet result;
+			result = st.executeQuery(requete);
+			while ( result.next() ) {
+				LocalDate date = LocalDate.parse((CharSequence) result.getDate("date"));
+			    inscription.createCompetition(result.getString( "nom" ),date, (result.getInt("enequipe") == 1));
 			}
 
 		} catch (ClassNotFoundException e) {
