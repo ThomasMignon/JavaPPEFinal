@@ -43,7 +43,7 @@ public class MenuEquipe
 	
 		static Option getOptionAjouterEquipe()
 		{
-			return new Option("Ajouter une equipe","5",getActionAjouterEquipe());
+			return new Option("Ajouter une equipe","2",getActionAjouterEquipe());
 		}
 		
 		private static Action getActionAjouterEquipe()
@@ -55,6 +55,7 @@ public class MenuEquipe
 						{
 							String nom= utilitaires.EntreesSorties.getString("Nom : ");
 									inscriptions.createEquipe(nom);
+							System.out.println(nom+" à bien été créer");
 						}
 					};
 		}
@@ -84,6 +85,7 @@ public class MenuEquipe
 					//TODO : Ajouter des options pour les équipes
 					menuEquipe.ajoute(getOptionVoirUneEquipe(element));
 					menuEquipe.ajoute(getOptionSupprimerEquipe(element));
+					menuEquipe.ajoute(getOptionEditerEquipe(element));
 					menuEquipe.ajoute(getListeAjouterUneEquipeCompetition(element));
 					menuEquipe.ajouteRevenir("r");
 					menuEquipe.setRetourAuto(true);
@@ -124,6 +126,26 @@ public class MenuEquipe
 						}
 					};
 		}
+		//Editer une equipe
+		
+		static Option getOptionEditerEquipe(Equipe equipe)
+		{
+			return new Option("Editer "+equipe.getNom(),"3",getActionEditerEquipe(equipe));
+		}
+		
+		private static Action getActionEditerEquipe(Equipe equipe)
+		{
+			return new Action()
+					{
+						@Override
+						public void optionSelectionnee()
+						{
+							String nom= utilitaires.EntreesSorties.getString("Nom : ");
+							inscriptions.editeEquipe(equipe, nom);
+							System.out.println(equipe.getNom()+" à bien été éditer !");
+						}
+					};
+		}
 		
 		//Supprimer une équipe
 		
@@ -146,7 +168,7 @@ public class MenuEquipe
 		
 		static Liste<Competition> getListeAjouterUneEquipeCompetition(Equipe equipe)
 		{
-			Liste<Competition> liste = new Liste<>("Ajouter "+equipe.getNom()+" à une compétition","3",getActionListeAjouterUneEquipeCompetition(equipe));
+			Liste<Competition> liste = new Liste<>("Ajouter "+equipe.getNom()+" à une compétition","4",getActionListeAjouterUneEquipeCompetition(equipe));
 			liste.ajouteRevenir("r");
 			return liste;
 		}

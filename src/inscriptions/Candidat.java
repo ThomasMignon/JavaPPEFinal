@@ -51,8 +51,8 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	 * @return
 	 */
 	
-	public int getId_candidat() {
-		return id;
+	public int getId() {
+		return this.id;
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	 * @param id_candidat
 	 */
 
-	public void setId_candidat(int id_candidat) {
+	public void setId(int id_candidat) {
 		this.id = id_candidat;
 	}
 

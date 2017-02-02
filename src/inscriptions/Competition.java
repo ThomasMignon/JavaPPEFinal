@@ -218,11 +218,11 @@ public class Competition implements Comparable<Competition>, Serializable
 		return getNom();
 	}
 
-	public int getId_competition() {
-		return id_competition;
+	public int getId() {
+		return this.id_competition;
 	}
 
-	public void setId_competition(int id_competition) {
+	public void setId(int id_competition) {
 		this.id_competition = id_competition;
 	}
 }

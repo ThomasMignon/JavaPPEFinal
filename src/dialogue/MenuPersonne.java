@@ -246,6 +246,7 @@ public class MenuPersonne
 						                prenom = utilitaires.EntreesSorties.getString("Prénom : "),
 						                mail = utilitaires.EntreesSorties.getString("Mail : ");
 										inscriptions.editePersonne(personne,nom, prenom, mail);
+								System.out.println(personne.getPrenom()+" à bien été édité !");
 							}
 					
 						};

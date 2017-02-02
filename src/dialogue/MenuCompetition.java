@@ -169,6 +169,7 @@ public class MenuCompetition
 						}
 						enEquipe=reponse.compareTo("o")==0;
 						inscriptions.createCompetition(nom, dateCloture, enEquipe);
+						System.out.println(nom+ "à bien été rajouter");
 					}
 				};
 	}
@@ -177,7 +178,7 @@ public class MenuCompetition
 	
 	private static Option getOptionEditerUneCompetition(Competition competition)
 	{
-		Option option = new Option("Editer "+competition.getNom(),"4",getActionEditerUneCompetition(competition));
+		Option option = new Option("Editer "+competition.getNom(),"3",getActionEditerUneCompetition(competition));
 		return option;
 	}
 	

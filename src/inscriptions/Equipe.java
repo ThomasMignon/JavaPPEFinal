@@ -47,17 +47,10 @@ public class Equipe extends Candidat
 	 * Retourne l'id de l'équipe.
 	 */
 	
-	public int getId() {
-		return id;
-	}
-	
 	/**
 	 * Modifie l'id de l'équipe.
 	 */
 
-	public void setId(int id_equipe) {
-		this.id = id_equipe;
-	}
 	
 	/**
 	 * Retourne l'ensemble des personnes formant l'équipe.

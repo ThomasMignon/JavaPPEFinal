@@ -160,6 +160,13 @@ public class Inscriptions implements Serializable
 		return equipe;
 	}
 	
+	public Equipe editeEquipe(Equipe equipe, String nom)
+	{
+		equipe.setNom(nom);
+		return equipe;
+	}
+	
+	
 	void remove(Competition competition)
 	{
 		competitions.remove(competition);

@@ -15,7 +15,6 @@ public class Personne extends Candidat
 	private static final long serialVersionUID = 4434646724271327254L;
 	private String prenom, mail;
 	private Set<Equipe> equipes;
-	private int id_personne;
 	boolean isDelete;
 
 	private BDD bdd = new BDD();
@@ -92,18 +91,10 @@ public class Personne extends Candidat
 	 * @param mail
 	 */
 	
-	public int getId() {
-		return id_personne;
-	}
-	
 	/**
 	 * Modifie l'id de la personne.
 	 * @param mail
 	 */
-
-	public void setId(int id_personne) {
-		this.id_personne = id_personne;
-	}
 
 	/**
 	 * Retoure les équipes dont cette personne fait partie.
