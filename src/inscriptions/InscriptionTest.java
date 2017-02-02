@@ -31,7 +31,7 @@ public class InscriptionTest
 		personneTest1 = new Personne(inscriptionTest, "Blabla", "Moi", "moi@gmail.com",false);
 		personneTest2 = new Personne(inscriptionTest, "Bloblo", "Toi", "toi@gmail.com",false);
 		
-		equipeTest = new Equipe(inscriptionTest,"blabla");
+		equipeTest = new Equipe(inscriptionTest,"blabla",false);
 		
 		assertEquals("getPrenom", "Gaetan", personneTest.getPrenom());//Vérification du prénom
 		assertEquals("getPrenom", "Moi", personneTest1.getPrenom());
@@ -86,9 +86,9 @@ public class InscriptionTest
 	@Test
 	public void testCompetition()
 	{
-		competitionTest = inscriptionTest.createCompetition("Mondial de basket", LocalDate.now(), true); //Création d'une compétition
-		competitionTest1 = inscriptionTest.createCompetition("Mondial de PingPong", LocalDate.now(), false);
-		competitionTest2 = inscriptionTest.createCompetition("Mondial de Tennis", LocalDate.now(), false);
+		competitionTest = inscriptionTest.createCompetition("Mondial de basket", LocalDate.now(), true,false); //Création d'une compétition
+		competitionTest1 = inscriptionTest.createCompetition("Mondial de PingPong", LocalDate.now(), false,false);
+		competitionTest2 = inscriptionTest.createCompetition("Mondial de Tennis", LocalDate.now(), false,false);
 		
 		assertEquals("estEnEquipe",true,competitionTest.estEnEquipe());//Vérification de si la compépition se déroule en équipe ou non
 		assertEquals("estEnEquipe",false,competitionTest1.estEnEquipe());
@@ -98,9 +98,9 @@ public class InscriptionTest
 	@Test
 	public void testEquipe()
 	{
-		equipeTest = inscriptionTest.createEquipe("YoyoTeam");
-		equipeTest1 = inscriptionTest.createEquipe("LalaTeam");
-		equipeTest2 = inscriptionTest.createEquipe("LoloTeam");
+		equipeTest = inscriptionTest.createEquipe("YoyoTeam",false);
+		equipeTest1 = inscriptionTest.createEquipe("LalaTeam",false);
+		equipeTest2 = inscriptionTest.createEquipe("LoloTeam",false);
 		
 		
 		
@@ -111,7 +111,7 @@ public class InscriptionTest
 
 		// On créé une nouvelle compétition
 
-		Competition competitionQuis = inscriptionTest.createCompetition("Visionnage de Cassettes", null, true);
+		Competition competitionQuis = inscriptionTest.createCompetition("Visionnage de Cassettes", null, true,false);
 
 		//Et on compare a la compétition déjà créée plus haut
 
@@ -146,7 +146,7 @@ public class InscriptionTest
 
 			Set<Candidat> candidats = competitionTest.getCandidats();
 
-			Equipe fly = inscriptionTest.createEquipe("Fly - Forces libérées yaourt");
+			Equipe fly = inscriptionTest.createEquipe("Fly - Forces libérées yaourt",false);
 
 			try {
 				competitionTest.add(fly);
@@ -204,7 +204,7 @@ public class InscriptionTest
 
 				Inscriptions inscriptions = Inscriptions.getInscriptions();
 
-				Equipe plop = inscriptions.createEquipe("Plop blob");
+				Equipe plop = inscriptions.createEquipe("Plop blob",false);
 
 				//Ajout des  personnnesd dans des equipes
 
@@ -299,7 +299,7 @@ public class InscriptionTest
 
 					Set<Competition> Competitions = personne.getCompetitions();
 
-					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false);
+					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false,false);
 
 					try {
 						testCompetition.add(personne);
@@ -315,7 +315,7 @@ public class InscriptionTest
 
 					Set<Competition> Competitions = personne.getCompetitions();
 
-					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false);
+					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false,false);
 
 					try {
 						testCompetition.add(personne);

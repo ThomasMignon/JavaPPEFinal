@@ -26,14 +26,17 @@ public class Competition implements Comparable<Competition>, Serializable
 	BDD bdd = new BDD();
 	boolean isDelete;
 	
-	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe)
+	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe, boolean save)
 	{
 		this.enEquipe = enEquipe;
 		this.inscriptions = inscriptions;
 		this.nom = nom;
 		this.dateCloture = dateCloture;
 		candidats = new TreeSet<>();
-		bdd.save(this);
+		if(save)
+		{
+			bdd.save(this);
+		}
 	}
 	
 	/**

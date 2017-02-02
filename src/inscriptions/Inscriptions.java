@@ -106,9 +106,9 @@ public class Inscriptions implements Serializable
 	 */
 	
 	public Competition createCompetition(String nom, 
-			LocalDate dateCloture, boolean enEquipe)
+			LocalDate dateCloture, boolean enEquipe,boolean save)
 	{
-		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
+		Competition competition = new Competition(this, nom, dateCloture, enEquipe,save);
 		competitions.add(competition);
 		return competition;
 	}
@@ -153,9 +153,9 @@ public class Inscriptions implements Serializable
 	 * @return
 	 */
 	
-	public Equipe createEquipe(String nom)
+	public Equipe createEquipe(String nom , boolean save)
 	{
-		Equipe equipe = new Equipe(this, nom);
+		Equipe equipe = new Equipe(this, nom, save);
 		candidats.add(equipe);
 		return equipe;
 	}
