@@ -20,7 +20,6 @@ public class MenuPersonne
 	private static Inscriptions inscriptions;
 	public MenuPersonne()
 	{
-		inscriptions = Inscriptions.getInscriptions();
 		
 	}
 	
@@ -32,6 +31,7 @@ public class MenuPersonne
 	//Menu personne
 		static Menu getMenuPersonne()
 		{
+			inscriptions = Inscriptions.getInscriptions();
 			Menu menuPersonne = new Menu("Gestion de personne","1");
 			menuPersonne.ajoute(getListeVoirUnePersonne());
 			menuPersonne.ajoute(getOptionAjouterPersonne());
@@ -217,7 +217,7 @@ public class MenuPersonne
 							@Override
 							public void elementSelectionne(int indice, Equipe element) 
 							{
-								element.add(personne);
+								element.add(personne,true);
 							}
 
 							@Override

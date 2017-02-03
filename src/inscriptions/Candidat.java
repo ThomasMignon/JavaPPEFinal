@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
+import persistance.BDD;
+
 /**
  * Candidat à un événement sportif, soit une personne physique, soit une équipe.
  *
@@ -17,6 +19,7 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	private String nom;
 	private int id;
 	boolean isDelete;
+	private BDD bdd = new BDD();
 
 	private Set<Competition> competitions;
 	
@@ -94,8 +97,9 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 		return Collections.unmodifiableSet(competitions);
 	}
 	
-	boolean add(Competition competition)
+	public boolean add(Competition competition,boolean save)
 	{
+		bdd.save(competition);
 		return competitions.add(competition);
 	}
 

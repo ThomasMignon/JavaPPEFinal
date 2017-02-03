@@ -150,7 +150,7 @@ public class Competition implements Comparable<Competition>, Serializable
 		{
 			if (enEquipe)
 				throw new RuntimeException();
-			personne.add(this);
+			personne.add(this,true);
 			bdd.save(personne,this);
 			return candidats.add(personne);
 		}
@@ -176,7 +176,7 @@ public class Competition implements Comparable<Competition>, Serializable
 		{
 			if (!enEquipe)
 				throw new RuntimeException();
-			equipe.add(this);
+			equipe.add(this,true);
 			bdd.save(equipe,this);
 			return candidats.add(equipe);
 		}

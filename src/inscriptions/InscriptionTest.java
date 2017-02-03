@@ -221,13 +221,13 @@ public class InscriptionTest
 
 				SortedSet<Personne> lesMembres = plop.getMembres();
 
-				plop.add(personnes);
+				plop.add(personnes,false);
 
-				plop.add(people);
+				plop.add(people,false);
 
-				plop.add(treople);
+				plop.add(treople,false);
 
-				plop.add(qreople);
+				plop.add(qreople,false);
 
 				assertEquals(lesMembres, plop.getMembres());
 
@@ -236,13 +236,13 @@ public class InscriptionTest
 
 				SortedSet<Personne> lesMembres = plop.getMembres();
 
-				plop.add(personnes);
+				plop.add(personnes,false);
 
-				plop.add(people);
+				plop.add(people,false);
 
-				plop.add(treople);
+				plop.add(treople,false);
 
-				plop.add(qreople);
+				plop.add(qreople,false);
 
 				assertTrue(lesMembres.contains(personnes) && lesMembres.contains(people) && lesMembres.contains(treople) && lesMembres.contains(qreople));
 
@@ -251,13 +251,13 @@ public class InscriptionTest
 
 				SortedSet<Personne> membres = plop.getMembres();
 
-				plop.add(personnes);
+				plop.add(personnes,false);
 
-				plop.add(people);
+				plop.add(people,false);
 
-				plop.add(treople);
+				plop.add(treople,false);
 
-				plop.add(qreople);
+				plop.add(qreople,false);
 
 				plop.remove(personnes);
 

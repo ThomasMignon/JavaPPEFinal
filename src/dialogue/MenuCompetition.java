@@ -18,11 +18,12 @@ public class MenuCompetition
 	private static Inscriptions inscriptions;
 	public MenuCompetition()
 	{
-		inscriptions = Inscriptions.getInscriptions();
+		
 	}
 	
 	static Menu getMenuCompetition()
 	{
+		inscriptions = Inscriptions.getInscriptions();
 		Menu menuCompetition = new Menu("Gestion de compétition","3");
 		menuCompetition.ajoute(getListeCompetition());
 		menuCompetition.ajoute(getOptionAjouterCompetition());

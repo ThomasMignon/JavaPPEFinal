@@ -70,10 +70,13 @@ public class Equipe extends Candidat
 	 * @return
 	 */
 
-	public boolean add(Personne membre)
+	public boolean add(Personne membre,boolean save)
 	{
 		membre.add(this);
-		bdd.save(membre,this);
+		if(save)
+		{
+			bdd.save(membre,this);
+		}
 		return membres.add(membre);
 	}
 

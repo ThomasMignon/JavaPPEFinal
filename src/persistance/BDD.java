@@ -28,9 +28,10 @@ public class BDD implements Serializable
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
-			    inscription.createPersonne(result.getString( "nom" ),result.getString( "prenom" ), result.getString( "mail" ),false);
+			    Personne personne = inscription.createPersonne(result.getString( "nom" ),result.getString( "prenom" ), result.getString( "mail" ),false);
+			    personne.setId(result.getInt("id_candidat"));
 			}
-
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -44,11 +45,12 @@ public class BDD implements Serializable
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
-			String requete ="Select * From equipe e,candidats c WHERE e.id_equipe = c.id_equipe";
+			String requete ="Select * From equipes e,candidats c WHERE e.id_equipe = c.id_equipe";
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
-			    inscription.createEquipe(result.getString( "nom" ));
+			    Equipe equipe = inscription.createEquipe(result.getString( "nom"),false);
+			    equipe.setId(result.getInt("id_candidat"));
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -64,12 +66,12 @@ public class BDD implements Serializable
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection cn = DriverManager.getConnection(url, login,password);
 			Statement st = cn.createStatement();	
-			String requete ="Select * From equipe e,candidats c WHERE e.id_equipe = c.id_equipe";
+			String requete ="Select * From competitions";
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
-				LocalDate date = LocalDate.parse((CharSequence) result.getDate("date"));
-			    inscription.createCompetition(result.getString( "nom" ),date, (result.getInt("enequipe") == 1));
+				LocalDate date = LocalDate.now().plusMonths((long) 2.0);
+			    inscription.createCompetition(result.getString( "nom" ),date, (result.getInt("enequipe") == 1),false);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -77,6 +79,70 @@ public class BDD implements Serializable
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
+	}
+	
+	public void selectAttrEquipe(Inscriptions inscription)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
+			String requete ="Select * From attrequipe a,candidats c WHERE a.id_equipe= c.id_candidat";
+			ResultSet result;
+			result = st.executeQuery(requete);
+			while ( result.next() )
+			{
+				for(Equipe e : inscription.getEquipes())
+				{
+					if(e.getId()==result.getInt("id_equipe"))
+					{
+						for(Personne p : inscription.getPersonnes())
+						{
+							if(p.getId()==result.getInt("id_personne"))
+							{
+									e.add(p,false);
+							}
+						}
+					}
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void selectAttrCompetition(Inscriptions inscription)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
+			String requete ="Select * From attcompetition a,candidats c WHERE a.id_candidat= c.id_candidat";
+			ResultSet result;
+			result = st.executeQuery(requete);
+			while ( result.next() )
+			{
+				for(Competition c: inscription.getCompetitions())
+				{
+					if(c.getId()==result.getInt("id_competition"))
+					{
+						for(Candidat ca : inscription.getCandidats())
+						{
+							if(ca.getId()==result.getInt("id_candidat"))
+							{
+									ca.add(c,false);
+							}
+						}
+					}
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void save(Personne personne) 
