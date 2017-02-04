@@ -1,4 +1,4 @@
-package inscriptions;
+package Test;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,13 @@ import java.util.Set;
 import java.util.SortedSet;
 
 import org.junit.Test;
+
+import inscriptions.Candidat;
+import inscriptions.Competition;
+import inscriptions.DateInvalide;
+import inscriptions.Equipe;
+import inscriptions.Inscriptions;
+import inscriptions.Personne;
 
 public class InscriptionTest 
 {

@@ -20,7 +20,7 @@ public class MenuPersonne
 	private static Inscriptions inscriptions;
 	public MenuPersonne()
 	{
-		
+		inscriptions = Inscriptions.getInscriptions();
 	}
 	
 	public Inscriptions getInscriptions()
@@ -31,7 +31,6 @@ public class MenuPersonne
 	//Menu personne
 		static Menu getMenuPersonne()
 		{
-			inscriptions = Inscriptions.getInscriptions();
 			Menu menuPersonne = new Menu("Gestion de personne","1");
 			menuPersonne.ajoute(getListeVoirUnePersonne());
 			menuPersonne.ajoute(getOptionAjouterPersonne());

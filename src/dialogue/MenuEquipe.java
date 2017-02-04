@@ -19,12 +19,11 @@ public class MenuEquipe
 	private static Inscriptions inscriptions;
 	public MenuEquipe()
 	{
-		
+		inscriptions = Inscriptions.getInscriptions();
 	}
 	
 	static Menu getMenuEquipe()
 	{
-		inscriptions = Inscriptions.getInscriptions();
 		Menu menuEquipe = new Menu("Gestion d'équipe","2");
 		menuEquipe.ajoute(getListeVoirUneEquipe());
 		menuEquipe.ajoute(getOptionAjouterEquipe());
