@@ -9,6 +9,7 @@ import inscriptions.Competition;
 import inscriptions.DateInvalide;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
+import inscriptions.Personne;
 
 public class MenuEquipe 
 {
@@ -83,6 +84,7 @@ public class MenuEquipe
 					menuEquipe.ajoute(getOptionSupprimerEquipe(element));
 					menuEquipe.ajoute(getOptionEditerEquipe(element));
 					menuEquipe.ajoute(getListeAjouterUneEquipeCompetition(element));
+					menuEquipe.ajoute(getListeSupprimerUnePersonneEquipe(element));
 					menuEquipe.ajouteRevenir("r");
 					menuEquipe.setRetourAuto(true);
 					return menuEquipe;
@@ -171,48 +173,83 @@ public class MenuEquipe
 		
 		//Liste ajouter une equipe dans une competition
 		
-				private static ActionListe<Competition> getActionListeAjouterUneEquipeCompetition(Equipe equipe)
+		private static ActionListe<Competition> getActionListeAjouterUneEquipeCompetition(Equipe equipe)
+		{
+			return new ActionListe<Competition>()
+			{
+				@Override
+				public List<Competition> getListe() 
 				{
-					return new ActionListe<Competition>()
-							{
-
-								@Override
-								public List<Competition> getListe() 
-								{
-									ArrayList<Competition> liste = new ArrayList<>();
-									Set<Competition> getCompetition = inscriptions.getCompetitions();
-									for(Competition competition : getCompetition)
-									{
-										if(competition.estEnEquipe())
-										{
-											liste.add(competition);
-										}
-									}
-									return liste;
-								}
-
-								@Override
-								public void elementSelectionne(int indice, Competition element) 
-								{
-									try 
-									{
-										element.add(equipe);
-									} catch (DateInvalide e) 
-									{
-										e.printStackTrace();
-									}
-									System.out.println(equipe.getNom()+" à bien été ajouter à "+element.getNom());
-								}
-
-								@Override
-								public Option getOption(Competition element) 
-								{
-									return null;
-								}
-						
-							};
-						
+					ArrayList<Competition> liste = new ArrayList<>();
+					Set<Competition> getCompetition = inscriptions.getCompetitions();
+					for(Competition competition : getCompetition)
+					{
+						if(competition.estEnEquipe())
+						{
+							liste.add(competition);
+						}
+					}
+					return liste;
 				}
-	
+
+				@Override
+				public void elementSelectionne(int indice, Competition element) 
+				{
+					try 
+					{
+						element.add(equipe);
+					} catch (DateInvalide e) 
+					{
+						e.printStackTrace();
+					}
+					System.out.println(equipe.getNom()+" à bien été ajouter à "+element.getNom());
+				}
+
+				@Override
+				public Option getOption(Competition element) 
+				{
+					return null;
+				}
+						
+			};
+						
+		}
+		
+		// Supprimer une personne d'une équipe
+		
+		public static Liste<Personne> getListeSupprimerUnePersonneEquipe(Equipe equipe)
+		{
+			Liste<Personne> liste= new Liste<>("Supprimer une personne de "+equipe.getNom(),"5",getActionListeSupprimerUnePersonneEquipe(equipe));
+			liste.ajouteRevenir("r");
+			return liste;
+		}
+		
+		public static ActionListe<Personne> getActionListeSupprimerUnePersonneEquipe(Equipe equipe)
+		{
+			return new ActionListe<Personne>()
+			{
+
+				@Override
+				public void elementSelectionne(int arg0, Personne personne) 
+				{
+					equipe.remove(personne);
+					System.out.println(personne.getNom()+" à bien été supprimer de "+equipe.getNom());
+				}
+
+				@Override
+				public List<Personne> getListe() 
+				{
+					return new ArrayList<>(equipe.getMembres());
+				}
+
+				@Override
+				public Option getOption(Personne arg0) 
+				{
+					return null;
+				}
+				
+			};
+		}
+			
 	
 }

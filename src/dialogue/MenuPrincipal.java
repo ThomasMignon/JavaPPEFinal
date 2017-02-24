@@ -39,30 +39,8 @@ public class MenuPrincipal
 	        menuPrincipal.ajoute(menuPersonne.getMenuPersonne());
 	        menuPrincipal.ajoute(menuEquipe.getMenuEquipe());
 	        menuPrincipal.ajoute(menuCompetition.getMenuCompetition());
-	        menuPrincipal.ajoute(getOptionSauvegarde());
 	        menuPrincipal.ajouteQuitter("q");
 	        return menuPrincipal;
 	}
-	
-	//Sauvergarder
-	
-	static Option getOptionSauvegarde()
-	{
-		return new Option("Synchroniser","s",getActionSauvegarde());
-	}
-	
-	static Action getActionSauvegarde()
-	{
-		return new Action()
-				{
-					@Override
-					public void optionSelectionnee() 
-					{
-						inscriptions=Inscriptions.getInscriptions();
-						System.out.println("Synchronisation réussi !");
-					}
-				};
-	}
-	
 
 }
