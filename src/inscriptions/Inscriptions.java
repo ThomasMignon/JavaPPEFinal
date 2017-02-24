@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import dialogue.Fenetre;
 import dialogue.MenuPrincipal;
 import persistance.BDD;
 
@@ -291,8 +292,10 @@ public class Inscriptions implements Serializable
 	public static void main(String[] args)
 	{
 		
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.start();
+//        MenuPrincipal menu = new MenuPrincipal();
+//        menu.start();
+        Fenetre fenetre = new Fenetre();
+        fenetre.setVisible(true);
 //		try
 //		{
 //			inscriptions.sauvegarder();
