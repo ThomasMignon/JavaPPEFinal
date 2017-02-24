@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.FontMetrics;
 
 import javax.swing.JButton;
@@ -21,9 +22,6 @@ public class Panneau extends JPanel
 		g.setFont(font);
 		String titre = "Gestionnaire de compétition";
 		g.drawString(titre, (this.getWidth()/2)-centerText(g,font,titre),40);
-		JButton bouton = new JButton("Test");
-		bouton.setPreferredSize(new Dimension(100,100));
-		this.add(bouton);
 	}
 	
 	public int centerText(Graphics g, Font font, String text)
