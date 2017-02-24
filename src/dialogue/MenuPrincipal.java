@@ -1,8 +1,10 @@
 package dialogue;
 
 import java.io.IOException;
+
+import commandLine.*;
 import inscriptions.Inscriptions;
-import utilitaires.ligneDeCommande.*;
+
 
 public class MenuPrincipal 
 {
@@ -25,7 +27,7 @@ public class MenuPrincipal
 		menuPrincipal.start();
 	}
 	
-	public Inscriptions getInscriptions()
+	public static Inscriptions getInscriptions()
 	{
 		return inscriptions;
 	}
@@ -46,7 +48,7 @@ public class MenuPrincipal
 	
 	static Option getOptionSauvegarde()
 	{
-		return new Option("Sauvegarder","s",getActionSauvegarde());
+		return new Option("Synchroniser","s",getActionSauvegarde());
 	}
 	
 	static Action getActionSauvegarde()
@@ -56,16 +58,8 @@ public class MenuPrincipal
 					@Override
 					public void optionSelectionnee() 
 					{
-						try 
-						{
-							inscriptions.sauvegarder();
-							System.out.println("Sauvegarde réussi !");
-							
-						} 
-						catch (IOException e) 
-						{
-							System.out.println("Sauvegarde impossible. " + e);
-						}
+						inscriptions=Inscriptions.getInscriptions();
+						System.out.println("Synchronisation réussi !");
 					}
 				};
 	}

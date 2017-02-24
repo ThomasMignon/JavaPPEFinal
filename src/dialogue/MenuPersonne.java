@@ -9,18 +9,14 @@ import inscriptions.DateInvalide;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
-import utilitaires.ligneDeCommande.Action;
-import utilitaires.ligneDeCommande.ActionListe;
-import utilitaires.ligneDeCommande.Liste;
-import utilitaires.ligneDeCommande.Menu;
-import utilitaires.ligneDeCommande.Option;
+import commandLine.*;
 
 public class MenuPersonne
 {
 	private static Inscriptions inscriptions;
 	public MenuPersonne()
 	{
-		inscriptions = Inscriptions.getInscriptions();
+		inscriptions = MenuPrincipal.getInscriptions();
 	}
 	
 	public Inscriptions getInscriptions()
@@ -242,9 +238,9 @@ public class MenuPersonne
 							@Override
 							public void optionSelectionnee()
 							{
-								String nom= utilitaires.EntreesSorties.getString("Nom : "),
-						                prenom = utilitaires.EntreesSorties.getString("Prénom : "),
-						                mail = utilitaires.EntreesSorties.getString("Mail : ");
+								String nom= commandLine.util.InOut.getString("Nom : "),
+						                prenom = commandLine.util.InOut.getString("Prénom : "),
+						                mail = commandLine.util.InOut.getString("Mail : ");
 										inscriptions.editePersonne(personne,nom, prenom, mail);
 								System.out.println(personne.getPrenom()+" à bien été édité !");
 							}
@@ -265,9 +261,9 @@ public class MenuPersonne
 					@Override
 					public void optionSelectionnee()
 					{
-						String nom= utilitaires.EntreesSorties.getString("Nom : "),
-		                prenom = utilitaires.EntreesSorties.getString("Prénom : "),
-		                mail = utilitaires.EntreesSorties.getString("Mail : ");
+						String nom= commandLine.util.InOut.getString("Nom : "),
+		                prenom = commandLine.util.InOut.getString("Prénom : "),
+		                mail = commandLine.util.InOut.getString("Mail : ");
 						inscriptions.createPersonne(nom, prenom, mail,true);
 					}
 				};

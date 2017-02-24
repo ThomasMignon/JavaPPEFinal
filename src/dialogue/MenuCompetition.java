@@ -7,18 +7,14 @@ import java.util.List;
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import inscriptions.Inscriptions;
-import utilitaires.ligneDeCommande.Action;
-import utilitaires.ligneDeCommande.ActionListe;
-import utilitaires.ligneDeCommande.Liste;
-import utilitaires.ligneDeCommande.Menu;
-import utilitaires.ligneDeCommande.Option;
+import commandLine.*;
 
 public class MenuCompetition
 {
 	private static Inscriptions inscriptions;
 	public MenuCompetition()
 	{
-		inscriptions = Inscriptions.getInscriptions();
+		inscriptions = MenuPrincipal.getInscriptions();
 	}
 	
 	static Menu getMenuCompetition()
@@ -154,18 +150,18 @@ public class MenuCompetition
 					@Override
 					public void optionSelectionnee() 
 					{
-						String nom= utilitaires.EntreesSorties.getString("Nom : ");
+						String nom= commandLine.util.InOut.getString("Nom : ");
 						System.out.println("Date de cloture : ");
-						String jour=utilitaires.EntreesSorties.getString("Jour : "),
-								mois=utilitaires.EntreesSorties.getString("Mois : "),
-								annee=utilitaires.EntreesSorties.getString("Annee : ");
+						String jour=commandLine.util.InOut.getString("Jour : "),
+								mois=commandLine.util.InOut.getString("Mois : "),
+								annee=commandLine.util.InOut.getString("Annee : ");
 						String dateClotureString = annee+"-"+mois+"-"+jour;
 						LocalDate dateCloture = LocalDate.parse(dateClotureString);
 						boolean enEquipe = false;
 						String reponse="";
 						while(!reponse.equals("o")&&!reponse.equals("n"))
 						{
-							reponse=utilitaires.EntreesSorties.getString("En équipe ? o : Oui n : Non : ");
+							reponse=commandLine.util.InOut.getString("En équipe ? o : Oui n : Non : ");
 						}
 						enEquipe=reponse.compareTo("o")==0;
 						inscriptions.createCompetition(nom, dateCloture, enEquipe,true);
@@ -190,7 +186,7 @@ public class MenuCompetition
 					@Override
 					public void optionSelectionnee() 
 					{
-						String nom= utilitaires.EntreesSorties.getString("Nom : ");
+						String nom= commandLine.util.InOut.getString("Nom : ");
 								inscriptions.editeCompetition(competition,nom);
 					}
 			

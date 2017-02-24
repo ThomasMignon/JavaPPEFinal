@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public class BDD implements Serializable
 {
-	String url = "jdbc:mysql://localhost/ppejava";
+	String url = "jdbc:mysql://localhost/ppejava?autoReconnect=true&useSSL=false";
 	String login = "root";
 	String password = "";
 //	Connection cn = null;

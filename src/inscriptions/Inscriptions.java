@@ -196,8 +196,11 @@ public class Inscriptions implements Serializable
 		BDD bdd = new BDD();
 		inscriptions= new Inscriptions();
 		bdd.selectPersonne(inscriptions);
+		System.out.println("Personne récupéré...");
 		bdd.selectEquipe(inscriptions);
+		System.out.println("Equipe récupéré...");
 		bdd.selectCompetitions(inscriptions);
+		System.out.println("Competition récupéré...");
 		bdd.selectAttrEquipe(inscriptions);
 		return inscriptions;
 	}

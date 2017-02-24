@@ -4,22 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import commandLine.*;
 import inscriptions.Competition;
 import inscriptions.DateInvalide;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
-import utilitaires.ligneDeCommande.Action;
-import utilitaires.ligneDeCommande.ActionListe;
-import utilitaires.ligneDeCommande.Liste;
-import utilitaires.ligneDeCommande.Menu;
-import utilitaires.ligneDeCommande.Option;
 
 public class MenuEquipe 
 {
 	private static Inscriptions inscriptions;
 	public MenuEquipe()
 	{
-		inscriptions = Inscriptions.getInscriptions();
+		inscriptions = MenuPrincipal.getInscriptions();
 	}
 	
 	static Menu getMenuEquipe()
@@ -53,7 +49,7 @@ public class MenuEquipe
 						@Override
 						public void optionSelectionnee()
 						{
-							String nom= utilitaires.EntreesSorties.getString("Nom : ");
+							String nom= commandLine.util.InOut.getString("Nom : ");
 									inscriptions.createEquipe(nom,true);
 							System.out.println(nom+" à bien été créer");
 						}
@@ -140,7 +136,7 @@ public class MenuEquipe
 						@Override
 						public void optionSelectionnee()
 						{
-							String nom= utilitaires.EntreesSorties.getString("Nom : ");
+							String nom= commandLine.util.InOut.getString("Nom : ");
 							inscriptions.editeEquipe(equipe, nom);
 							System.out.println(equipe.getNom()+" à bien été éditer !");
 						}
