@@ -16,11 +16,8 @@ public class Fenetre extends JFrame
 	    this.setSize(800, 600);
 	    this.setResizable(false);
 	    this.setLocationRelativeTo(null);               
-	 
-	    //Instanciation d'un objet JPanel
-	    //Définition de sa couleur de fond        
-	    //On prévient notre JFrame que notre JPanel sera son content pane
+	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
 	    this.setContentPane(panneau);               
 	    this.setVisible(true);
-	  } 
+	 } 
 }
