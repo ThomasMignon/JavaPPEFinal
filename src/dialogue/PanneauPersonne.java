@@ -29,7 +29,11 @@ public class PanneauPersonne extends JPanel
 	private Inscriptions inscriptions = Panneau.getInscriptions();
 	
 	Object selectP = new Object();
+	Object selectE = new Object();
+	Object selectED = new Object();
 	Personne selectPersonne;
+	Equipe selectEquipe;
+	Equipe selectEquipeDispo;
 	
 	private JPanel ajoutePersonne = new JPanel();
 	private JPanel affichePersonne = new JPanel();
@@ -81,11 +85,15 @@ public class PanneauPersonne extends JPanel
 		affichePersonne.add(new JLabel("Ses équipes : "));
 		comboEquipe = new JComboBox();
 		comboEquipe.setPreferredSize(new Dimension(150, 20));
+		comboEquipe.addActionListener(new comboEquipeListener());
 		affichePersonne.add(comboEquipe);
+		boutonSupprEquipe.addActionListener(new boutonSupprEquipeListener());
 		affichePersonne.add(boutonSupprEquipe);
 		affichePersonne.add(new JLabel("Equipe(s) disponible(s)"));
 		comboEquipeDispo = new JComboBox();
+		comboEquipeDispo.addActionListener(new comboEquipeDispoListener());
 		affichePersonne.add(comboEquipeDispo);
+		boutonAjouteEquipe.addActionListener(new boutonAjouteEquipeListener());
 		affichePersonne.add(boutonAjouteEquipe);
 		this.add(affichePersonne, BorderLayout.CENTER);
 		
@@ -177,6 +185,44 @@ public class PanneauPersonne extends JPanel
 		}
 	}
 	
+	class comboEquipeListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			selectE = comboEquipe.getSelectedItem();
+			for(Equipe e : selectPersonne.getEquipes())
+			{
+				String name = e.getNom();
+				if(name.equals(selectE))
+				{
+					selectEquipe = e;
+				}
+			}
+		}
+	}
+	
+	class comboEquipeDispoListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			selectED = comboEquipeDispo.getSelectedItem();
+			for(Equipe e : inscriptions.getEquipes())
+			{
+				String name = e.getNom();
+				if(name.equals(selectED))
+				{
+					selectEquipeDispo = e;
+					System.out.println(selectEquipeDispo);
+				}
+			}
+		}
+		
+	}
+	
 	class boutonEditeListener implements ActionListener
 	{
 		@Override
@@ -192,6 +238,26 @@ public class PanneauPersonne extends JPanel
 					"Information", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
+		}
+	}
+	
+	class boutonSupprEquipeListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+			selectEquipe.remove(selectPersonne);
+		}
+	}
+	
+	class boutonAjouteEquipeListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			selectEquipeDispo.add(selectPersonne, true);
+			message.showMessageDialog(null, selectPersonne.getPrenom() + " à été ajouter à " + selectEquipeDispo.getNom(),
+					"Information", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }
