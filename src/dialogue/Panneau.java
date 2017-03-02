@@ -25,7 +25,7 @@ public class Panneau extends JPanel
 	private JLabel titre = new JLabel("Application de gestion de compétition");
 	private JButton boutonPersonne = new JButton("Gestion de personne");
 	private JButton boutonEquipe = new JButton("Gestion d'équipe");
-	private JButton boutonCompetition = new JButton("Gestion d'équipe");
+	private JButton boutonCompetition = new JButton("Gestion de compétition");
 	private static Inscriptions inscriptions;
 	
 	public Panneau()
@@ -51,16 +51,19 @@ public class Panneau extends JPanel
 	
 	private void setPanneauPersonne()
 	{
+		repaint();
 		this.add(panneauPersonne,BorderLayout.CENTER);
 	}
 	
 	private void setPanneauEquipe()
 	{
+		this.remove(panneauPersonne);
 		this.repaint();
 	}
 	
 	private void setPanneauCompetition()
 	{
+		this.remove(panneauPersonne);
 		this.repaint();
 	}
 	

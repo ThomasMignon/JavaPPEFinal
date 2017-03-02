@@ -16,14 +16,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
 public class PanneauPersonne extends JPanel 
 {
-	private JComboBox combo;
+	private JComboBox comboPersonne;
+	private JComboBox comboEquipe;
+	private JComboBox comboEquipeDispo;
 	
-	private Inscriptions inscriptions = Panneau.getInscriptions();;
+	private Inscriptions inscriptions = Panneau.getInscriptions();
+	
+	Object selectP = new Object();
+	Personne selectPersonne;
 	
 	private JPanel ajoutePersonne = new JPanel();
 	private JPanel affichePersonne = new JPanel();
@@ -34,36 +40,53 @@ public class PanneauPersonne extends JPanel
 	
 	private JTextField nomField = new JTextField();
 	private JTextField prenomField = new JTextField();
+	private JTextField mailField = new JTextField();
 	
 	private JButton boutonAjoute = new JButton("Ajouter");
+	private JButton boutonEdite = new JButton("Editer");
+	private JButton boutonAjouteEquipe = new JButton("Ajouter à cette équipe");
+	private JButton boutonSupprEquipe = new JButton("Supprimer de cette équipe");
+	
 	private JOptionPane message;
-	private int[] id = new int[inscriptions.getPersonnes().size()];
-	private String[] nomPrenom = new String[inscriptions.getPersonnes().size()];
 
-	public PanneauPersonne() {
+	public PanneauPersonne() 
+	{
 		// Instantiation
 		this.setLayout(new BorderLayout());
 
 		// Menu deroulant pour selectionner personne
-		int i = 0;
-		for (Personne p : inscriptions.getPersonnes()) {
-			String name = p.getNom() + " " + p.getPrenom();
-			System.out.println(name + " recup");
-			nomPrenom[i] = name;
-			i++;
+		comboPersonne = new JComboBox();
+		for (Personne p : inscriptions.getPersonnes()) 
+		{
+			comboPersonne.addItem(p.getNom()+" "+p.getPrenom());
+			System.out.println(p.getPrenom() + p.getNom() +" recup");
 		}
-		combo = new JComboBox(nomPrenom);
-		combo.setPreferredSize(new Dimension(150, 20));
-		this.add(combo, BorderLayout.NORTH);
+		comboPersonne.setPreferredSize(new Dimension(150, 20));
+		this.add(comboPersonne, BorderLayout.NORTH);
 
-		// Afficher une personne séléctionner
-		combo.addActionListener(new comboItemListener());
+		// Afficher une personne séléctionner, éditer
+		comboPersonne.addActionListener(new comboItemListener());
 		affichePersonne.add(new JLabel("Nom : "));
 		nomField.setPreferredSize(new Dimension(150, 20));
 		affichePersonne.add(nomField);
 		affichePersonne.add(new JLabel("Prénom : "));
 		prenomField.setPreferredSize(new Dimension(150, 20));
 		affichePersonne.add(prenomField);
+		affichePersonne.add(new JLabel("Mail : "));
+		mailField.setPreferredSize(new Dimension(150, 20));
+		affichePersonne.add(mailField);
+		boutonEdite.addActionListener(new boutonEditeListener());
+		boutonEdite.setPreferredSize(new Dimension(150,20));
+		affichePersonne.add(boutonEdite);
+		affichePersonne.add(new JLabel("Ses équipes : "));
+		comboEquipe = new JComboBox();
+		comboEquipe.setPreferredSize(new Dimension(150, 20));
+		affichePersonne.add(comboEquipe);
+		affichePersonne.add(boutonSupprEquipe);
+		affichePersonne.add(new JLabel("Equipe(s) disponible(s)"));
+		comboEquipeDispo = new JComboBox();
+		affichePersonne.add(comboEquipeDispo);
+		affichePersonne.add(boutonAjouteEquipe);
 		this.add(affichePersonne, BorderLayout.CENTER);
 		
 		// Ajouter une personne
@@ -92,14 +115,44 @@ public class PanneauPersonne extends JPanel
 				String nomP = p.getNom();
 				String prenomP = p.getPrenom();
 				String mailP = p.getMail();
+				selectPersonne = p;
+				comboEquipe.removeAllItems();
+				listEquipeSelectPersonne(p);
+				comboEquipeDispo.removeAllItems();
+				listEquipeDispoPersonne(p);
 				nomField.setText(nomP);
 				prenomField.setText(prenomP);
+				mailField.setText(mailP);
 			}
 		}
 	}
 	
-	class boutonAjouteListener implements ActionListener {
-
+	//Menu déroulant d'équipe d'une personne séléctionner
+	private void listEquipeSelectPersonne(Personne p)
+	{
+		if(!p.getEquipes().isEmpty())
+		{
+			for(Equipe e : p.getEquipes())
+			{
+				System.out.println(e.getNom());
+				comboEquipe.addItem(e.getNom());
+			}
+		}
+	}
+	
+	private void listEquipeDispoPersonne(Personne p)
+	{
+		for(Equipe e : inscriptions.getEquipes())
+		{
+			if(!selectPersonne.getEquipes().contains(e))
+			{
+				comboEquipeDispo.addItem(e.getNom());
+			}
+		}
+	}
+	
+	class boutonAjouteListener implements ActionListener 
+	{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			inscriptions.createPersonne(nom.getText(), prenom.getText(), mail.getText(), true);
@@ -113,13 +166,32 @@ public class PanneauPersonne extends JPanel
 
 	}
 
-	class comboItemListener implements ActionListener {
+	class comboItemListener implements ActionListener 
+	{
 
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			Object select = combo.getSelectedItem();
-			setPanneauAfficherPersonne(select);
+			selectP = comboPersonne.getSelectedItem();
+			setPanneauAfficherPersonne(selectP);
+		}
+	}
+	
+	class boutonEditeListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			for (Personne p : inscriptions.getPersonnes()) 
+			{
+				String nomPrenomSelect = p.getNom() + " " + p.getPrenom();
+				if (nomPrenomSelect.equals(selectP)) 
+				{
+					inscriptions.editePersonne(p, nomField.getText(), prenomField.getText(), mailField.getText());
+					message.showMessageDialog(null, nomField.getText() + " " + prenomField.getText() + " à bien été éditer !",
+					"Information", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
 		}
 	}
 }
