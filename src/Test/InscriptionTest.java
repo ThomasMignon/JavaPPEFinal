@@ -3,6 +3,7 @@ package Test;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -77,7 +78,6 @@ public class InscriptionTest
 		}
 		assertEquals("getEquipes",true,trouver);
 		
-		
 		personneTest.remove(equipeTest);
 		boolean trouver2 = false;
 		Set<Equipe> getEquipe2 = personneTest.getEquipes(); // Test du getEquipe
@@ -86,8 +86,6 @@ public class InscriptionTest
 			trouver2=true;
 		}
 		assertEquals("remove",false,trouver2);
-		
-		
 	}
 	
 	@Test
@@ -101,16 +99,117 @@ public class InscriptionTest
 		assertEquals("estEnEquipe",false,competitionTest1.estEnEquipe());
 		assertEquals("estEnEquipe",false,competitionTest2.estEnEquipe());
 	}
+
+	// ici on teste la date de cloture de competition
 	
+	public class TestCompetition {
+
+	    Inscriptions i = Inscriptions.getInscriptions();
+
+		LocalDate dateclôture1 = LocalDate.of(2017, Month.DECEMBER, 31);
+
+		LocalDate dateclôture2 = LocalDate.of(2017, Month.JANUARY, 31);
+
+		LocalDate newdateclôture = LocalDate.of(2017, Month.JANUARY, 31);
+
+		Competition personne = i.createCompetition("SAM", dateclôture1 , false, false);
+
+		Competition equipe = i.createCompetition("SAM", dateclôture2 , true, false);
+
+		Personne p = i.createPersonne("Arianfar","ari","arianfarari@yahoo.fr", false);
+
+		Equipe e = i.createEquipe("CGY", false);
+
+		@Test
+		public void testGetNom()
+		{
+
+			assertEquals("SAM", personne.getNom());
+
+		}
+
+		@Test
+		// on verifie que la d'inscripation n'est pas dépassé
+		public void testInscriptionsOuvertes()
+		{
+
+			assertEquals(personne.inscriptionsOuvertes(), true);
+
+			assertEquals(equipe.inscriptionsOuvertes(), false);
+
+		}
+		@Test(expected = RuntimeException.class)
+
+		public void testSetDateClôture() throws Exception 
+		{
+
+			personne.setDateCloture(newdateclôture);
+
+		}
+		@Test
+		public void testGetDateCloture()
+		{
+
+			assertEquals(LocalDate.of(2016, Month.DECEMBER, 31),personne.getDateCloture());
+
+			assertEquals(LocalDate.of(2016, Month.JANUARY, 31), equipe.getDateCloture());
+		}
+		@Test
+		public void testEstEnEquipe()
+		{
+
+			assertEquals(equipe.estEnEquipe(), true);
+
+			assertEquals(personne.estEnEquipe(), false);
+
+		}
+		@Test
+		public void testAddPersonne1() throws DateInvalide
+		{
+
+			assertTrue(personne.add(p));
+
+			assertTrue(personne.getCandidats().contains(p));
+
+		}
+		@Test
+		public void testAddEquipe1() throws DateInvalide
+		{
+
+			assertTrue(equipe.add(e));
+
+			assertTrue(equipe.getCandidats().contains(e));
+
+		}
+		@Test
+		public void testRemovePersonne() throws DateInvalide
+
+		{
+
+			assertTrue(personne.add(p));
+
+			assertTrue(personne.remove(p));
+
+			assertFalse(personne.getCandidats().contains(p));
+
+		}
+		@Test
+		public void testRemoveEquipe() throws DateInvalide
+		{
+
+			assertTrue(equipe.add(e));
+
+			assertTrue(equipe.remove(e));
+
+			assertFalse(equipe.getCandidats().contains(e));
+
+	}
 	@Test
 	public void testEquipe()
 	{
 		equipeTest = inscriptionTest.createEquipe("YoyoTeam",false);
 		equipeTest1 = inscriptionTest.createEquipe("LalaTeam",false);
 		equipeTest2 = inscriptionTest.createEquipe("LoloTeam",false);
-		
-		
-		
 		//TODO : GetMembre
 	}
 	// test compare 
@@ -191,7 +290,7 @@ public class InscriptionTest
 				assertEquals("Marcel", personneTest.getPrenom());
 
 			}
-			public void testSetPrenom() {
+			public void testSetPrenom(){
 
 				personneTest.setPrenom("LaPoulette"); // On ajoute une personne appellée "LaPoulette"
 
@@ -266,11 +365,11 @@ public class InscriptionTest
 
 				plop.add(qreople,false);
 
-				plop.remove(personnes,false);
+				plop.remove(personnes, false);
 
-				plop.remove(people,false);
+				plop.remove(people, false);
 
-				plop.remove(treople,false);
+				plop.remove(treople, false);
 
 
 				// Si l'Affirmation est fausse, le résultat est correct
@@ -316,7 +415,6 @@ public class InscriptionTest
 					}
 
 					assertTrue(Competitions.contains(testCompetition));
-
 				}
 				public void testRemove() {//TestRemove, comme pour Add mais on retire la donnée ajoutée
 
@@ -330,11 +428,9 @@ public class InscriptionTest
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
 					testCompetition.remove(personne);
-
 					assertFalse(Competitions.contains(testCompetition));
-
 				}
 		}	
+	}
 }
