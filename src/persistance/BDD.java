@@ -112,7 +112,7 @@ public class BDD implements Serializable
 			e.printStackTrace();
 		}
 	}
-	
+	//TODO : Ne fonctionne pas
 	public void selectAttrCompetition(Inscriptions inscription)
 	{
 		

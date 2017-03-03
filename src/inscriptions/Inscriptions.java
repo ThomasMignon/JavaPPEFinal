@@ -176,6 +176,8 @@ public class Inscriptions implements Serializable
 	void remove(Candidat candidat)
 	{
 		candidats.remove(candidat);
+		BDD bdd = new BDD();
+		bdd.delete(candidat);
 	}
 	
 	/**

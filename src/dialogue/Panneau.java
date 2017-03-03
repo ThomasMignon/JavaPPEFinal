@@ -21,7 +21,7 @@ import inscriptions.Inscriptions;
 public class Panneau extends JPanel
 {
 	private JPanel menu = new JPanel();
-	private PanneauPersonne panneauPersonne = new PanneauPersonne();
+	private PanneauPersonne panneauPersonne;
 	private JLabel titre = new JLabel("Application de gestion de compétition");
 	private JButton boutonPersonne = new JButton("Gestion de personne");
 	private JButton boutonEquipe = new JButton("Gestion d'équipe");
@@ -45,13 +45,12 @@ public class Panneau extends JPanel
 		menu.add(boutonCompetition);
 		boutonPersonne.addActionListener(new boutonPersonneListener());
 		boutonEquipe.addActionListener(new boutonEquipeListener());
-		boutonCompetition.addActionListener(new boutonCompetitionListener());
-		
+		boutonCompetition.addActionListener(new boutonCompetitionListener());	
 	}
 	
 	private void setPanneauPersonne()
 	{
-		repaint();
+		panneauPersonne = new PanneauPersonne();
 		this.add(panneauPersonne,BorderLayout.CENTER);
 	}
 	
