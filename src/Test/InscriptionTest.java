@@ -266,11 +266,11 @@ public class InscriptionTest
 
 				plop.add(qreople,false);
 
-				plop.remove(personnes);
+				plop.remove(personnes,false);
 
-				plop.remove(people);
+				plop.remove(people,false);
 
-				plop.remove(treople);
+				plop.remove(treople,false);
 
 
 				// Si l'Affirmation est fausse, le résultat est correct

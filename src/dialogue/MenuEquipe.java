@@ -232,7 +232,7 @@ public class MenuEquipe
 				@Override
 				public void elementSelectionne(int arg0, Personne personne) 
 				{
-					equipe.remove(personne);
+					equipe.remove(personne,true);
 					System.out.println(personne.getNom()+" à bien été supprimer de "+equipe.getNom());
 				}
 

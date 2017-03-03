@@ -86,9 +86,13 @@ public class Equipe extends Candidat
 	 * @return
 	 */
 	
-	public boolean remove(Personne membre)
+	public boolean remove(Personne membre,boolean save)
 	{
 		membre.remove(this);
+		if(save)
+		{
+			bdd.delete(membre, this);
+		}
 		return membres.remove(membre);
 	}
 

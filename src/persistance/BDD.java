@@ -315,6 +315,7 @@ public class BDD implements Serializable
 		}
 		
 	}
+	
 	public void delete(Competition competition)
 	{
 		try {
@@ -328,6 +329,20 @@ public class BDD implements Serializable
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+	}
+	
+	public void delete(Personne personne, Equipe equipe)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = DriverManager.getConnection(url, login,password);
+			Statement st = cn.createStatement();	
+			String requete ="DELETE FROM attrequipe WHERE id_personne="+personne.getId()+" AND id_equipe="+equipe.getId();
+			st.executeUpdate(requete);	
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

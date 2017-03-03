@@ -246,7 +246,9 @@ public class PanneauPersonne extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent arg0)
 		{
-			selectEquipe.remove(selectPersonne);
+			selectEquipe.remove(selectPersonne,true);
+			message.showMessageDialog(null, selectPersonne.getPrenom() + " à bien été supprimer de " + selectEquipe.getNom(),
+					"Information", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
