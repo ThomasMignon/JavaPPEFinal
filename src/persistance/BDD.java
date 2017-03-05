@@ -31,7 +31,7 @@ public class BDD implements Serializable
 	{
 		try {
 			Statement st = Connection();
-			String requete ="Select * From personnes p,candidats c WHERE p.id_personne = c.id_personne";
+			String requete ="Select * From personnes p,candidats c WHERE p.id_personne = c.id_personne AND c.deleted_at IS NULL";
 			ResultSet result = st.executeQuery(requete);
 			while ( result.next() ) {
 			    Personne personne = inscription.createPersonne(result.getString( "nom" ),result.getString( "prenom" ), result.getString( "mail" ),false);
@@ -73,7 +73,7 @@ public class BDD implements Serializable
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
 				LocalDate date = LocalDate.now().plusMonths((long) 2.0);
-			    inscription.createCompetition(result.getString( "nom" ),date, (result.getInt("enequipe") == 1),false);
+			    inscription.createCompetition(result.getInt("id_competition"),result.getString( "nom" ),date, (result.getInt("enequipe") == 1),false);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -119,19 +119,22 @@ public class BDD implements Serializable
 		//TODO
 		try {
 			Statement st = Connection();
-			String requete ="Select * From attcompetition a,candidats c WHERE a.id_candidat= c.id_candidat";
+			String requete ="Select * From attrcompetition a,candidats c WHERE a.id_candidat= c.id_candidat";
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() )
 			{
 				for(Competition c: inscription.getCompetitions())
 				{
+					System.out.println(c.getId());
 					if(c.getId()==result.getInt("id_competition"))
 					{
+						System.out.println("C'est OK");
 						for(Candidat ca : inscription.getCandidats())
 						{
 							if(ca.getId()==result.getInt("id_candidat"))
 							{
+								System.out.println("YOUHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHOU");
 									ca.add(c,false);
 							}
 						}
@@ -259,7 +262,7 @@ public class BDD implements Serializable
 	{
 		try {
 			Statement st = Connection();	
-			String requete ="UPDATE personnes SET deleted_at = NOW() WHERE id_candidat = "+personne.getId();
+			String requete ="UPDATE personnes SET deleted_at = '"+LocalDate.now()+"' WHERE id_candidat = "+personne.getId();
 			st.executeUpdate(requete);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -272,7 +275,7 @@ public class BDD implements Serializable
 	{
 		try {
 			Statement st = Connection();	
-			String requete ="UPDATE equipes SET deleted_at = NOW() WHERE id_candidat = "+equipe.getId();
+			String requete ="UPDATE equipes SET deleted_at = '"+LocalDate.now()+"' WHERE id_candidat = "+equipe.getId();
 			st.executeUpdate(requete);	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -285,7 +288,7 @@ public class BDD implements Serializable
 	{
 		try {
 			Statement st = Connection();
-			String requete ="UPDATE candidats SET deleted_at = NOW() WHERE id_candidat = "+candidat.getId();
+			String requete ="UPDATE candidats SET deleted_at = '"+LocalDate.now()+"' WHERE id_candidat = "+candidat.getId();
 			st.executeUpdate(requete);	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -299,7 +302,7 @@ public class BDD implements Serializable
 	{
 		try {
 			Statement st = Connection();	
-			String requete ="UPDATE competitions SET deleted_at = NOW() WHERE id_candidat = "+competition.getId();
+			String requete ="UPDATE competitions SET deleted_at = '"+LocalDate.now()+"' WHERE id_candidat = "+competition.getId();
 			st.executeUpdate(requete);	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -313,6 +316,19 @@ public class BDD implements Serializable
 		try {
 			Statement st = Connection();	
 			String requete ="DELETE FROM attrequipe WHERE id_personne="+personne.getId()+" AND id_equipe="+equipe.getId();
+			st.executeUpdate(requete);	
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(Candidat candidat, Competition competition)
+	{
+		try {
+			Statement st = Connection();	
+			String requete ="DELETE FROM attrcompetition WHERE id_candidat="+candidat.getId()+" AND id_competition="+competition.getId();
 			st.executeUpdate(requete);	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

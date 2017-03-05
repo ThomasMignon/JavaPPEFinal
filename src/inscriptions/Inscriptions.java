@@ -114,6 +114,14 @@ public class Inscriptions implements Serializable
 		return competition;
 	}
 
+
+	public Competition createCompetition(int id_competition,String nom, 
+			LocalDate dateCloture, boolean enEquipe,boolean save)
+	{
+		Competition competition = new Competition(this, id_competition, nom, dateCloture, enEquipe,save);
+		competitions.add(competition);
+		return competition;
+	}
 	/**
 	 * CrÃ©Ã©e une Candidat de type Personne. Ceci est le seul moyen, il n'y a pas
 	 * de constructeur public dans {@link Personne}.
@@ -205,6 +213,7 @@ public class Inscriptions implements Serializable
 		bdd.selectCompetitions(inscriptions);
 		System.out.println("Competition récupéré...");
 		bdd.selectAttrEquipe(inscriptions);
+		bdd.selectAttrCompetition(inscriptions);
 		return inscriptions;
 	}
 

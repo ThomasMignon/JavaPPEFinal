@@ -144,7 +144,7 @@ public class InscriptionTest
 				e.printStackTrace();
 			}
 
-			competitionTest.remove(personneTest);
+			competitionTest.remove(personneTest,false);
 
 			assertTrue(!candidats.contains(personneTest));
 
@@ -331,7 +331,7 @@ public class InscriptionTest
 						e.printStackTrace();
 					}
 
-					testCompetition.remove(personne);
+					testCompetition.remove(personne,false);
 
 					assertFalse(Competitions.contains(testCompetition));
 

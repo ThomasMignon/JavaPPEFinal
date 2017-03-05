@@ -99,7 +99,10 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	
 	public boolean add(Competition competition,boolean save)
 	{
-		bdd.save(competition);
+		if(save)
+		{
+			bdd.save(competition);
+		}
 		return competitions.add(competition);
 	}
 
@@ -115,7 +118,7 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	public void delete()
 	{
 		for (Competition c : competitions)
-			c.remove(this);
+			c.remove(this,true);
 		inscriptions.remove(this);
 	}
 	

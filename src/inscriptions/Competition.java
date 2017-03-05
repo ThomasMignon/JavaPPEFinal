@@ -39,6 +39,20 @@ public class Competition implements Comparable<Competition>, Serializable
 		}
 	}
 	
+	Competition(Inscriptions inscriptions, int id_competition, String nom, LocalDate dateCloture, boolean enEquipe, boolean save)
+	{
+		this.enEquipe = enEquipe;
+		this.inscriptions = inscriptions;
+		this.nom = nom;
+		this.dateCloture = dateCloture;
+		this.id_competition = id_competition;
+		candidats = new TreeSet<>();
+		if(save)
+		{
+			bdd.save(this);
+		}
+	}
+	
 	/**
 	 * Retourne si Competition est Supprimer.
 	 * @return
@@ -150,7 +164,7 @@ public class Competition implements Comparable<Competition>, Serializable
 		{
 			if (enEquipe)
 				throw new RuntimeException();
-			personne.add(this,true);
+			personne.add(this,false);
 			bdd.save(personne,this);
 			return candidats.add(personne);
 		}
@@ -192,9 +206,13 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * @return
 	 */
 	
-	public boolean remove(Candidat candidat)
+	public boolean remove(Candidat candidat, boolean save)
 	{
 		candidat.remove(this);
+		if(save)
+		{
+			bdd.delete(candidat,this);
+		}
 		return candidats.remove(candidat);
 	}
 	
@@ -205,7 +223,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public void delete()
 	{
 		for (Candidat candidat : candidats)
-			remove(candidat);
+			remove(candidat,true);
 		inscriptions.remove(this);
 	}
 	

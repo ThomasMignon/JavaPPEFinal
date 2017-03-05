@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -122,7 +123,7 @@ public class PanneauPersonne extends JPanel
 		boutonSupprPersonne.addActionListener(new boutonSupprPersonneListener());
 		affichePersonne.add(boutonSupprPersonne);
 		this.add(affichePersonne, BorderLayout.CENTER);
-		
+		System.out.println(LocalDate.now());
 		// Ajouter une personne
 		ajoutePersonne.setBackground(Color.GRAY);
 
@@ -139,6 +140,8 @@ public class PanneauPersonne extends JPanel
 		ajoutePersonne.add(boutonAjoute);
 		this.add(ajoutePersonne, BorderLayout.SOUTH);
 	}
+	
+	
 	
 	private void setPanneauAfficherPersonne(Object select) 
 	{
@@ -298,7 +301,7 @@ public class PanneauPersonne extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			selectCD = comboCompetition.getSelectedItem();
+			selectCD = comboCompetitionDispo.getSelectedItem();
 			for(Competition c : inscriptions.getCompetitions())
 			{
 				String name = c.getNom();
@@ -357,7 +360,7 @@ public class PanneauPersonne extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			selectCompetition.remove(selectPersonne);
+			selectCompetition.remove(selectPersonne,true);
 			JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " à été surpprimer de " + selectCompetition.getNom(),
 					"Information", JOptionPane.INFORMATION_MESSAGE);
 		}

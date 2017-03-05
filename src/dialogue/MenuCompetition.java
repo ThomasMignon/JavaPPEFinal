@@ -99,7 +99,7 @@ public class MenuCompetition
 					@Override
 					public void elementSelectionne(int indice, Candidat element) 
 					{
-						competition.remove(element);
+						competition.remove(element,true);
 						System.out.println(element.getNom()+" à bien été supprimer de "+competition.getNom());
 					}
 

@@ -21,7 +21,7 @@ import inscriptions.Inscriptions;
 public class Panneau extends JPanel
 {
 	private JPanel menu = new JPanel();
-	private PanneauPersonne panneauPersonne;
+	private static PanneauPersonne panneauPersonne;
 	private JLabel titre = new JLabel("Application de gestion de compétition");
 	private JButton boutonPersonne = new JButton("Gestion de personne");
 	private JButton boutonEquipe = new JButton("Gestion d'équipe");
