@@ -5,10 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -48,9 +48,9 @@ public class PanneauPersonne extends JPanel
 	private JPanel ajoutePersonne = new JPanel();
 	private JPanel affichePersonne = new JPanel();
 	
-	private JTextField nom = new JTextField();
-	private JTextField prenom = new JTextField();
-	private JTextField mail = new JTextField();
+	private JTextField nomAjoutField = new JTextField();
+	private JTextField prenomAjoutField = new JTextField();
+	private JTextField mailAjoutField = new JTextField();
 	
 	private JTextField nomField = new JTextField();
 	private JTextField prenomField = new JTextField();
@@ -68,6 +68,8 @@ public class PanneauPersonne extends JPanel
 	{
 		// Instantiation
 		this.setLayout(new BorderLayout());
+		boutonAjoute.setEnabled(false);
+		boutonEdite.setEnabled(false);
 
 		//Panneau afficherPersonne
 		
@@ -101,17 +103,19 @@ public class PanneauPersonne extends JPanel
 	private void setPanneauAjoutePersonne()
 	{
 		ajoutePersonne.setBackground(Color.GRAY);
-
+		nomAjoutField.addKeyListener(new ajoutFieldListener());
+		prenomAjoutField.addKeyListener(new ajoutFieldListener());
+		mailAjoutField.addKeyListener(new ajoutFieldListener());
 		boutonAjoute.addActionListener(new boutonAjouteListener());
-		nom.setPreferredSize(new Dimension(130, 20));
-		prenom.setPreferredSize(new Dimension(130, 20));
-		mail.setPreferredSize(new Dimension(130, 20));
+		nomAjoutField.setPreferredSize(new Dimension(130, 20));
+		prenomAjoutField.setPreferredSize(new Dimension(130, 20));
+		mailAjoutField.setPreferredSize(new Dimension(130, 20));
 		ajoutePersonne.add(new JLabel("Nom : "));
-		ajoutePersonne.add(nom);
+		ajoutePersonne.add(nomAjoutField);
 		ajoutePersonne.add(new JLabel("Prénom : "));
-		ajoutePersonne.add(prenom);
+		ajoutePersonne.add(prenomAjoutField);
 		ajoutePersonne.add(new JLabel("Email : "));
-		ajoutePersonne.add(mail);
+		ajoutePersonne.add(mailAjoutField);
 		ajoutePersonne.add(boutonAjoute);
 		this.add(ajoutePersonne, BorderLayout.SOUTH);
 	}
@@ -131,6 +135,9 @@ public class PanneauPersonne extends JPanel
 	private void setAfficherPersonne()
 	{
 		comboPersonne.addActionListener(new comboItemListener());
+		nomField.addKeyListener(new fieldListener());
+		prenomField.addKeyListener(new fieldListener());
+		mailField.addKeyListener(new fieldListener());
 		affichePersonne.add(new JLabel("Nom : "));
 		nomField.setPreferredSize(new Dimension(150, 20));
 		affichePersonne.add(nomField);
@@ -255,17 +262,87 @@ public class PanneauPersonne extends JPanel
 		}
 	}
 	
+	private void verifyAjoutField()
+	{
+		if(nomAjoutField.getText().equals("") || prenomAjoutField.getText().equals("") || mailAjoutField.getText().equals(""))
+		{
+			boutonAjoute.setEnabled(false);
+		}
+		else
+		{
+			boutonAjoute.setEnabled(true);
+		}
+	}
+	
+	private void verifyField()
+	{
+		if(nomField.getText().equals(selectPersonne.getNom()) && prenomField.getText().equals(selectPersonne.getPrenom()) && mailField.getText().equals(selectPersonne.getMail()))
+		{
+			boutonEdite.setEnabled(false);
+		}
+		else
+		{
+			boutonEdite.setEnabled(true);
+		}
+	}
+	
+	class fieldListener implements KeyListener
+	{
+
+		@Override
+		public void keyPressed(KeyEvent e) 
+		{
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) 
+		{
+			verifyField();
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) 
+		{
+			
+		}
+		
+	}
+	
+	class ajoutFieldListener implements KeyListener
+	{
+
+		@Override
+		public void keyPressed(KeyEvent arg0) 
+		{
+		
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) 
+		{
+			verifyAjoutField();
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) 
+		{
+			
+		}
+		
+	}
+	
 	class boutonAjouteListener implements ActionListener 
 	{
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			inscriptions.createPersonne(nom.getText(), prenom.getText(), mail.getText(), true);
-			JOptionPane.showMessageDialog(null, nom.getText() + " " + prenom.getText() + " à bien été ajouter !",
+			inscriptions.createPersonne(nomAjoutField.getText(), prenomAjoutField.getText(), mailAjoutField.getText(), true);
+			JOptionPane.showMessageDialog(null, nomAjoutField.getText() + " " + prenomAjoutField.getText() + " à bien été ajouter !",
 					"Information", JOptionPane.INFORMATION_MESSAGE);
-			nom.setText("");
-			prenom.setText("");
-			mail.setText("");
+			nomAjoutField.setText("");
+			prenomAjoutField.setText("");
+			mailAjoutField.setText("");
 		}
 	}
 
@@ -432,5 +509,4 @@ public class PanneauPersonne extends JPanel
 					"Information", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-	
 }
