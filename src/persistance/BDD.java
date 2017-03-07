@@ -1,3 +1,4 @@
+
 package persistance;
 import inscriptions.*;
 
@@ -155,7 +156,6 @@ public class BDD implements Serializable
 				String requete ="Insert into personnes(prenom,mail) values ('"+personne.getPrenom()+"','"+personne.getMail()+"')";
 				st.executeUpdate(requete,Statement.RETURN_GENERATED_KEYS);
 				ResultSet idUser = st.getGeneratedKeys();
-				System.out.println(idUser);
 				while(idUser.next())
 				{
 					requete ="Insert into candidats(id_personne,nom) values ('"+idUser.getInt(1)+"','"+personne.getNom()+"')";
