@@ -2,6 +2,7 @@ package dialogue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -25,11 +27,11 @@ import inscriptions.Personne;
 
 public class PanneauPersonne extends JPanel 
 {
-	private JComboBox<String> comboPersonne;
-	private JComboBox<String> comboEquipe;
-	private JComboBox<String> comboEquipeDispo;
-	private JComboBox<String> comboCompetition;
-	private JComboBox<String> comboCompetitionDispo;
+	private JComboBox<String> comboPersonne = new JComboBox<>();
+	private JComboBox<String> comboEquipe = new JComboBox<>();
+	private JComboBox<String> comboEquipeDispo = new JComboBox<>();
+	private JComboBox<String> comboCompetition = new JComboBox<>();
+	private JComboBox<String> comboCompetitionDispo = new JComboBox<>();
 	
 	private Inscriptions inscriptions = Panneau.getInscriptions();
 	
@@ -67,7 +69,7 @@ public class PanneauPersonne extends JPanel
 	public PanneauPersonne() 
 	{
 		// Instantiation
-		this.setLayout(new BorderLayout());
+		
 		boutonAjoute.setEnabled(false);
 		boutonEdite.setEnabled(false);
 
@@ -95,9 +97,10 @@ public class PanneauPersonne extends JPanel
 		setAfficherCompetitionsPersonne();
 		
 		//Bouton pour supprimer la personne séléctionner
-		affichePersonne.add(boutonSupprPersonne);
+		//affichePersonne.add(boutonSupprPersonne);
 		
-		this.add(affichePersonne, BorderLayout.CENTER);
+		
+		
 	}
 	
 	private void setPanneauAjoutePersonne()
@@ -117,75 +120,113 @@ public class PanneauPersonne extends JPanel
 		ajoutePersonne.add(new JLabel("Email : "));
 		ajoutePersonne.add(mailAjoutField);
 		ajoutePersonne.add(boutonAjoute);
-		this.add(ajoutePersonne, BorderLayout.SOUTH);
+		this.add(ajoutePersonne);
 	}
 	
 	private void setComboPersonne()
 	{
 		comboPersonne = new JComboBox<String>();
+		comboPersonne.addActionListener(new comboItemListener());
+		JPanel panelSelectPersonne = new JPanel();
 		for (Personne p : inscriptions.getPersonnes()) 
 		{
 			comboPersonne.addItem(p.getNom()+" "+p.getPrenom());
 			System.out.println(p.getPrenom() + p.getNom() +" recup");
 		}
-		comboPersonne.setPreferredSize(new Dimension(150, 20));
-		this.add(comboPersonne, BorderLayout.NORTH);
+		comboPersonne.setPreferredSize(new Dimension(300, 20));
+		panelSelectPersonne.setBorder(BorderFactory.createTitledBorder("Liste des Personnes"));
+		JLabel labelSelectPersonne = new JLabel("Sélectionner une personne à administrer :");
+		labelSelectPersonne.setPreferredSize(new Dimension(300,20));
+		panelSelectPersonne.add(labelSelectPersonne);
+		panelSelectPersonne.add(comboPersonne);
+		this.add(panelSelectPersonne);
+		
+
+	 
 	}
 	
 	private void setAfficherPersonne()
 	{
-		comboPersonne.addActionListener(new comboItemListener());
+		JPanel panelAfficherPersonne = new JPanel();
+		
 		nomField.addKeyListener(new fieldListener());
 		prenomField.addKeyListener(new fieldListener());
 		mailField.addKeyListener(new fieldListener());
-		affichePersonne.add(new JLabel("Nom : "));
+		
+		panelAfficherPersonne.add(new JLabel("Nom : "));
 		nomField.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(nomField);
-		affichePersonne.add(new JLabel("Prénom : "));
+		panelAfficherPersonne.add(nomField);
+		
+		panelAfficherPersonne.add(new JLabel("Prénom : "));
 		prenomField.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(prenomField);
-		affichePersonne.add(new JLabel("Mail : "));
+		panelAfficherPersonne.add(prenomField);
+		
+		panelAfficherPersonne.add(new JLabel("Mail : "));
 		mailField.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(mailField);
+		panelAfficherPersonne.add(mailField);
+		
 		boutonEdite.addActionListener(new boutonEditeListener());
 		boutonEdite.setPreferredSize(new Dimension(150,20));
-		affichePersonne.add(boutonEdite);
+		panelAfficherPersonne.add(boutonEdite);
+		
+		panelAfficherPersonne.setBorder(BorderFactory.createTitledBorder("Liste des Personnes"));
+		this.add(panelAfficherPersonne);
+		
+
 	}
 	
 	private void setAfficherEquipesPersonne()
 	{
-		affichePersonne.add(new JLabel("Ses équipes : "));
+		JPanel panelAfficherEquipePersonne = new JPanel();
+		
+		panelAfficherEquipePersonne.add(new JLabel("Ses équipes : "));
 		comboEquipe = new JComboBox<String>();
-		comboEquipe.setPreferredSize(new Dimension(150, 20));
+		comboEquipe.setPreferredSize(new Dimension(200, 20));
 		comboEquipe.addActionListener(new comboEquipeListener());
-		affichePersonne.add(comboEquipe);
+		
+		panelAfficherEquipePersonne.add(comboEquipe);
 		boutonSupprEquipe.addActionListener(new boutonSupprEquipeListener());
-		affichePersonne.add(boutonSupprEquipe);
-		affichePersonne.add(new JLabel("Equipe(s) disponible(s)"));
+		panelAfficherEquipePersonne.add(boutonSupprEquipe);
+		
+		panelAfficherEquipePersonne.add(new JLabel("Equipe(s) disponible(s)"));
 		comboEquipeDispo = new JComboBox<String>();
+		comboEquipeDispo.setPreferredSize(new Dimension(100,20));
 		comboEquipeDispo.addActionListener(new comboEquipeDispoListener());
-		affichePersonne.add(comboEquipeDispo);
+		panelAfficherEquipePersonne.add(comboEquipeDispo);
+		
 		boutonAjouteEquipe.addActionListener(new boutonAjouteEquipeListener());
-		affichePersonne.add(boutonAjouteEquipe);
+		panelAfficherEquipePersonne.add(boutonAjouteEquipe);
+		panelAfficherEquipePersonne.setPreferredSize(new Dimension(320,200));
+		
+		panelAfficherEquipePersonne.setBorder(BorderFactory.createTitledBorder("Liste des Personnes"));
+		this.add(panelAfficherEquipePersonne);
 	}
 	
 	private void setAfficherCompetitionsPersonne()
 	{
-		affichePersonne.add(new JLabel("Ses compétitions"));
+		JPanel panelAfficherCompetitionsPersonne = new JPanel();
+		
+		panelAfficherCompetitionsPersonne.add(new JLabel("Ses compétitions"));
 		comboCompetition = new JComboBox<String>();
 		comboCompetition.addActionListener(new comboCompetitionListener());
-		comboCompetition.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(comboCompetition);
+		comboCompetition.setPreferredSize(new Dimension(200, 20));
+		
+		panelAfficherCompetitionsPersonne.add(comboCompetition);
 		boutonSupprCompetition.addActionListener(new boutonSupprCompetitionListener());
-		affichePersonne.add(boutonSupprCompetition);
-		affichePersonne.add(new JLabel("Compétition(s) disponible(s)"));
+		panelAfficherCompetitionsPersonne.add(boutonSupprCompetition);
+		panelAfficherCompetitionsPersonne.add(new JLabel("Compétition(s) disponible(s)"));
 		comboCompetitionDispo = new JComboBox<String>();
 		comboCompetitionDispo.addActionListener(new comboCompetitionDispoListener());
-		comboCompetitionDispo.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(comboCompetitionDispo);
+		comboCompetitionDispo.setPreferredSize(new Dimension(200, 20));
+		panelAfficherCompetitionsPersonne.add(comboCompetitionDispo);
 		boutonAjouteCompetition.addActionListener(new boutonAjouteCompetitionListener());
-		affichePersonne.add(boutonAjouteCompetition);
+		panelAfficherCompetitionsPersonne.add(boutonAjouteCompetition);
 		boutonSupprPersonne.addActionListener(new boutonSupprPersonneListener());
+		
+		panelAfficherCompetitionsPersonne.setPreferredSize(new Dimension(320,200));
+		
+		panelAfficherCompetitionsPersonne.setBorder(BorderFactory.createTitledBorder("Liste des Personnes"));
+		this.add(panelAfficherCompetitionsPersonne);
 	}
 	
 	private void setPanneauAfficherPersonne(Object select) 
@@ -198,7 +239,7 @@ public class PanneauPersonne extends JPanel
 				String prenomP = p.getPrenom();
 				String mailP = p.getMail();
 				selectPersonne = p;
-				comboEquipe.removeAllItems();
+				//comboEquipe.removeAllItems();
 				listEquipeSelectPersonne(p);
 				comboEquipeDispo.removeAllItems();
 				listEquipeDispoPersonne(p);
