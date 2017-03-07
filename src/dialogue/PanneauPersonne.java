@@ -69,62 +69,37 @@ public class PanneauPersonne extends JPanel
 		// Instantiation
 		this.setLayout(new BorderLayout());
 
+		//Panneau afficherPersonne
+		
+		setPanneauAfficherPersonne();
+		
+		// Ajouter une personne
+		setPanneauAjoutePersonne();
+	}
+	
+	private void setPanneauAfficherPersonne()
+	{
+
 		// Menu deroulant pour selectionner personne
-		comboPersonne = new JComboBox<String>();
-		for (Personne p : inscriptions.getPersonnes()) 
-		{
-			comboPersonne.addItem(p.getNom()+" "+p.getPrenom());
-			System.out.println(p.getPrenom() + p.getNom() +" recup");
-		}
-		comboPersonne.setPreferredSize(new Dimension(150, 20));
-		this.add(comboPersonne, BorderLayout.NORTH);
+		setComboPersonne();
 
 		// Afficher une personne séléctionner, éditer
-		comboPersonne.addActionListener(new comboItemListener());
-		affichePersonne.add(new JLabel("Nom : "));
-		nomField.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(nomField);
-		affichePersonne.add(new JLabel("Prénom : "));
-		prenomField.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(prenomField);
-		affichePersonne.add(new JLabel("Mail : "));
-		mailField.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(mailField);
-		boutonEdite.addActionListener(new boutonEditeListener());
-		boutonEdite.setPreferredSize(new Dimension(150,20));
-		affichePersonne.add(boutonEdite);
-		affichePersonne.add(new JLabel("Ses équipes : "));
-		comboEquipe = new JComboBox<String>();
-		comboEquipe.setPreferredSize(new Dimension(150, 20));
-		comboEquipe.addActionListener(new comboEquipeListener());
-		affichePersonne.add(comboEquipe);
-		boutonSupprEquipe.addActionListener(new boutonSupprEquipeListener());
-		affichePersonne.add(boutonSupprEquipe);
-		affichePersonne.add(new JLabel("Equipe(s) disponible(s)"));
-		comboEquipeDispo = new JComboBox<String>();
-		comboEquipeDispo.addActionListener(new comboEquipeDispoListener());
-		affichePersonne.add(comboEquipeDispo);
-		boutonAjouteEquipe.addActionListener(new boutonAjouteEquipeListener());
-		affichePersonne.add(boutonAjouteEquipe);
-		affichePersonne.add(new JLabel("Ses compétitions"));
-		comboCompetition = new JComboBox<String>();
-		comboCompetition.addActionListener(new comboCompetitionListener());
-		comboCompetition.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(comboCompetition);
-		boutonSupprCompetition.addActionListener(new boutonSupprCompetitionListener());
-		affichePersonne.add(boutonSupprCompetition);
-		affichePersonne.add(new JLabel("Compétition(s) disponible(s)"));
-		comboCompetitionDispo = new JComboBox<String>();
-		comboCompetitionDispo.addActionListener(new comboCompetitionDispoListener());
-		comboCompetitionDispo.setPreferredSize(new Dimension(150, 20));
-		affichePersonne.add(comboCompetitionDispo);
-		boutonAjouteCompetition.addActionListener(new boutonAjouteCompetitionListener());
-		affichePersonne.add(boutonAjouteCompetition);
-		boutonSupprPersonne.addActionListener(new boutonSupprPersonneListener());
+		setAfficherPersonne();
+		
+		//Afficher les équipes d'une personne séléctionner
+		setAfficherEquipesPersonne();
+	
+		//Afficher les compétitions d'une personne séléctionner
+		setAfficherCompetitionsPersonne();
+		
+		//Bouton pour supprimer la personne séléctionner
 		affichePersonne.add(boutonSupprPersonne);
+		
 		this.add(affichePersonne, BorderLayout.CENTER);
-		System.out.println(LocalDate.now());
-		// Ajouter une personne
+	}
+	
+	private void setPanneauAjoutePersonne()
+	{
 		ajoutePersonne.setBackground(Color.GRAY);
 
 		boutonAjoute.addActionListener(new boutonAjouteListener());
@@ -141,7 +116,70 @@ public class PanneauPersonne extends JPanel
 		this.add(ajoutePersonne, BorderLayout.SOUTH);
 	}
 	
+	private void setComboPersonne()
+	{
+		comboPersonne = new JComboBox<String>();
+		for (Personne p : inscriptions.getPersonnes()) 
+		{
+			comboPersonne.addItem(p.getNom()+" "+p.getPrenom());
+			System.out.println(p.getPrenom() + p.getNom() +" recup");
+		}
+		comboPersonne.setPreferredSize(new Dimension(150, 20));
+		this.add(comboPersonne, BorderLayout.NORTH);
+	}
 	
+	private void setAfficherPersonne()
+	{
+		comboPersonne.addActionListener(new comboItemListener());
+		affichePersonne.add(new JLabel("Nom : "));
+		nomField.setPreferredSize(new Dimension(150, 20));
+		affichePersonne.add(nomField);
+		affichePersonne.add(new JLabel("Prénom : "));
+		prenomField.setPreferredSize(new Dimension(150, 20));
+		affichePersonne.add(prenomField);
+		affichePersonne.add(new JLabel("Mail : "));
+		mailField.setPreferredSize(new Dimension(150, 20));
+		affichePersonne.add(mailField);
+		boutonEdite.addActionListener(new boutonEditeListener());
+		boutonEdite.setPreferredSize(new Dimension(150,20));
+		affichePersonne.add(boutonEdite);
+	}
+	
+	private void setAfficherEquipesPersonne()
+	{
+		affichePersonne.add(new JLabel("Ses équipes : "));
+		comboEquipe = new JComboBox<String>();
+		comboEquipe.setPreferredSize(new Dimension(150, 20));
+		comboEquipe.addActionListener(new comboEquipeListener());
+		affichePersonne.add(comboEquipe);
+		boutonSupprEquipe.addActionListener(new boutonSupprEquipeListener());
+		affichePersonne.add(boutonSupprEquipe);
+		affichePersonne.add(new JLabel("Equipe(s) disponible(s)"));
+		comboEquipeDispo = new JComboBox<String>();
+		comboEquipeDispo.addActionListener(new comboEquipeDispoListener());
+		affichePersonne.add(comboEquipeDispo);
+		boutonAjouteEquipe.addActionListener(new boutonAjouteEquipeListener());
+		affichePersonne.add(boutonAjouteEquipe);
+	}
+	
+	private void setAfficherCompetitionsPersonne()
+	{
+		affichePersonne.add(new JLabel("Ses compétitions"));
+		comboCompetition = new JComboBox<String>();
+		comboCompetition.addActionListener(new comboCompetitionListener());
+		comboCompetition.setPreferredSize(new Dimension(150, 20));
+		affichePersonne.add(comboCompetition);
+		boutonSupprCompetition.addActionListener(new boutonSupprCompetitionListener());
+		affichePersonne.add(boutonSupprCompetition);
+		affichePersonne.add(new JLabel("Compétition(s) disponible(s)"));
+		comboCompetitionDispo = new JComboBox<String>();
+		comboCompetitionDispo.addActionListener(new comboCompetitionDispoListener());
+		comboCompetitionDispo.setPreferredSize(new Dimension(150, 20));
+		affichePersonne.add(comboCompetitionDispo);
+		boutonAjouteCompetition.addActionListener(new boutonAjouteCompetitionListener());
+		affichePersonne.add(boutonAjouteCompetition);
+		boutonSupprPersonne.addActionListener(new boutonSupprPersonneListener());
+	}
 	
 	private void setPanneauAfficherPersonne(Object select) 
 	{
