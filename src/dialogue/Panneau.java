@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FontMetrics;
@@ -45,7 +46,7 @@ public class Panneau extends JPanel
 		menu.add(boutonCompetition);
 		boutonPersonne.addActionListener(new boutonPersonneListener());
 		boutonEquipe.addActionListener(new boutonEquipeListener());
-		boutonCompetition.addActionListener(new boutonCompetitionListener());	
+		boutonCompetition.addActionListener(new boutonCompetitionListener());
 	}
 	
 	private void setPanneauPersonne()
@@ -56,15 +57,14 @@ public class Panneau extends JPanel
 	
 	private void setPanneauEquipe()
 	{
-		this.remove(panneauPersonne);
 		this.repaint();
 	}
 	
 	private void setPanneauCompetition()
 	{
-		this.remove(panneauPersonne);
 		this.repaint();
 	}
+
 	
 	public int centerText(Graphics g, Font font, String text)
 	{
