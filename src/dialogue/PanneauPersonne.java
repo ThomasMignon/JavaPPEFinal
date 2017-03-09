@@ -29,6 +29,7 @@ public class PanneauPersonne extends JPanel
 	private JComboBox<String> comboCompetition = new JComboBox<>();
 	private JComboBox<String> comboCompetitionDispo = new JComboBox<>();
 	
+	
 	private Inscriptions inscriptions = Panneau.getInscriptions();
 	
 	Object selectP = new Object();
@@ -73,6 +74,7 @@ public class PanneauPersonne extends JPanel
 		boutonEdite.setEnabled(false);
 
 		//Panneau afficherPersonne
+		setListener();
 		
 		setPanneauAfficherPersonne();
 		
@@ -88,24 +90,44 @@ public class PanneauPersonne extends JPanel
 
 		// Afficher une personne séléctionner, éditer
 		setAfficherPersonne();
-		
-		//Afficher les équipes d'une personne séléctionner
+		 
+		//Afficher les équipes d'une personne séléctionner 
 		setAfficherEquipesPersonne();
 	
 		//Afficher les compétitions d'une personne séléctionner
 		setAfficherCompetitionsPersonne();
 		
+		
 		//Bouton pour supprimer la personne séléctionner
 		this.add(boutonSupprPersonne);
+	}
+	
+	private void setListener()
+	{
+		nomAjoutField.addKeyListener(new ajoutFieldListener());
+		prenomAjoutField.addKeyListener(new ajoutFieldListener());
+		mailAjoutField.addKeyListener(new ajoutFieldListener());
+		boutonAjoute.addActionListener(new boutonAjouteListener());
+		comboPersonne.addActionListener(new comboItemListener());
+		comboEquipe.addActionListener(new comboEquipeListener());
+		comboCompetition.addActionListener(new comboCompetitionListener());
+		comboEquipeDispo.addActionListener(new comboEquipeDispoListener());
+		comboCompetitionDispo.addActionListener(new comboCompetitionDispoListener());
+		nomField.addKeyListener(new fieldListener());
+		prenomField.addKeyListener(new fieldListener());
+		mailField.addKeyListener(new fieldListener());
+		boutonEdite.addActionListener(new boutonEditeListener());
+		boutonSupprEquipe.addActionListener(new boutonSupprEquipeListener());
+		boutonAjouteEquipe.addActionListener(new boutonAjouteEquipeListener());
+		boutonSupprCompetition.addActionListener(new boutonSupprCompetitionListener());
+		boutonAjouteCompetition.addActionListener(new boutonAjouteCompetitionListener());
+		boutonSupprPersonne.addActionListener(new boutonSupprPersonneListener());
+		
 	}
 	
 	private void setPanneauAjoutePersonne()
 	{
 		ajoutePersonne.setBackground(Color.GRAY);
-		nomAjoutField.addKeyListener(new ajoutFieldListener());
-		prenomAjoutField.addKeyListener(new ajoutFieldListener());
-		mailAjoutField.addKeyListener(new ajoutFieldListener());
-		boutonAjoute.addActionListener(new boutonAjouteListener());
 		nomAjoutField.setPreferredSize(new Dimension(130, 20));
 		prenomAjoutField.setPreferredSize(new Dimension(130, 20));
 		mailAjoutField.setPreferredSize(new Dimension(130, 20));
@@ -122,11 +144,6 @@ public class PanneauPersonne extends JPanel
 	private void setComboPersonne()
 	{
 		//Appel des listeners pour les combo
-		comboPersonne.addActionListener(new comboItemListener());
-		comboEquipe.addActionListener(new comboEquipeListener());
-		comboCompetition.addActionListener(new comboCompetitionListener());
-		comboEquipeDispo.addActionListener(new comboEquipeDispoListener());
-		comboCompetitionDispo.addActionListener(new comboCompetitionDispoListener());
 		
 		for (Personne p : inscriptions.getPersonnes()) 
 		{
@@ -146,11 +163,6 @@ public class PanneauPersonne extends JPanel
 	
 	private void setAfficherPersonne()
 	{
-		
-		nomField.addKeyListener(new fieldListener());
-		prenomField.addKeyListener(new fieldListener());
-		mailField.addKeyListener(new fieldListener());
-		
 		panelAfficherPersonne.add(new JLabel("Nom : "));
 		nomField.setPreferredSize(new Dimension(150, 20));
 		panelAfficherPersonne.add(nomField);
@@ -163,11 +175,10 @@ public class PanneauPersonne extends JPanel
 		mailField.setPreferredSize(new Dimension(150, 20));
 		panelAfficherPersonne.add(mailField);
 		
-		boutonEdite.addActionListener(new boutonEditeListener());
 		boutonEdite.setPreferredSize(new Dimension(150,20));
 		panelAfficherPersonne.add(boutonEdite);
 		
-		panelAfficherPersonne.setBorder(BorderFactory.createTitledBorder("Liste des Personnes"));
+		panelAfficherPersonne.setBorder(BorderFactory.createTitledBorder("Liste des équipes"));
 		this.add(panelAfficherPersonne);
 		
 
@@ -180,18 +191,16 @@ public class PanneauPersonne extends JPanel
 		comboEquipe.setPreferredSize(new Dimension(200, 20));
 		
 		panelAfficherEquipePersonne.add(comboEquipe);
-		boutonSupprEquipe.addActionListener(new boutonSupprEquipeListener());
 		panelAfficherEquipePersonne.add(boutonSupprEquipe);
 		
 		panelAfficherEquipePersonne.add(new JLabel("Equipe(s) disponible(s)"));
 		comboEquipeDispo.setPreferredSize(new Dimension(100,20));
 		panelAfficherEquipePersonne.add(comboEquipeDispo);
 		
-		boutonAjouteEquipe.addActionListener(new boutonAjouteEquipeListener());
 		panelAfficherEquipePersonne.add(boutonAjouteEquipe);
 		panelAfficherEquipePersonne.setPreferredSize(new Dimension(320,200));
 		
-		panelAfficherEquipePersonne.setBorder(BorderFactory.createTitledBorder("Liste des Personnes"));
+		panelAfficherEquipePersonne.setBorder(BorderFactory.createTitledBorder("Liste des compétitions"));
 		this.add(panelAfficherEquipePersonne);
 	}
 	
@@ -202,15 +211,12 @@ public class PanneauPersonne extends JPanel
 		comboCompetition.setPreferredSize(new Dimension(200, 20));
 		
 		panelAfficherCompetitionsPersonne.add(comboCompetition);
-		boutonSupprCompetition.addActionListener(new boutonSupprCompetitionListener());
 		panelAfficherCompetitionsPersonne.add(boutonSupprCompetition);
 		panelAfficherCompetitionsPersonne.add(new JLabel("Compétition(s) disponible(s)"));
 		comboCompetitionDispo.setPreferredSize(new Dimension(200, 20));
 		panelAfficherCompetitionsPersonne.add(comboCompetitionDispo);
-		boutonAjouteCompetition.addActionListener(new boutonAjouteCompetitionListener());
 		panelAfficherCompetitionsPersonne.add(boutonAjouteCompetition);
-		boutonSupprPersonne.addActionListener(new boutonSupprPersonneListener());
-		
+	
 		panelAfficherCompetitionsPersonne.setPreferredSize(new Dimension(320,200));
 		
 		panelAfficherCompetitionsPersonne.setBorder(BorderFactory.createTitledBorder("Liste des Personnes"));
@@ -317,6 +323,24 @@ public class PanneauPersonne extends JPanel
 		}
 	}
 	
+	private void refresh()
+	{
+		this.removeAll();
+		this.resetAllCombo();
+		this.setPanneauAfficherPersonne();
+		this.setPanneauAjoutePersonne();
+		this.repaint();
+		System.out.println("Refresh...");
+	}
+	
+	private void resetAllCombo()
+	{
+		comboPersonne.removeAllItems();
+		comboEquipe.removeAllItems();
+		comboEquipeDispo.removeAllItems();
+		comboCompetition.removeAllItems();
+		comboCompetitionDispo.removeAllItems();
+	}
 	class fieldListener implements KeyListener
 	{
 
@@ -418,7 +442,6 @@ public class PanneauPersonne extends JPanel
 				if(name.equals(selectED))
 				{
 					selectEquipeDispo = e;
-					System.out.println(selectEquipeDispo);
 				}
 			}
 		}
@@ -473,6 +496,7 @@ public class PanneauPersonne extends JPanel
 					inscriptions.editePersonne(p, nomField.getText(), prenomField.getText(), mailField.getText());
 					JOptionPane.showMessageDialog(null, nomField.getText() + " " + prenomField.getText() + " à bien été éditer !",
 					"Information", JOptionPane.INFORMATION_MESSAGE);
+					refresh();
 				}
 			}
 		}
@@ -486,6 +510,7 @@ public class PanneauPersonne extends JPanel
 			selectEquipe.remove(selectPersonne,true);
 			JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " à bien été supprimer de " + selectEquipe.getNom(),
 					"Information", JOptionPane.INFORMATION_MESSAGE);
+			refresh();
 		}
 	}
 	
@@ -497,7 +522,7 @@ public class PanneauPersonne extends JPanel
 			selectEquipeDispo.add(selectPersonne, true);
 			JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " à été ajouter à " + selectEquipeDispo.getNom(),
 					"Information", JOptionPane.INFORMATION_MESSAGE);
-
+			refresh();
 		}
 	}
 	
@@ -509,6 +534,7 @@ public class PanneauPersonne extends JPanel
 			selectCompetition.remove(selectPersonne,true);
 			JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " à été surpprimer de " + selectCompetition.getNom(),
 					"Information", JOptionPane.INFORMATION_MESSAGE);
+			refresh();
 		}
 	}
 	
@@ -522,6 +548,7 @@ public class PanneauPersonne extends JPanel
 				selectCompetitionDispo.add(selectPersonne);
 				JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " à été ajouter à " + selectCompetitionDispo.getNom(),
 						"Information", JOptionPane.INFORMATION_MESSAGE);
+				refresh();
 			} 
 			catch (DateInvalide e1) 
 			{
@@ -538,6 +565,7 @@ public class PanneauPersonne extends JPanel
 			selectPersonne.delete();
 			JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " à été supprimer",
 					"Information", JOptionPane.INFORMATION_MESSAGE);
+			refresh();
 		}
 	}
 }

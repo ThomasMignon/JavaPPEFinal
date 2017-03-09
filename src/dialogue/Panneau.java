@@ -23,11 +23,14 @@ public class Panneau extends JPanel
 {
 	private JPanel menu = new JPanel();
 	private static PanneauPersonne panneauPersonne;
+	private static JPanel panneauEquipe;
+	private static JPanel panneauCompetition;
 	private JLabel titre = new JLabel("Application de gestion de compétition");
 	private JButton boutonPersonne = new JButton("Gestion de personne");
 	private JButton boutonEquipe = new JButton("Gestion d'équipe");
 	private JButton boutonCompetition = new JButton("Gestion de compétition");
 	private static Inscriptions inscriptions;
+	private String panneauUse = "";
 	
 	public Panneau()
 	{
@@ -51,20 +54,52 @@ public class Panneau extends JPanel
 	
 	private void setPanneauPersonne()
 	{
+		switch(panneauUse)
+		{
+		 case "panneauEquipe":this.remove(panneauEquipe);break;
+		 case "panneauCompetition":this.remove(panneauCompetition);break;
+		 default:break;
+		}
 		panneauPersonne = new PanneauPersonne();
+		panneauUse = "panneauPersonne";
+		boutonPersonne.setEnabled(false);
+		boutonEquipe.setEnabled(true);
+		boutonCompetition.setEnabled(true);
 		this.add(panneauPersonne,BorderLayout.CENTER);
+		this.repaint();
 	}
 	
 	private void setPanneauEquipe()
 	{
+		switch(panneauUse)
+		{
+		 case "panneauCompetition":this.remove(panneauCompetition);break;
+		 case "panneauPersonne":this.remove(panneauPersonne);break;
+		}
+		panneauEquipe = new JPanel();
+		panneauUse = "panneauEquipe";
+		boutonPersonne.setEnabled(true);
+		boutonEquipe.setEnabled(false);
+		boutonCompetition.setEnabled(true);
+		this.add(panneauEquipe);
 		this.repaint();
 	}
 	
 	private void setPanneauCompetition()
 	{
+		switch(panneauUse)
+		{
+		 case "panneauEquipe":this.remove(panneauEquipe);break;
+		 case "panneauPersonne":this.remove(panneauPersonne);break;
+		}
+		panneauCompetition = new JPanel();
+		panneauUse = "panneauCompetition";
+		boutonPersonne.setEnabled(true);
+		boutonEquipe.setEnabled(true);
+		boutonCompetition.setEnabled(false);
+		this.add(panneauCompetition);
 		this.repaint();
 	}
-
 	
 	public int centerText(Graphics g, Font font, String text)
 	{

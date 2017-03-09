@@ -10,11 +10,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
+import dialogue.Panneau;
+
 public class BDD implements Serializable
 {
 	String url = "jdbc:mysql://localhost/ppejava?autoReconnect=true&useSSL=false";
 	String login = "root";
 	String password = "";
+	Inscriptions inscriptions = new Inscriptions();
 //	Connection cn = null;
 //	Statement st = null;
 	private static final long serialVersionUID = -60L;
@@ -150,10 +153,12 @@ public class BDD implements Serializable
 	}
 	
 	public void save(Personne personne) 
-	{	
-			try {
-				Statement st = Connection();	
-				String requete ="Insert into personnes(prenom,mail) values ('"+personne.getPrenom()+"','"+personne.getMail()+"')";
+	{		
+			try 
+			{
+				Statement st = Connection();
+				String requete;
+				requete ="Insert into personnes(prenom,mail) values ('"+personne.getPrenom()+"','"+personne.getMail()+"')";
 				st.executeUpdate(requete,Statement.RETURN_GENERATED_KEYS);
 				ResultSet idUser = st.getGeneratedKeys();
 				while(idUser.next())
@@ -167,13 +172,62 @@ public class BDD implements Serializable
 					personne.setId(idCandidat.getInt(1));
 				}
 				
-			} catch (ClassNotFoundException e) {
+			} 
+			catch (ClassNotFoundException e) 
+			{
 				e.printStackTrace();
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) 
+			{
 				e.printStackTrace();
 			}
 				
 	}
+	
+	public void save(Personne personne,Inscriptions inscriptions) 
+	{		
+			try {
+				Statement st = Connection();
+				String requete;
+				if(inscriptions.getPersonnes().contains(personne))
+				{
+					System.out.println("Edite...");
+					requete ="UPDATE personnes p,candidats c SET prenom='"+personne.getPrenom()+"', mail='"+personne.getMail()+"' WHERE c.id_candidat="+personne.getId()+" AND c.id_personne=p.id_personne";
+					st.executeUpdate(requete);
+					requete ="UPDATE candidats SET nom='"+personne.getNom()+"' WHERE id_candidat="+personne.getId();
+					st.executeUpdate(requete);
+				}
+				else
+				{
+					
+					requete ="Insert into personnes(prenom,mail) values ('"+personne.getPrenom()+"','"+personne.getMail()+"')";
+				
+					st.executeUpdate(requete,Statement.RETURN_GENERATED_KEYS);
+					ResultSet idUser = st.getGeneratedKeys();
+					while(idUser.next())
+					{
+						requete ="Insert into candidats(id_personne,nom) values ('"+idUser.getInt(1)+"','"+personne.getNom()+"')";
+					}
+					st.executeUpdate(requete,Statement.RETURN_GENERATED_KEYS);
+					ResultSet idCandidat = st.getGeneratedKeys();
+					while(idCandidat.next())
+					{
+						personne.setId(idCandidat.getInt(1));
+					}
+				}
+				
+			} 
+			catch (ClassNotFoundException e) 
+			{
+				e.printStackTrace();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+				
+	}
+	
 	public void save(Equipe equipe) 
 	{	
 		try {

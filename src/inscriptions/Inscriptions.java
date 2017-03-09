@@ -150,6 +150,8 @@ public class Inscriptions implements Serializable
 		personne.setPrenom(prenom);
 		personne.setNom(nom);
 		personne.setMail(mail);
+		BDD bdd = new BDD();
+		bdd.save(personne,this);
 		return personne;
 	}
 	
