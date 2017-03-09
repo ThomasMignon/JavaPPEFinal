@@ -1,14 +1,6 @@
-Travail sur la BDD
--delete AttrCompet
--AttrCompet
-
 Travail sur l'interface Graphique :
--Finir gestion Personne
--Finir gestion d'équipe
--Finir gestion Compet
-
-Refresh du panneau a event
+-Finir gestion Personne (Visuellement)
+-Finir gestion d'équipe (Tout)
+-Finir gestion Compet (Tout)
 
 Date ne sont pas géré correctement dans l'appli !
-
-LOL MDR yle pho phèr lé pro C dur !
