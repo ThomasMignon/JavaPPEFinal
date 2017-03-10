@@ -20,16 +20,21 @@ public class Panneau extends JPanel
 	{
 		
 		this.setLayout(new BorderLayout());
-		
-		Font police = new Font("Tahoma", Font.BOLD, 16);
+		Font police = new Font("Tahoma", Font.BOLD, 18);
 		titre.setFont(police);
 		titre.setHorizontalAlignment(JLabel.CENTER);
 		tab.addTab("Gestion de personne", new PanneauPersonne());
-		tab.addTab("Gestion d'équipe", new JPanel());
+		tab.addTab("Gestion d'équipe", new PanneauEquipe());
 		tab.addTab("Gestion de compétition", new JPanel());
+		tab.setBackground(Color.CYAN);
+		tab.setFont(police);
 		this.add(tab,BorderLayout.CENTER);
 	}
 	
+	public void paintComponent(Graphics g){
+        g.setFont(new Font("Tahoma", Font.BOLD, 80));
+        
+    }
 
 	
 	public int centerText(Graphics g, Font font, String text)
