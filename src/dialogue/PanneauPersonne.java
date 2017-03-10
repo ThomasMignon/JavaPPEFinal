@@ -29,7 +29,6 @@ public class PanneauPersonne extends JPanel
 	private JComboBox<String> comboCompetition = new JComboBox<>();
 	private JComboBox<String> comboCompetitionDispo = new JComboBox<>();
 	
-	
 	private Inscriptions inscriptions = Panneau.getInscriptions();
 	
 	Object selectP = new Object();
@@ -178,7 +177,7 @@ public class PanneauPersonne extends JPanel
 		boutonEdite.setPreferredSize(new Dimension(150,20));
 		panelAfficherPersonne.add(boutonEdite);
 		
-		panelAfficherPersonne.setBorder(BorderFactory.createTitledBorder("Liste des équipes"));
+		panelAfficherPersonne.setBorder(BorderFactory.createTitledBorder("Informations"));
 		this.add(panelAfficherPersonne);
 		
 
@@ -326,12 +325,23 @@ public class PanneauPersonne extends JPanel
 	private void refresh()
 	{
 		this.removeAll();
+		this.resetAllPanel();
 		this.resetAllCombo();
 		this.setPanneauAfficherPersonne();
 		this.setPanneauAjoutePersonne();
 		this.repaint();
 		System.out.println("Refresh...");
 	}
+	
+	private void resetAllPanel()
+	{
+		ajoutePersonne.removeAll();
+		panelSelectPersonne.removeAll();
+		panelAfficherPersonne.removeAll();
+		panelAfficherEquipePersonne.removeAll();
+		panelAfficherCompetitionsPersonne.removeAll();
+	}
+	
 	
 	private void resetAllCombo()
 	{
@@ -398,12 +408,12 @@ public class PanneauPersonne extends JPanel
 			nomAjoutField.setText("");
 			prenomAjoutField.setText("");
 			mailAjoutField.setText("");
+			refresh();
 		}
 	}
 
 	class comboItemListener implements ActionListener 
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
