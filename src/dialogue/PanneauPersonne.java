@@ -21,7 +21,7 @@ import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
-public class PanneauPersonne extends JPanel 
+public class PanneauPersonne extends JPanel
 {
 	private JComboBox<String> comboPersonne = new JComboBox<>();
 	private JComboBox<String> comboEquipe = new JComboBox<>();
@@ -36,6 +36,8 @@ public class PanneauPersonne extends JPanel
 	Object selectED = new Object();
 	Object selectC = new Object();
 	Object selectCD = new Object();
+	
+	private static final int WIDTH = 500;
 	
 	Personne selectPersonne;
 	Equipe selectEquipe;
@@ -64,6 +66,12 @@ public class PanneauPersonne extends JPanel
 	private JButton boutonSupprCompetition = new JButton("Supprimer de cette compétition");
 	private JButton boutonAjouteCompetition = new JButton("Ajouter à cette compétition");
 	private JButton boutonSupprPersonne = new JButton("Supprimer cette personne");
+	
+	
+	private Dimension tailleEdit = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 12 / 100 );
+	private Dimension tailleListPersonne = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 12 / 100 );
+	private Dimension tailleListCompetition = new Dimension(Fenetre.WIDTH * 40 / 100, Fenetre.HEIGHT * 35 / 100 );
+	private Dimension tailleListEquipe = new Dimension(Fenetre.WIDTH * 40 / 100, Fenetre.HEIGHT * 35 / 100 );
 
 	public PanneauPersonne() 
 	{
@@ -157,27 +165,29 @@ public class PanneauPersonne extends JPanel
 		labelSelectPersonne.setPreferredSize(new Dimension(300,20));
 		panelSelectPersonne.add(labelSelectPersonne);
 		panelSelectPersonne.add(comboPersonne);
+		panelSelectPersonne.setPreferredSize(tailleListPersonne);
 		this.add(panelSelectPersonne);
 	}
 	
 	private void setAfficherPersonne()
 	{
 		panelAfficherPersonne.add(new JLabel("Nom : "));
-		nomField.setPreferredSize(new Dimension(150, 20));
+		nomField.setPreferredSize(new Dimension(130, 20));
 		panelAfficherPersonne.add(nomField);
 		
 		panelAfficherPersonne.add(new JLabel("Prénom : "));
-		prenomField.setPreferredSize(new Dimension(150, 20));
+		prenomField.setPreferredSize(new Dimension(130, 20));
 		panelAfficherPersonne.add(prenomField);
 		
 		panelAfficherPersonne.add(new JLabel("Mail : "));
-		mailField.setPreferredSize(new Dimension(150, 20));
+		mailField.setPreferredSize(new Dimension(130, 20));
 		panelAfficherPersonne.add(mailField);
 		
-		boutonEdite.setPreferredSize(new Dimension(150,20));
+		boutonEdite.setPreferredSize(new Dimension(80,20));
 		panelAfficherPersonne.add(boutonEdite);
 		
 		panelAfficherPersonne.setBorder(BorderFactory.createTitledBorder("Informations"));
+		panelAfficherPersonne.setPreferredSize(tailleEdit);
 		this.add(panelAfficherPersonne);
 	}
 	
@@ -195,9 +205,9 @@ public class PanneauPersonne extends JPanel
 		panelAfficherEquipePersonne.add(comboEquipeDispo);
 		
 		panelAfficherEquipePersonne.add(boutonAjouteEquipe);
-		panelAfficherEquipePersonne.setPreferredSize(new Dimension(320,200));
+		panelAfficherEquipePersonne.setPreferredSize(tailleListEquipe);
 		
-		panelAfficherEquipePersonne.setBorder(BorderFactory.createTitledBorder("Liste des compétitions"));
+		panelAfficherEquipePersonne.setBorder(BorderFactory.createTitledBorder("Liste des Equipes"));
 		this.add(panelAfficherEquipePersonne);
 	}
 	
@@ -214,9 +224,9 @@ public class PanneauPersonne extends JPanel
 		panelAfficherCompetitionsPersonne.add(comboCompetitionDispo);
 		panelAfficherCompetitionsPersonne.add(boutonAjouteCompetition);
 	
-		panelAfficherCompetitionsPersonne.setPreferredSize(new Dimension(320,200));
+		panelAfficherCompetitionsPersonne.setPreferredSize(tailleListCompetition);
 		
-		panelAfficherCompetitionsPersonne.setBorder(BorderFactory.createTitledBorder("Liste des Personnes"));
+		panelAfficherCompetitionsPersonne.setBorder(BorderFactory.createTitledBorder("Liste des Competitions"));
 		this.add(panelAfficherCompetitionsPersonne);
 	}
 	
