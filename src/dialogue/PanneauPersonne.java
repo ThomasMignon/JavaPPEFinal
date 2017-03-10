@@ -70,8 +70,8 @@ public class PanneauPersonne extends JPanel
 	
 	private Dimension tailleEdit = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 12 / 100 );
 	private Dimension tailleListPersonne = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 12 / 100 );
-	private Dimension tailleListCompetition = new Dimension(Fenetre.WIDTH * 40 / 100, Fenetre.HEIGHT * 35 / 100 );
-	private Dimension tailleListEquipe = new Dimension(Fenetre.WIDTH * 40 / 100, Fenetre.HEIGHT * 35 / 100 );
+	private Dimension tailleListCompetition = new Dimension(Fenetre.WIDTH * 40 / 100-2, Fenetre.HEIGHT * 35 / 100 );
+	private Dimension tailleListEquipe = new Dimension(Fenetre.WIDTH * 40 / 100 -2, Fenetre.HEIGHT * 35 / 100 );
 
 	public PanneauPersonne() 
 	{
@@ -134,10 +134,13 @@ public class PanneauPersonne extends JPanel
 	
 	private void setPanneauAjoutePersonne()
 	{
-		ajoutePersonne.setBackground(Color.GRAY);
 		nomAjoutField.setPreferredSize(new Dimension(130, 20));
 		prenomAjoutField.setPreferredSize(new Dimension(130, 20));
 		mailAjoutField.setPreferredSize(new Dimension(130, 20));
+		nomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+		prenomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+		mailAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+		
 		ajoutePersonne.add(new JLabel("Nom : "));
 		ajoutePersonne.add(nomAjoutField);
 		ajoutePersonne.add(new JLabel("Prénom : "));
@@ -145,6 +148,7 @@ public class PanneauPersonne extends JPanel
 		ajoutePersonne.add(new JLabel("Email : "));
 		ajoutePersonne.add(mailAjoutField);
 		ajoutePersonne.add(boutonAjoute);
+		ajoutePersonne.setBorder(BorderFactory.createTitledBorder("Ajouter une personne"));
 		this.add(ajoutePersonne);
 	}
 	
@@ -163,6 +167,7 @@ public class PanneauPersonne extends JPanel
 		panelSelectPersonne.setBorder(BorderFactory.createTitledBorder("Liste des Personnes"));
 		JLabel labelSelectPersonne = new JLabel("Sélectionner une personne à administrer :");
 		labelSelectPersonne.setPreferredSize(new Dimension(300,20));
+		comboPersonne.setBackground(Color.WHITE);
 		panelSelectPersonne.add(labelSelectPersonne);
 		panelSelectPersonne.add(comboPersonne);
 		panelSelectPersonne.setPreferredSize(tailleListPersonne);
@@ -306,8 +311,26 @@ public class PanneauPersonne extends JPanel
 		}
 	}
 	
+	private void verifyValidAjoutPersonne()
+	{
+		if(!nomAjoutField.getText().equals(""))
+			nomAjoutField.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+		else
+			nomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+		if(!prenomAjoutField.getText().equals(""))
+			prenomAjoutField.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+		else
+			prenomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+		if(mailAjoutField.getText().matches("[a-zA-Z0-9.-]{1,20}@[a-zA-Z]{3,10}\\.[a-z]{2,6}"))
+			mailAjoutField.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+		else
+			mailAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+	}
+	
+	
 	private void verifyAjoutField()
 	{
+		verifyValidAjoutPersonne();
 		if(nomAjoutField.getText().equals("") || prenomAjoutField.getText().equals("") || mailAjoutField.getText().equals(""))
 		{
 			boutonAjoute.setEnabled(false);
@@ -319,7 +342,7 @@ public class PanneauPersonne extends JPanel
 	}
 	
 	private void verifyField()
-	{
+	{		
 		if(nomField.getText().equals(selectPersonne.getNom()) && prenomField.getText().equals(selectPersonne.getPrenom()) && mailField.getText().equals(selectPersonne.getMail()))
 		{
 			boutonEdite.setEnabled(false);
