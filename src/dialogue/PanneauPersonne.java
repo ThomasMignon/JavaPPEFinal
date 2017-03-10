@@ -179,8 +179,6 @@ public class PanneauPersonne extends JPanel
 		
 		panelAfficherPersonne.setBorder(BorderFactory.createTitledBorder("Informations"));
 		this.add(panelAfficherPersonne);
-		
-
 	}
 	
 	private void setAfficherEquipesPersonne()
