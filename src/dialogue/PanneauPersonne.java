@@ -1,5 +1,6 @@
 package dialogue;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -8,12 +9,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import inscriptions.Competition;
 import inscriptions.DateInvalide;
@@ -147,6 +151,12 @@ public class PanneauPersonne extends JPanel
 		ajoutePersonne.add(prenomAjoutField);
 		ajoutePersonne.add(new JLabel("Email : "));
 		ajoutePersonne.add(mailAjoutField);
+		ajoutePersonne.add(Box.createHorizontalStrut(5));
+		JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+		separator.setPreferredSize(new Dimension(5,25));
+		ajoutePersonne.add(separator);
+		ajoutePersonne.add(Box.createHorizontalStrut(5));
+		ajoutePersonne.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		ajoutePersonne.add(boutonAjoute);
 		ajoutePersonne.setBorder(BorderFactory.createTitledBorder("Ajouter une personne"));
 		this.add(ajoutePersonne);
@@ -180,9 +190,13 @@ public class PanneauPersonne extends JPanel
 		nomField.setPreferredSize(new Dimension(130, 20));
 		panelAfficherPersonne.add(nomField);
 		
+		panelAfficherPersonne.add(Box.createHorizontalStrut(40));
+		
 		panelAfficherPersonne.add(new JLabel("Prénom : "));
 		prenomField.setPreferredSize(new Dimension(130, 20));
 		panelAfficherPersonne.add(prenomField);
+		
+		panelAfficherPersonne.add(Box.createHorizontalStrut(10));
 		
 		panelAfficherPersonne.add(new JLabel("Mail : "));
 		mailField.setPreferredSize(new Dimension(130, 20));
@@ -605,9 +619,14 @@ public class PanneauPersonne extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			selectPersonne.delete();
-			JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " à été supprimer",
-					"Information", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane suppression = new JOptionPane();
+			int option = suppression.showConfirmDialog(null, "Etes vous sûr de vouloir supprimer " +selectPersonne.getPrenom(),"Confirmer", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+			if(option == JOptionPane.OK_OPTION)
+			{
+				selectPersonne.delete();
+				JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " à été supprimer",
+						"Information", JOptionPane.INFORMATION_MESSAGE);
+			}	
 			refresh();
 		}
 	}
