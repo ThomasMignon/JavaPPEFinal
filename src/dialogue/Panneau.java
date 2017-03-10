@@ -25,7 +25,7 @@ public class Panneau extends JPanel
 	private JPanel menu = new JPanel();
 	private static JPanel panneauEquipe;
 	private static JPanel panneauCompetition;
-	private JLabel titre = new JLabel("Application de gestion de compétition"):
+	private JLabel titre = new JLabel("Application de gestion de compétition");
 	private static Inscriptions inscriptions;
 	JTabbedPane tab = new JTabbedPane();
 	
