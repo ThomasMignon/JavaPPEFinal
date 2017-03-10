@@ -311,34 +311,36 @@ public class PanneauPersonne extends JPanel
 		}
 	}
 	
-	private void verifyValidAjoutPersonne()
+	private boolean isValid(String s)
 	{
-		if(!nomAjoutField.getText().equals(""))
-			nomAjoutField.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-		else
-			nomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
-		if(!prenomAjoutField.getText().equals(""))
-			prenomAjoutField.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-		else
-			prenomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
-		if(mailAjoutField.getText().matches("[a-zA-Z0-9.-]{1,20}@[a-zA-Z]{3,10}\\.[a-z]{2,6}"))
-			mailAjoutField.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-		else
-			mailAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+		switch(s){
+		case "nom" : return nomValid();
+		case "prenom" : return prenomValid();
+		case "mail" : return mailValid();
+		}
+		return false;
 	}
 	
 	
+	private boolean mailValid() {
+		return mailAjoutField.getText().matches("[a-zA-Z0-9._-]{1,20}@[a-zA-Z]{3,10}\\.[a-z]{2,6}");		
+	}
+
+	private boolean prenomValid() {
+		return prenomAjoutField.getText().matches("[a-zA-Z ]{3,}");
+	}
+
+	private boolean nomValid() {
+		return nomAjoutField.getText().matches("[a-zA-Z ]{3,}");	
+	}
+
 	private void verifyAjoutField()
 	{
-		verifyValidAjoutPersonne();
-		if(nomAjoutField.getText().equals("") || prenomAjoutField.getText().equals("") || mailAjoutField.getText().equals(""))
-		{
-			boutonAjoute.setEnabled(false);
-		}
-		else
-		{
-			boutonAjoute.setEnabled(true);
-		}
+	
+		mailAjoutField.setBorder(BorderFactory.createLineBorder(mailValid() ? Color.GREEN : Color.RED));
+		nomAjoutField.setBorder(BorderFactory.createLineBorder(nomValid() ? Color.GREEN : Color.RED));
+		prenomAjoutField.setBorder(BorderFactory.createLineBorder(prenomValid() ? Color.GREEN : Color.RED));
+		boutonAjoute.setEnabled((isValid("nom") && isValid("prenom") && isValid("mail")));
 	}
 	
 	private void verifyField()
