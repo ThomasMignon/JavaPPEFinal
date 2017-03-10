@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 
 import dialogue.Panneau;
 
@@ -28,6 +31,16 @@ public class BDD implements Serializable
 		Connection cn = DriverManager.getConnection(url, login,password);
 		Statement st = cn.createStatement();
 		return st;
+	}
+	
+	public LocalDate Converter(Date input)
+	{	
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(input);
+		LocalDate localDate = LocalDate.of(cal.get(Calendar.YEAR),
+		        cal.get(Calendar.MONTH) + 1,
+		        cal.get(Calendar.DAY_OF_MONTH));
+		return localDate;	
 	}
 	
 	
@@ -76,7 +89,7 @@ public class BDD implements Serializable
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
-				LocalDate date = LocalDate.now().plusMonths((long) 2.0);
+				LocalDate date = Converter(result.getDate("date"));
 			    inscription.createCompetition(result.getInt("id_competition"),result.getString( "nom" ),date, (result.getInt("enequipe") == 1),false);
 			}
 
