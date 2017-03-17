@@ -17,9 +17,11 @@ import dialogue.Panneau;
 
 public class BDD implements Serializable
 {
-	String url = "jdbc:mysql://localhost/ppejava?autoReconnect=true&useSSL=false";
-	String login = "root";
-	String password = "";
+	//String url = "jdbc:mysql://localhost/ppejava?autoReconnect=true&useSSL=false";
+	//TODO::
+	String url = "jdbc:mysql://mysql.m2l.local/glimentour?autoReconnect=true&useSSL=false";
+	String login = "glimentour";
+	String password = "azerty";
 	Inscriptions inscriptions = new Inscriptions();
 //	Connection cn = null;
 //	Statement st = null;

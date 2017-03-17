@@ -1,6 +1,5 @@
 package dialogue;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -115,18 +114,25 @@ public class PanneauPersonne extends JPanel
 	
 	private void setListener()
 	{
+		//Listener pour le panneau Ajouter
 		nomAjoutField.addKeyListener(new ajoutFieldListener());
 		prenomAjoutField.addKeyListener(new ajoutFieldListener());
 		mailAjoutField.addKeyListener(new ajoutFieldListener());
 		boutonAjoute.addActionListener(new boutonAjouteListener());
+		
+		//Listener pour les combos
 		comboPersonne.addActionListener(new comboItemListener());
 		comboEquipe.addActionListener(new comboEquipeListener());
 		comboCompetition.addActionListener(new comboCompetitionListener());
 		comboEquipeDispo.addActionListener(new comboEquipeDispoListener());
 		comboCompetitionDispo.addActionListener(new comboCompetitionDispoListener());
+		
+		//Listener pour le panneau avec l'édit
 		nomField.addKeyListener(new fieldListener());
 		prenomField.addKeyListener(new fieldListener());
 		mailField.addKeyListener(new fieldListener());
+		
+		//Listener pour les boutons
 		boutonEdite.addActionListener(new boutonEditeListener());
 		boutonSupprEquipe.addActionListener(new boutonSupprEquipeListener());
 		boutonAjouteEquipe.addActionListener(new boutonAjouteEquipeListener());
@@ -138,6 +144,7 @@ public class PanneauPersonne extends JPanel
 	
 	private void setPanneauAjoutePersonne()
 	{
+		//Taille et bordure des éléments du panneau ajout
 		nomAjoutField.setPreferredSize(new Dimension(130, 20));
 		prenomAjoutField.setPreferredSize(new Dimension(130, 20));
 		mailAjoutField.setPreferredSize(new Dimension(130, 20));
@@ -145,6 +152,7 @@ public class PanneauPersonne extends JPanel
 		prenomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
 		mailAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
 		
+		//Ajout des labels et des éléments
 		ajoutePersonne.add(new JLabel("Nom : "));
 		ajoutePersonne.add(nomAjoutField);
 		ajoutePersonne.add(new JLabel("Prénom : "));
@@ -262,7 +270,7 @@ public class PanneauPersonne extends JPanel
 				selectPersonne = p;
 				comboEquipe.removeAllItems();
 				listEquipeSelectPersonne(p);
-				System.out.println(selectE);
+
 				comboEquipeDispo.removeAllItems();
 				listEquipeDispoPersonne(p);
 				comboCompetition.removeAllItems();
@@ -283,7 +291,6 @@ public class PanneauPersonne extends JPanel
 		{
 			for(Equipe e : p.getEquipes())
 			{
-				System.out.println(e.getNom());
 				comboEquipe.addItem(e.getNom());
 			}
 		}
@@ -388,7 +395,6 @@ public class PanneauPersonne extends JPanel
 		panelAfficherEquipePersonne.removeAll();
 		panelAfficherCompetitionsPersonne.removeAll();
 	}
-	
 	
 	private void resetAllCombo()
 	{
