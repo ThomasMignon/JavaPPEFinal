@@ -264,13 +264,13 @@ public class PanneauPersonne extends JPanel
 			String nomPrenomSelect = p.getNom() + " " + p.getPrenom();
 			if (nomPrenomSelect.equals(select)) 
 			{
+				resetAllSelect();
 				String nomP = p.getNom();
 				String prenomP = p.getPrenom();
 				String mailP = p.getMail();
 				selectPersonne = p;
 				comboEquipe.removeAllItems();
 				listEquipeSelectPersonne(p);
-
 				comboEquipeDispo.removeAllItems();
 				listEquipeDispoPersonne(p);
 				comboCompetition.removeAllItems();
@@ -366,8 +366,35 @@ public class PanneauPersonne extends JPanel
 	
 	private boolean verifyField()
 	{		
-		return (nomField.getText().equals(selectPersonne.getNom()) && prenomField.getText().equals(selectPersonne.getPrenom()) && mailField.getText().equals(selectPersonne.getMail()));
+		return (nomField.getText().equals(selectPersonne.getNom()) && prenomField.getText().equals(selectPersonne.getPrenom()) && mailField.getText().equals(selectPersonne.getMail()));	
+	}
 	
+	private void verifyCombo()
+	{
+		boutonSupprEquipe.setEnabled(!verifySelectEquipe());
+		boutonSupprCompetition.setEnabled(!verifySelectCompetition());
+		boutonAjouteEquipe.setEnabled(!verifySelectEquipeDispo());
+		boutonAjouteCompetition.setEnabled(!verifySelectCompetitionDispo());
+	}
+	
+	private boolean verifySelectEquipe()
+	{
+		return selectEquipe == null;
+	}
+	
+	private boolean verifySelectCompetition()
+	{
+		return selectCompetition == null;
+	}
+	
+	private boolean verifySelectEquipeDispo()
+	{
+		return selectEquipeDispo == null;
+	}
+	
+	private boolean verifySelectCompetitionDispo()
+	{
+		return selectCompetitionDispo == null;
 	}
 	
 	private void refresh()
@@ -375,10 +402,20 @@ public class PanneauPersonne extends JPanel
 		this.removeAll();
 		this.resetAllPanel();
 		this.resetAllCombo();
+		this.resetAllSelect();
 		this.setPanneauAfficherPersonne();
 		this.setPanneauAjoutePersonne();
+		verifyCombo();
 		this.repaint();
 		System.out.println("Refresh...");
+	}
+	
+	private void resetAllSelect()
+	{
+		selectEquipe = null;
+		selectEquipeDispo = null;
+		selectCompetition = null;
+		selectCompetitionDispo = null;
 	}
 	
 	private void resetAllPanel()
@@ -484,6 +521,7 @@ public class PanneauPersonne extends JPanel
 					selectEquipe = e;
 				}
 			}
+			verifyCombo();
 		}
 	}
 	
@@ -501,6 +539,7 @@ public class PanneauPersonne extends JPanel
 					selectEquipeDispo = e;
 				}
 			}
+			verifyCombo();
 		}
 	}
 	
@@ -518,6 +557,7 @@ public class PanneauPersonne extends JPanel
 					selectCompetition = c;
 				}
 			}
+			verifyCombo();
 		}
 	}
 	
@@ -536,6 +576,7 @@ public class PanneauPersonne extends JPanel
 					selectCompetitionDispo = c;
 				}
 			}
+			verifyCombo();
 		}
 		
 	}
