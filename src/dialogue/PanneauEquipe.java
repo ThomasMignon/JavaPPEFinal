@@ -3,6 +3,7 @@ package dialogue;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -56,6 +57,10 @@ public class PanneauEquipe extends JPanel {
 	private JButton boutonAjouteCompetition = new JButton("Ajouter à cette compétition");
 	private JButton boutonSupprEquipe = new JButton("Supprimer cette équipe");
 	
+	private Dimension tailleListEquipe = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 12 / 100 );
+	private Dimension tailleListCompetition = new Dimension(Fenetre.WIDTH * 40 / 100-2, Fenetre.HEIGHT * 35 / 100 );
+	private Dimension tailleListPersonne = new Dimension(Fenetre.WIDTH * 40 / 100 -2, Fenetre.HEIGHT * 35 / 100 );
+	
 	public PanneauEquipe()
 	{
 		// Instantiation
@@ -107,7 +112,22 @@ public class PanneauEquipe extends JPanel {
 	}
 
 	private void setComboEquipe() {
-		// TODO Auto-generated method stub
+		for (Equipe e : inscriptions.getEquipes()) 
+		{
+			comboPersonne.addItem(e.getNom());
+			System.out.println(e.getNom() +" recup");
+		}
+		comboPersonne.setPreferredSize(new Dimension(300, 20));
+		comboPersonne.setSelectedItem(selectP);
+		System.out.println(selectPersonne);
+		panelSelectEquipe.setBorder(BorderFactory.createTitledBorder("Liste des Equipe"));
+		JLabel labelSelectPersonne = new JLabel("Sélectionner une équipe à administrer :");
+		labelSelectPersonne.setPreferredSize(new Dimension(300,20));
+		comboPersonne.setBackground(Color.WHITE);
+		panelSelectEquipe.add(labelSelectPersonne);
+		panelSelectEquipe.add(comboPersonne);
+		panelSelectEquipe.setPreferredSize(tailleListEquipe);
+		this.add(panelSelectEquipe);
 		
 	}
 

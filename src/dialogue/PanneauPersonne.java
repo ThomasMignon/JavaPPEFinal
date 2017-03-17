@@ -357,23 +357,17 @@ public class PanneauPersonne extends JPanel
 
 	private void verifyAjoutField()
 	{
-	
+		boutonEdite.setEnabled(verifyField());
 		mailAjoutField.setBorder(BorderFactory.createLineBorder(mailValid() ? Color.GREEN : Color.RED));
 		nomAjoutField.setBorder(BorderFactory.createLineBorder(nomValid() ? Color.GREEN : Color.RED));
 		prenomAjoutField.setBorder(BorderFactory.createLineBorder(prenomValid() ? Color.GREEN : Color.RED));
 		boutonAjoute.setEnabled((isValid("nom") && isValid("prenom") && isValid("mail")));
 	}
 	
-	private void verifyField()
+	private boolean verifyField()
 	{		
-		if(nomField.getText().equals(selectPersonne.getNom()) && prenomField.getText().equals(selectPersonne.getPrenom()) && mailField.getText().equals(selectPersonne.getMail()))
-		{
-			boutonEdite.setEnabled(false);
-		}
-		else
-		{
-			boutonEdite.setEnabled(true);
-		}
+		return (nomField.getText().equals(selectPersonne.getNom()) && prenomField.getText().equals(selectPersonne.getPrenom()) && mailField.getText().equals(selectPersonne.getMail()));
+	
 	}
 	
 	private void refresh()
