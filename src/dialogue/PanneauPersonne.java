@@ -257,7 +257,7 @@ public class PanneauPersonne extends JPanel
 		this.add(panelAfficherCompetitionsPersonne);
 	}
 	
-	private void setPanneauAfficherPersonne(Object select) 
+	private void setPanneauAfficherPersonne(String select) 
 	{
 		for (Personne p : inscriptions.getPersonnes()) 
 		{
@@ -355,19 +355,18 @@ public class PanneauPersonne extends JPanel
 		return nomAjoutField.getText().matches("[a-zA-Z ]{3,}");	
 	}
 
-	private void verifyAjoutField()
+	private void verifyField()
 	{
-		boutonEdite.setEnabled(verifyField());
+		boutonEdite.setEnabled(verifyRegexField());
 		mailAjoutField.setBorder(BorderFactory.createLineBorder(mailValid() ? Color.GREEN : Color.RED));
 		nomAjoutField.setBorder(BorderFactory.createLineBorder(nomValid() ? Color.GREEN : Color.RED));
 		prenomAjoutField.setBorder(BorderFactory.createLineBorder(prenomValid() ? Color.GREEN : Color.RED));
 		boutonAjoute.setEnabled((isValid("nom") && isValid("prenom") && isValid("mail")));
 	}
 	
-	private boolean verifyField()
+	private boolean verifyRegexField()
 	{		
-		return (nomField.getText().equals(selectPersonne.getNom()) && prenomField.getText().equals(selectPersonne.getPrenom()) && mailField.getText().equals(selectPersonne.getMail()));
-	
+		return !(nomField.getText().equals(selectPersonne.getNom()) && prenomField.getText().equals(selectPersonne.getPrenom()) && mailField.getText().equals(selectPersonne.getMail()));
 	}
 	
 	private void refresh()
@@ -433,7 +432,7 @@ public class PanneauPersonne extends JPanel
 		@Override
 		public void keyReleased(KeyEvent arg0) 
 		{
-			verifyAjoutField();
+			verifyField();
 		}
 
 		@Override
@@ -464,8 +463,7 @@ public class PanneauPersonne extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			selectP = comboPersonne.getSelectedItem();
-			setPanneauAfficherPersonne(selectP);
+			setPanneauAfficherPersonne(comboPersonne.getSelectedItem().toString());
 		}
 	}
 	
