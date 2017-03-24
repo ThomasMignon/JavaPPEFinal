@@ -257,7 +257,7 @@ public class PanneauPersonne extends JPanel
 		this.add(panelAfficherCompetitionsPersonne);
 	}
 	
-	private void setPanneauAfficherPersonne(String select) 
+	private void setPanneauAfficherPersonne(Object select) 
 	{
 		for (Personne p : inscriptions.getPersonnes()) 
 		{
@@ -463,7 +463,7 @@ public class PanneauPersonne extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			setPanneauAfficherPersonne(comboPersonne.getSelectedItem().toString());
+			setPanneauAfficherPersonne(comboPersonne.getSelectedItem());
 		}
 	}
 	
