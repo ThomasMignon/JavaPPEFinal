@@ -50,7 +50,7 @@ public class TableEquipe extends JPanel{
          * Construction de notre syst�me de pagination pour la liste
          * fournie par la m�thode getList()
          */
-        paginationPanel = new PaginationPanel<Equipe>(getList());
+        paginationPanel = new PaginationPanel<Equipe>(getList(),10);
         //Instanciation avec classe anonyme de notre observateur
         paginationObserver = new PaginationObserver<Equipe>(){
 
