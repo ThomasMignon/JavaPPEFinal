@@ -66,7 +66,7 @@ public class TableEquipe extends JPanel{
                 dataLayer.removeAll();
                 dataLayer.repaint();
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
-                dataLayer.add(new JLabel("Nom de l'ï¿½quipe :"));
+                dataLayer.add(new JLabel("Nom de l'ï¿équipe :"));
 
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
@@ -83,7 +83,7 @@ public class TableEquipe extends JPanel{
                         JButton supprimer = new JButton("Supprimer");
                         supprimer.addActionListener(new boutonSupprimerListener(e));
                         panel.add(supprimer);
-                        panel.setBorder(BorderFactory.createEtchedBorder());
+                       
                         dataLayer.add(panel);
                 	}
                 }
