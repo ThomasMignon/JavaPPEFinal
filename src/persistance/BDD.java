@@ -67,7 +67,7 @@ public class BDD implements Serializable
 	{
 		try {
 			Statement st = Connection();	
-			String requete ="Select * From equipes e,candidats c WHERE e.id_equipe = c.id_equipe AND c.deleted_at IS NULL";
+			String requete ="Select * From candidats WHERE id_equipe IS NOT NULL AND deleted_at IS NULL";
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
@@ -246,15 +246,14 @@ public class BDD implements Serializable
 	{
 		try{
 			Statement st = Connection();	
-			String requete;
-			requete ="Insert into equipes(id_equipe) values (NULL)";
-			st.executeUpdate(requete);	
-			String requete2 ="Select id_equipe From equipes";
-			ResultSet result = st.executeQuery(requete2);
+			String requete = "SELECT COUNT(*) AS count FROM candidats WHERE id_equipe IS NOT NULL";
+			ResultSet result = st.executeQuery(requete);
 			int idequipe = 0;
-			while (result.next()) {
-			    idequipe = result.getInt( "id_equipe" );
+			while(result.next())
+			{
+			    idequipe = result.getInt("count");
 			}
+			idequipe++;
 			String requete3 ="Insert into candidats(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
 			st.executeUpdate(requete3);
 			int idCandidat=0;
@@ -287,19 +286,19 @@ public class BDD implements Serializable
 			}
 			else
 			{
-				requete ="Insert into equipes(id_equipe) values (NULL)";
-				st.executeUpdate(requete);	
-				String requete2 ="Select id_equipe From equipes";
-				ResultSet result = st.executeQuery(requete2);
+				requete = "SELECT COUNT(*) AS count FROM candidats WHERE id_equipe IS NOT NULL";
+				ResultSet result = st.executeQuery(requete);
 				int idequipe = 0;
-				while (result.next()) {
-				    idequipe = result.getInt( "id_equipe" );
+				while(result.next())
+				{
+				    idequipe = result.getInt("count");
 				}
-				String requete3 ="Insert into candidats(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
-				st.executeUpdate(requete3);
+				idequipe++;
+				String requete2 ="Insert into candidats(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
+				st.executeUpdate(requete2);
 				int idCandidat=0;
-				String requete4="SELECT id_candidat FROM candidats";
-				ResultSet result2= st.executeQuery(requete4);
+				String requete3="SELECT id_candidat FROM candidats";
+				ResultSet result2= st.executeQuery(requete3);
 				while (result2.next()) 
 				{
 				    idCandidat = result2.getInt( "id_candidat" );

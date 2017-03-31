@@ -28,16 +28,17 @@ public class PaginationPanel<T> extends JPanel{
     private JButton first, prev, next, last;
     private int totalPages, currentPage;
     private ActionListener listener;
+    private int nbParPage = 0;
     
     Inscriptions inscriptions = Panneau.getInscriptions();
     SortedSet<Equipe> equipes = inscriptions.getEquipes(); 
     ArrayList equipes2 = new ArrayList(equipes);
 
     //Constructeur
-    public PaginationPanel(List<T> data) {
+    public PaginationPanel(List<T> data,int nbParPage) {
         this.data = data;
         filterObserverList = new ArrayList<PaginationObserver>();
-        
+        this.nbParPage = nbParPage;
         this.initComponents();
     }
 
@@ -69,7 +70,7 @@ public class PaginationPanel<T> extends JPanel{
         displayRange = new JComboBox();
         
         /** nombre par page **/
-        displayRange.addItem(10);
+        displayRange.addItem(nbParPage);
         
         
         first = new JButton("first");

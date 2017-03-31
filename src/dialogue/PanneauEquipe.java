@@ -73,9 +73,9 @@ public class PanneauEquipe extends JPanel {
 	private JButton boutonEdit  = new JButton("Editer");
 	private JButton boutonAjouterMembre = new JButton("Ajouter ce membre");
 	private JButton boutonSupprMembre = new JButton("Supprimer de ce membre");
-	private JButton boutonSupprCompetition = new JButton("Supprimer de cette compétition");
-	private JButton boutonAjouteCompetition = new JButton("Ajouter à cette compétition");
-	private JButton boutonSupprEquipe = new JButton("Supprimer cette équipe");
+	private JButton boutonSupprCompetition = new JButton("Supprimer de cette compï¿½tition");
+	private JButton boutonAjouteCompetition = new JButton("Ajouter ï¿½ cette compï¿½tition");
+	private JButton boutonSupprEquipe = new JButton("Supprimer cette ï¿½quipe");
 	
 	private Dimension tailleEdit = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 12 / 100 );
 	private Dimension tailleListEquipe = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 70 / 100 );
@@ -97,16 +97,16 @@ public class PanneauEquipe extends JPanel {
 		// Menu deroulant pour selectionner personne
 		setComboEquipe();
 		 
-		//Afficher les équipes d'une personne séléctionner 
+		//Afficher les ï¿½quipes d'une personne sï¿½lï¿½ctionner 
 		setAfficherCompetitionsEquipes();
 	
-		//Afficher les compétitions d'une personne séléctionner
+		//Afficher les compï¿½titions d'une personne sï¿½lï¿½ctionner
 		setAfficherPersonneEquipe();
 		
-		//setAfficherTableauEquipe();
+		setAfficherTableauEquipe();
 		
 		
-		//Bouton pour supprimer la personne séléctionner
+		//Bouton pour supprimer la personne sï¿½lï¿½ctionner
 		this.add(boutonSupprEquipe);
 		
 	}
@@ -157,7 +157,7 @@ public class PanneauEquipe extends JPanel {
 		
 		panelAfficherPersonneEquipe.add(comboPersonne);
 		panelAfficherPersonneEquipe.add(boutonSupprCompetition);
-		panelAfficherPersonneEquipe.add(new JLabel("Membre(s) à ajouter disponible(s)"));
+		panelAfficherPersonneEquipe.add(new JLabel("Membre(s) ï¿½ ajouter disponible(s)"));
 		comboPersonneDispo.setPreferredSize(new Dimension(200, 20));
 		panelAfficherPersonneEquipe.add(comboCompetitionDispo);
 		panelAfficherPersonneEquipe.add(boutonAjouteCompetition);
@@ -170,7 +170,7 @@ public class PanneauEquipe extends JPanel {
 	}
 
 	private void setAfficherCompetitionsEquipes() {
-		panelAfficherCompetitionsEquipe.add(new JLabel("Les compétitions : "));
+		panelAfficherCompetitionsEquipe.add(new JLabel("Les compï¿½titions : "));
 		comboCompetition.setPreferredSize(new Dimension(200, 20));
 		
 		panelAfficherCompetitionsEquipe.add(comboCompetition);
@@ -198,7 +198,7 @@ public class PanneauEquipe extends JPanel {
 		boutonEdit.setPreferredSize(new Dimension(80,20));
 		panelAfficherEquipe.add(boutonEdit);
 		
-		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
+		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'ï¿½quipe"));
 		panelAfficherEquipe.setPreferredSize(tailleEdit);
 		this.add(panelAfficherEquipe);	
 	}
@@ -217,7 +217,7 @@ public class PanneauEquipe extends JPanel {
 //		}
 //		comboEquipe.setPreferredSize(new Dimension(300, 20));
 //		panelSelectEquipe.setBorder(BorderFactory.createTitledBorder("Liste des Equipes"));
-//		JLabel labelSelectEquipe = new JLabel("Sélectionner une équipe à administrer :");
+//		JLabel labelSelectEquipe = new JLabel("Sï¿½lectionner une ï¿½quipe ï¿½ administrer :");
 //		labelSelectEquipe.setPreferredSize(new Dimension(300,20));
 //		//comboEquipe.setBackground(Color.WHITE);
 //		panelSelectEquipe.add(labelSelectEquipe);
@@ -267,7 +267,7 @@ public class PanneauEquipe extends JPanel {
 //		comboEquipeDispo.addActionListener(new comboEquipeDispoListener());
 //		comboCompetitionDispo.addActionListener(new comboCompetitionDispoListener());
 //		
-//		//Listener pour le panneau avec l'édit
+//		//Listener pour le panneau avec l'ï¿½dit
 //		nomField.addKeyListener(new fieldListener());
 //	
 //		//Listener pour les boutons
