@@ -67,7 +67,9 @@ public class PaginationPanel<T> extends JPanel{
         };
         
         displayRange = new JComboBox();
-        displayRange.addItem(5);
+        
+        /** nombre par page **/
+        displayRange.addItem(10);
         
         
         first = new JButton("first");

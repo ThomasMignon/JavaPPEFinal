@@ -61,7 +61,7 @@ public class TableEquipe extends JPanel{
             public void update(List<Equipe> equipes) {
                 dataLayer.removeAll();
                 dataLayer.repaint();
-                dataLayer.setPreferredSize(new Dimension(460, 3*80));
+                dataLayer.setPreferredSize(new Dimension(Fenetre.WIDTH/2,(int) (Fenetre.HEIGHT * 0.8)));
                 dataLayer.add(new JLabel("Nom de l'équipe :"));
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
