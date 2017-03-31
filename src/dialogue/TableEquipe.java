@@ -124,7 +124,7 @@ public class TableEquipe extends JPanel{
 		@Override
 		public void keyReleased(KeyEvent e) {
 			inscriptions.editeEquipe(equipe,jt.getText());
-			System.out.println(e+" editer nouvelle valeur."+jt.getText());		
+			System.out.println(equipe.getNom()+": nouvelle valeur.");		
 		}
 
 

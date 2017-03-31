@@ -116,7 +116,6 @@ public class PanneauEquipe extends JPanel {
 	
 		TableEquipe table = new TableEquipe();
 		panelTableauEquipe.add(table);
-
 		return panelTableauEquipe;
 	}
 	public boolean isCellEditable(){  
