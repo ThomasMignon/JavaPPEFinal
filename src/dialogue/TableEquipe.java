@@ -29,14 +29,17 @@ public class TableEquipe extends JPanel{
     private PaginationPanel paginationPanel;
     //Un observateur
     private PaginationObserver paginationObserver;
-    //Le panneau qui va afficher les données et le panneau principal
+    //Panneau Principale
+    private PanneauEquipe panneauEquipe;
+    //Le panneau qui va afficher les données et le panneau principal   
     private JPanel dataLayer, contentPane;
     private Inscriptions inscriptions = Panneau.getInscriptions();
     public SortedSet<Equipe> equi = inscriptions.getEquipes();
     ArrayList equipes = new ArrayList(equi);
     Object selectE;
     
-    public TableEquipe(){
+    public TableEquipe(PanneauEquipe p){
+    	this.panneauEquipe = p;
         this.initComponents();
     }
 
@@ -61,7 +64,7 @@ public class TableEquipe extends JPanel{
             public void update(List<Equipe> equipes) {
                 dataLayer.removeAll();
                 dataLayer.repaint();
-                dataLayer.setPreferredSize(new Dimension(Fenetre.WIDTH/2,(int) (Fenetre.HEIGHT * 0.8)));
+                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
                 dataLayer.add(new JLabel("Nom de l'équipe :"));
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
@@ -189,8 +192,6 @@ public class TableEquipe extends JPanel{
 		public void actionPerformed(ActionEvent arg0) 
 		{		
 			inscriptions.editeEquipe(e,e.getNom());
-			System.out.println(e.getNom());
-			System.out.println(this.nom);
 		}
 	}
     
@@ -211,7 +212,8 @@ public class TableEquipe extends JPanel{
 			box.addItem(inscriptions.getPersonnes());
 			dataLayer.repaint();
 			dataLayer.updateUI();
-			System.out.println("oui");
+			panneauEquipe.getPanelAdminEquipe().setAll(e);
+			panneauEquipe.getPanelAdminEquipe().setVisible(true);
 		}
 	}
     /*

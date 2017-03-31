@@ -91,7 +91,7 @@ public class PaginationPanel<T> extends JPanel{
         
         pageDisplayer = new JLabel(currentPage+"/"+totalPages);
         pageDisplayer.setOpaque(true);
-        pageDisplayer.setBackground(new Color(250, 250, 250));
+        pageDisplayer.setBackground(new Color(200, 200, 200));
         pageDisplayer.setBorder(BorderFactory.createEtchedBorder());
         pageDisplayer.setHorizontalAlignment(JLabel.CENTER);
         pageDisplayer.setPreferredSize(new Dimension(60, 30));

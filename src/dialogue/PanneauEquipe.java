@@ -35,6 +35,7 @@ import dialogue.PanneauPersonne.comboEquipeDispoListener;
 import dialogue.PanneauPersonne.comboEquipeListener;
 import dialogue.PanneauPersonne.comboItemListener;
 import dialogue.PanneauPersonne.fieldListener;
+import dialogue.PanneauAdminEquipe;
 import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
@@ -59,9 +60,10 @@ public class PanneauEquipe extends JPanel {
 	private JPanel ajouteEquipe = new JPanel();
 	private JPanel panelSelectEquipe = new JPanel();
 	private JPanel panelAfficherEquipe = new JPanel();
-	private JPanel panelAfficherCompetitionsEquipe = new JPanel();
-	private JPanel panelAfficherPersonneEquipe = new JPanel();
+	private PanneauAdminEquipe panelAdminEquipe;
 	private JPanel panelTableauEquipe = new JPanel();
+	
+	private JLabel nomEquipe = new JLabel();
 	
 	private JTextField nomAjoutField = new JTextField();
 	private JTextField prenomAjoutField = new JTextField();
@@ -77,131 +79,66 @@ public class PanneauEquipe extends JPanel {
 	private JButton boutonAjouteCompetition = new JButton("Ajouter à cette compétition");
 	private JButton boutonSupprEquipe = new JButton("Supprimer cette équipe");
 	
-	private Dimension tailleEdit = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 12 / 100 );
-	private Dimension tailleListEquipe = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 70 / 100 );
-	private Dimension tailleListCompetition = new Dimension(Fenetre.WIDTH * 40 / 100-2, Fenetre.HEIGHT * 35 / 100 );
-	private Dimension tailleListPersonne = new Dimension(Fenetre.WIDTH * 40 / 100 -2, Fenetre.HEIGHT * 35 / 100 );
+	private Dimension taillePanelAjout = new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.80));
 	
 	public PanneauEquipe()
-	{
-		// Instantiation
-		boutonAjout.setEnabled(false);
-		
-		setPanneauAfficherEquipe();
-		
-		// Ajouter une personne
-		setPanneauAjouteEquipe();
-	}
-
-	private void setPanneauAfficherEquipe() {
+	{	
 		// Menu deroulant pour selectionner personne
-		setComboEquipe();
+		setTableEquipe();
 		 
 		//Afficher les équipes d'une personne séléctionner 
-		setAfficherCompetitionsEquipes();
+		setAdminEquipe();
+	}
 	
-		//Afficher les compétitions d'une personne séléctionner
-		setAfficherPersonneEquipe();
-		
-		//setAfficherTableauEquipe();
-		
-		
-		//Bouton pour supprimer la personne séléctionner
-		this.add(boutonSupprEquipe);
-		
+	public PanneauAdminEquipe getPanelAdminEquipe()
+	{
+		return panelAdminEquipe;
+	}
+	
+	public void setPanelAdminEquipe(PanneauAdminEquipe p)
+	{
+		this.panelAdminEquipe = p;
+	}
+	
+	public Equipe getSelectEquipe()
+	{
+		return selectEquipe;
+	}
+	
+	public JLabel getLabelNomEquipe()
+	{
+		return nomEquipe;
+	}
+	
+	public void setLabelNomEquipe(String text)
+	{
+		nomEquipe.setText(text);
+	}
+	
+	public void setSelectEquipe(Equipe e)
+	{
+		this.selectEquipe = e;
 	}
 	
 	private JPanel setAfficherTableauEquipe()
 	{
-	
-		TableEquipe table = new TableEquipe();
+		TableEquipe table = new TableEquipe(this);
 		panelTableauEquipe.add(table);
 		return panelTableauEquipe;
 	}
 	public boolean isCellEditable(){  
         return false;  
     }
-	
-	class ListenerTableEquipe implements ListSelectionListener
-	{
-		private int id;
-		
-		
-		@Override
-		public void valueChanged(ListSelectionEvent listSelectionEvent){
-	        if (listSelectionEvent.getValueIsAdjusting())
-	            return;
-	        ListSelectionModel lsm = (ListSelectionModel)listSelectionEvent.getSource();
-	        if (lsm.isSelectionEmpty()) {
-	            System.out.println("No rows selected");
-	        }
-	        else{
-	            int selectedRow = lsm.getMinSelectionIndex();
-	            System.out.println("The row "+selectedRow+" is now selected");
-	            this.editValue(1);
-	 
-	        }
-	    }
 
-		private void editValue(int i) {
-			
-            System.out.println("The row "+i+" is now selected");
-
-		}
-
-	}
-
-	private void setAfficherPersonneEquipe() {
-		panelAfficherPersonneEquipe.add(new JLabel("Les membres :"));
-		comboPersonne.setPreferredSize(new Dimension(200, 20));
+	private void setAdminEquipe() {
 		
-		panelAfficherPersonneEquipe.add(comboPersonne);
-		panelAfficherPersonneEquipe.add(boutonSupprCompetition);
-		panelAfficherPersonneEquipe.add(new JLabel("Membre(s) à ajouter disponible(s)"));
-		comboPersonneDispo.setPreferredSize(new Dimension(200, 20));
-		panelAfficherPersonneEquipe.add(comboCompetitionDispo);
-		panelAfficherPersonneEquipe.add(boutonAjouteCompetition);
-	
-		panelAfficherPersonneEquipe.setPreferredSize(tailleListCompetition);
+		panelAdminEquipe = new PanneauAdminEquipe(selectEquipe);
+		this.setPanelAdminEquipe(panelAdminEquipe);
+		this.add(panelAdminEquipe);
 		
-		panelAfficherPersonneEquipe.setBorder(BorderFactory.createTitledBorder("Liste des Membres"));
-		this.add(panelAfficherPersonneEquipe);
 		
 	}
 
-	private void setAfficherCompetitionsEquipes() {
-		panelAfficherCompetitionsEquipe.add(new JLabel("Les compétitions : "));
-		comboCompetition.setPreferredSize(new Dimension(200, 20));
-		
-		panelAfficherCompetitionsEquipe.add(comboCompetition);
-		panelAfficherCompetitionsEquipe.add(boutonSupprCompetition);
-		
-		panelAfficherCompetitionsEquipe.add(new JLabel("Equipe(s) disponible(s)"));
-		comboCompetitionDispo.setPreferredSize(new Dimension(100,20));
-		panelAfficherCompetitionsEquipe.add(comboCompetitionDispo);
-		
-		panelAfficherCompetitionsEquipe.add(boutonAjouteCompetition);
-		panelAfficherCompetitionsEquipe.setPreferredSize(tailleListCompetition);
-		
-		panelAfficherCompetitionsEquipe.setBorder(BorderFactory.createTitledBorder("Liste des Competitions"));
-		this.add(panelAfficherCompetitionsEquipe);
-		
-	}
-
-	private void setAfficherEquipe() {
-		panelAfficherEquipe.add(new JLabel("Nom : "));
-		nomField.setPreferredSize(new Dimension(130, 20));
-		panelAfficherEquipe.add(nomField);
-		
-		panelAfficherEquipe.add(Box.createHorizontalStrut(40));
-		
-		boutonEdit.setPreferredSize(new Dimension(80,20));
-		panelAfficherEquipe.add(boutonEdit);
-		
-		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
-		panelAfficherEquipe.setPreferredSize(tailleEdit);
-		this.add(panelAfficherEquipe);	
-	}
 	
 	private void afficherMembresEquipe(Equipe equipe)
 	{
@@ -209,23 +146,9 @@ public class PanneauEquipe extends JPanel {
 			equipe.getMembres();
 	}
 
-	private void setComboEquipe() {
-//		for (Equipe e : inscriptions.getEquipes()) 
-//		{
-//			comboEquipe.addItem(e.getNom());
-//			System.out.println(e.getNom() +" recupte");
-//		}
-//		comboEquipe.setPreferredSize(new Dimension(300, 20));
-//		panelSelectEquipe.setBorder(BorderFactory.createTitledBorder("Liste des Equipes"));
-//		JLabel labelSelectEquipe = new JLabel("Sélectionner une équipe à administrer :");
-//		labelSelectEquipe.setPreferredSize(new Dimension(300,20));
-//		//comboEquipe.setBackground(Color.WHITE);
-//		panelSelectEquipe.add(labelSelectEquipe);
-//		panelSelectEquipe.add(comboEquipe);
+	private void setTableEquipe() {
 		panelSelectEquipe.add(setAfficherTableauEquipe());
-		//panelSelectEquipe.setPreferredSize(tailleListEquipe);
-		this.add(panelSelectEquipe);
-		
+		this.add(panelSelectEquipe);		
 	}
 
 	private void setPanneauAjouteEquipe() {
@@ -256,27 +179,8 @@ public class PanneauEquipe extends JPanel {
 	
 	private void setListener()
 	{
-		//Listener pour le panneau Ajouter
 		nomAjoutField.addKeyListener(new ajoutFieldListener());
-		//boutonAjout.addActionListener(new boutonAjouteListener());
-		
-		//Listener pour les combos
 		comboEquipe.addActionListener(new comboItemListener());
-		//comboEquipe.addActionListener(new comboEquipeListener());
-		//comboCompetition.addActionListener(new comboCompetitionListener());
-//		comboEquipeDispo.addActionListener(new comboEquipeDispoListener());
-//		comboCompetitionDispo.addActionListener(new comboCompetitionDispoListener());
-//		
-//		//Listener pour le panneau avec l'édit
-//		nomField.addKeyListener(new fieldListener());
-//	
-//		//Listener pour les boutons
-//		boutonEdite.addActionListener(new boutonEditeListener());
-//		boutonSupprEquipe.addActionListener(new boutonSupprEquipeListener());
-//		boutonAjouterMembre.addActionListener(new boutonAjouteEquipeListener());
-//		boutonSupprCompetition.addActionListener(new boutonSupprCompetitionListener());
-		
-		
 	}
 	
 	private void listEquipePersonne(Equipe eq)
