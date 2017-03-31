@@ -29,13 +29,10 @@ public class TableEquipe extends JPanel{
     private PaginationPanel paginationPanel;
     //Un observateur
     private PaginationObserver paginationObserver;
-<<<<<<< HEAD
     //Panneau Principale
     private PanneauEquipe panneauEquipe;
     //Le panneau qui va afficher les données et le panneau principal   
-=======
-    //Le panneau qui va afficher les donnï¿½es et le panneau principal
->>>>>>> origin/master
+
     private JPanel dataLayer, contentPane;
     private Inscriptions inscriptions = Panneau.getInscriptions();
     public SortedSet<Equipe> equi = inscriptions.getEquipes();
@@ -68,13 +65,9 @@ public class TableEquipe extends JPanel{
             public void update(List<Equipe> equipes) {
                 dataLayer.removeAll();
                 dataLayer.repaint();
-<<<<<<< HEAD
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
                 dataLayer.add(new JLabel("Nom de l'équipe :"));
-=======
-                dataLayer.setPreferredSize(new Dimension(Fenetre.WIDTH/2,(int) (Fenetre.HEIGHT * 0.8)));
-                dataLayer.add(new JLabel("Nom de l'ï¿½quipe :"));
->>>>>>> origin/master
+
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
                 	{
