@@ -174,16 +174,18 @@ public class Inscriptions implements Serializable
 	public Equipe editeEquipe(Equipe equipe, String nom)
 	{
 		equipe.setNom(nom);
+		BDD bdd = new BDD();
+		bdd.save(equipe,this);
 		return equipe;
 	}
 	
 	
-	void remove(Competition competition)
+	public void remove(Competition competition)
 	{
 		competitions.remove(competition);
 	}
 	
-	void remove(Candidat candidat)
+	public void remove(Candidat candidat)
 	{
 		candidats.remove(candidat);
 		BDD bdd = new BDD();

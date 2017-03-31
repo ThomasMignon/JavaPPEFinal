@@ -17,12 +17,11 @@ import dialogue.Panneau;
 
 public class BDD implements Serializable
 {
-	//String url = "jdbc:mysql://localhost/ppejava?autoReconnect=true&useSSL=false";
+	String url = "jdbc:mysql://localhost/ppejava?autoReconnect=true&useSSL=false";
 	//TODO::
-	String url = "jdbc:mysql://mysql.m2l.local/glimentour?autoReconnect=true&useSSL=false";
-	String login = "glimentour";
-	String password = "azerty";
-	Inscriptions inscriptions = new Inscriptions();
+	//String url = "jdbc:mysql://mysql.m2l.local/glimentour?autoReconnect=true&useSSL=false";
+	String login = "root";
+	String password = "";
 //	Connection cn = null;
 //	Statement st = null;
 	private static final long serialVersionUID = -60L;
@@ -68,7 +67,7 @@ public class BDD implements Serializable
 	{
 		try {
 			Statement st = Connection();	
-			String requete ="Select * From equipes e,candidats c WHERE e.id_equipe = c.id_equipe";
+			String requete ="Select * From equipes e,candidats c WHERE e.id_equipe = c.id_equipe AND c.deleted_at IS NULL";
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
@@ -243,11 +242,12 @@ public class BDD implements Serializable
 				
 	}
 	
-	public void save(Equipe equipe) 
-	{	
-		try {
+	public void save(Equipe equipe)
+	{
+		try{
 			Statement st = Connection();	
-			String requete ="Insert into equipes(id_equipe) values (NULL)";
+			String requete;
+			requete ="Insert into equipes(id_equipe) values (NULL)";
 			st.executeUpdate(requete);	
 			String requete2 ="Select id_equipe From equipes";
 			ResultSet result = st.executeQuery(requete2);
@@ -264,7 +264,48 @@ public class BDD implements Serializable
 			{
 			    idCandidat = result2.getInt( "id_candidat" );
 			}
-			equipe.setId(idCandidat);
+			equipe.setId(idCandidat);	
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void save(Equipe equipe,Inscriptions inscriptions) 
+	{	
+		try {
+			Statement st = Connection();	
+			String requete;
+			if(inscriptions.getEquipes().contains(equipe))
+			{
+				System.out.println("Edite...");
+				requete ="UPDATE candidats SET nom='"+equipe.getNom()+"' WHERE id_candidat="+equipe.getId();
+				st.executeUpdate(requete);
+			}
+			else
+			{
+				requete ="Insert into equipes(id_equipe) values (NULL)";
+				st.executeUpdate(requete);	
+				String requete2 ="Select id_equipe From equipes";
+				ResultSet result = st.executeQuery(requete2);
+				int idequipe = 0;
+				while (result.next()) {
+				    idequipe = result.getInt( "id_equipe" );
+				}
+				String requete3 ="Insert into candidats(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
+				st.executeUpdate(requete3);
+				int idCandidat=0;
+				String requete4="SELECT id_candidat FROM candidats";
+				ResultSet result2= st.executeQuery(requete4);
+				while (result2.next()) 
+				{
+				    idCandidat = result2.getInt( "id_candidat" );
+				}
+				equipe.setId(idCandidat);
+			}
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

@@ -63,7 +63,7 @@ public class PanneauPersonne extends JPanel
 	private JTextField mailField = new JTextField();
 	
 	private JButton boutonAjoute = new JButton("Ajouter");
-	private JButton boutonEdite = new JButton("Editer");
+	private JButton boutonEdit = new JButton("Editer");
 	private JButton boutonAjouteEquipe = new JButton("Ajouter à cette équipe");
 	private JButton boutonSupprEquipe = new JButton("Supprimer de cette équipe");
 	private JButton boutonSupprCompetition = new JButton("Supprimer de cette compétition");
@@ -81,7 +81,7 @@ public class PanneauPersonne extends JPanel
 		// Instantiation
 		
 		boutonAjoute.setEnabled(false);
-		boutonEdite.setEnabled(false);
+		boutonEdit.setEnabled(false);
 
 		//Panneau afficherPersonne
 		setListener();
@@ -133,7 +133,7 @@ public class PanneauPersonne extends JPanel
 		mailField.addKeyListener(new fieldListener());
 		
 		//Listener pour les boutons
-		boutonEdite.addActionListener(new boutonEditeListener());
+		boutonEdit.addActionListener(new boutonEditListener());
 		boutonSupprEquipe.addActionListener(new boutonSupprEquipeListener());
 		boutonAjouteEquipe.addActionListener(new boutonAjouteEquipeListener());
 		boutonSupprCompetition.addActionListener(new boutonSupprCompetitionListener());
@@ -210,8 +210,8 @@ public class PanneauPersonne extends JPanel
 		mailField.setPreferredSize(new Dimension(130, 20));
 		panelAfficherPersonne.add(mailField);
 		
-		boutonEdite.setPreferredSize(new Dimension(80,20));
-		panelAfficherPersonne.add(boutonEdite);
+		boutonEdit.setPreferredSize(new Dimension(80,20));
+		panelAfficherPersonne.add(boutonEdit);
 		
 		panelAfficherPersonne.setBorder(BorderFactory.createTitledBorder("Informations"));
 		panelAfficherPersonne.setPreferredSize(tailleEdit);
@@ -357,7 +357,7 @@ public class PanneauPersonne extends JPanel
 
 	private void verifyField()
 	{
-		boutonEdite.setEnabled(verifyRegexField());
+		boutonEdit.setEnabled(verifyRegexField());
 		mailAjoutField.setBorder(BorderFactory.createLineBorder(mailValid() ? Color.GREEN : Color.RED));
 		nomAjoutField.setBorder(BorderFactory.createLineBorder(nomValid() ? Color.GREEN : Color.RED));
 		prenomAjoutField.setBorder(BorderFactory.createLineBorder(prenomValid() ? Color.GREEN : Color.RED));
@@ -538,22 +538,23 @@ public class PanneauPersonne extends JPanel
 		
 	}
 	
-	class boutonEditeListener implements ActionListener
+	class boutonEditListener implements ActionListener
 	{
+		//Personne personne;
+		
+		
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			for (Personne p : inscriptions.getPersonnes()) 
-			{
-				String nomPrenomSelect = p.getNom() + " " + p.getPrenom();
-				if (nomPrenomSelect.equals(selectP)) 
-				{
-					inscriptions.editePersonne(p, nomField.getText(), prenomField.getText(), mailField.getText());
-					JOptionPane.showMessageDialog(null, nomField.getText() + " " + prenomField.getText() + " à bien été éditer !",
-					"Information", JOptionPane.INFORMATION_MESSAGE);
-					refresh();
-				}
-			}
+			
+			System.out.println(nomField.getText());	
+			inscriptions.editePersonne(selectPersonne, nomField.getText(), prenomField.getText(), mailField.getText());
+			JOptionPane.showMessageDialog(null, nomField.getText() + " " + prenomField.getText() + " à bien été éditer !",
+			"Information", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println(nomField.getText());
+			refresh();
+				
+			
 		}
 	}
 	
@@ -601,7 +602,7 @@ public class PanneauPersonne extends JPanel
 			try 
 			{
 				selectCompetitionDispo.add(selectPersonne);
-				JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " à été ajouter à " + selectCompetitionDispo.getNom(),
+				JOptionPane.showMessageDialog(null, selectPersonne.getPrenom() + " a été ajouter à " + selectCompetitionDispo.getNom(),
 						"Information", JOptionPane.INFORMATION_MESSAGE);
 				refresh();
 			} 
