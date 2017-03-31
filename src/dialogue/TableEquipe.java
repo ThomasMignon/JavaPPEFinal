@@ -31,7 +31,7 @@ public class TableEquipe extends JPanel{
     private PaginationObserver paginationObserver;
     //Panneau Principale
     private PanneauEquipe panneauEquipe;
-    //Le panneau qui va afficher les données et le panneau principal   
+    //Le panneau qui va afficher les donnï¿½es et le panneau principal   
 
     private JPanel dataLayer, contentPane;
     private Inscriptions inscriptions = Panneau.getInscriptions();
@@ -66,7 +66,7 @@ public class TableEquipe extends JPanel{
                 dataLayer.removeAll();
                 dataLayer.repaint();
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
-                dataLayer.add(new JLabel("Nom de l'équipe :"));
+                dataLayer.add(new JLabel("Nom de l'ï¿½quipe :"));
 
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())

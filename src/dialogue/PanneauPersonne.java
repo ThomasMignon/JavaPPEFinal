@@ -145,11 +145,10 @@ public class PanneauPersonne extends JPanel
 	private void setAfficherTableauEquipe()
 	{
 		
-//		TablePersonne personneTable = new TablePersonne(this);
-//		panelAfficherPersonne.add(personneTable);
-//		panelAfficherPersonne.setPreferredSize(taillePaneTable);
-//		personneTable.setPreferredSize(tailleTable);
-//		this.add(panelAfficherPersonne);
+		TablePersonne personneTable = new TablePersonne(this,5);
+		panelAfficherPersonne.add(personneTable);
+		panelAfficherPersonne.setPreferredSize(taillePaneTable);
+		this.add(panelAfficherPersonne);
 	}
 	
 	private void setPanneauAjoutePersonne()
