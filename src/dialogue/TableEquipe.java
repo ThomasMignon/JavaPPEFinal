@@ -29,9 +29,13 @@ public class TableEquipe extends JPanel{
     private PaginationPanel paginationPanel;
     //Un observateur
     private PaginationObserver paginationObserver;
+<<<<<<< HEAD
     //Panneau Principale
     private PanneauEquipe panneauEquipe;
     //Le panneau qui va afficher les données et le panneau principal   
+=======
+    //Le panneau qui va afficher les donnï¿½es et le panneau principal
+>>>>>>> origin/master
     private JPanel dataLayer, contentPane;
     private Inscriptions inscriptions = Panneau.getInscriptions();
     public SortedSet<Equipe> equi = inscriptions.getEquipes();
@@ -50,22 +54,27 @@ public class TableEquipe extends JPanel{
         contentPane.setLayout(new BorderLayout());
         
         /*
-         * Construction de notre système de pagination pour la liste
-         * fournie par la méthode getList()
+         * Construction de notre systï¿½me de pagination pour la liste
+         * fournie par la mï¿½thode getList()
          */
         paginationPanel = new PaginationPanel<Equipe>(getList());
         //Instanciation avec classe anonyme de notre observateur
         paginationObserver = new PaginationObserver<Equipe>(){
 
             /*
-             * Implémentation de la méthode update de l'interface
+             * Implï¿½mentation de la mï¿½thode update de l'interface
              */
             @Override
             public void update(List<Equipe> equipes) {
                 dataLayer.removeAll();
                 dataLayer.repaint();
+<<<<<<< HEAD
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
                 dataLayer.add(new JLabel("Nom de l'équipe :"));
+=======
+                dataLayer.setPreferredSize(new Dimension(Fenetre.WIDTH/2,(int) (Fenetre.HEIGHT * 0.8)));
+                dataLayer.add(new JLabel("Nom de l'ï¿½quipe :"));
+>>>>>>> origin/master
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
                 	{
@@ -102,7 +111,7 @@ public class TableEquipe extends JPanel{
     
     /**
      * 
-     * Création du listener sur l'édition
+     * Crï¿½ation du listener sur l'ï¿½dition
      * 
      */
     
@@ -141,7 +150,7 @@ public class TableEquipe extends JPanel{
     
     /**
      * 
-     * Création du listener sur le bouton Supprimer
+     * Crï¿½ation du listener sur le bouton Supprimer
      * 
      */
     
@@ -172,7 +181,7 @@ public class TableEquipe extends JPanel{
     
     /**
      * 
-     * Création du listener sur le bouton Edit
+     * Crï¿½ation du listener sur le bouton Edit
      * 
      */
     
@@ -217,7 +226,7 @@ public class TableEquipe extends JPanel{
 		}
 	}
     /*
-     * Création d'une liste de données à paginer
+     * Crï¿½ation d'une liste de donnï¿½es ï¿½ paginer
      */
     private List<Equipe> getList(){
         

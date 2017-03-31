@@ -70,7 +70,7 @@ public class Inscriptions implements Serializable
 	}
 	
 	/**
-	 * Retourne toutes les personnes non-supprimés.
+	 * Retourne toutes les personnes non-supprimï¿½s.
 	 * @return
 	 */
 	
@@ -96,7 +96,7 @@ public class Inscriptions implements Serializable
 				equipes.add((Equipe)c);
 		return Collections.unmodifiableSortedSet(equipes);
 	}
-
+	
 	/**
 	 * CrÃ©Ã©e une compÃ©tition. Ceci est le seul moyen, il n'y a pas
 	 * de constructeur public dans {@link Competition}.
@@ -211,11 +211,11 @@ public class Inscriptions implements Serializable
 		BDD bdd = new BDD();
 		inscriptions= new Inscriptions();
 		bdd.selectPersonne(inscriptions);
-		System.out.println("Personne récupéré...");
+		System.out.println("Personne rï¿½cupï¿½rï¿½...");
 		bdd.selectEquipe(inscriptions);
-		System.out.println("Equipe récupéré...");
+		System.out.println("Equipe rï¿½cupï¿½rï¿½...");
 		bdd.selectCompetitions(inscriptions);
-		System.out.println("Competition récupéré...");
+		System.out.println("Competition rï¿½cupï¿½rï¿½...");
 		bdd.selectAttrEquipe(inscriptions);
 		bdd.selectAttrCompetition(inscriptions);
 		return inscriptions;
