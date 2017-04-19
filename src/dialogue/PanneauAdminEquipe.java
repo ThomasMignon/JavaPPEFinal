@@ -51,6 +51,7 @@ public class PanneauAdminEquipe extends JPanel {
 	
 	Inscriptions inscriptions = new Inscriptions();
 	JButton addMembre = new JButton("Add");
+	JButton suppMembre = new JButton("");
 	JLabel nomEquipe = new JLabel();
 	JPanel panelMembres = new JPanel();
 	JPanel panelCompetitions = new JPanel();
@@ -105,6 +106,11 @@ public class PanneauAdminEquipe extends JPanel {
 		}
 	}
 	
+	public JButton createButton(String s)
+	{
+		return new JButton(s);
+		
+	}
 	
 	
 	public void remplirMembres(Equipe e)
@@ -124,8 +130,12 @@ public class PanneauAdminEquipe extends JPanel {
 		panelComboMembres.add(labelTitre);
 		labelTitre.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.25),20));
 		panelComboMembres.add(listMembres);
+		JButton addSupp = createButton("Supprimer");
+		addSupp.addActionListener(new supprimerMembreListener(RecupOld()));
+		panelMembres.add(addSupp);
 		panelComboMembres.add(listNewMembres);
-		addMembre.addActionListener(new ajouterMembreListener(Recup()));
+		addMembre.addActionListener(new ajouterMembreListener(RecupNew()));
+		
 		panelComboMembres.add(addMembre);
 		
 		panelMembres.add(panelComboMembres);
@@ -133,8 +143,12 @@ public class PanneauAdminEquipe extends JPanel {
 		
 	}
 	
-	private Personne Recup() {
+	private Personne RecupNew() {
 		return (Personne) listNewMembres.getSelectedItem();
+	}
+	
+	private Personne RecupOld() {
+		return (Personne) listMembres.getSelectedItem();
 	}
 
 	public void remplirCompetitions()
@@ -230,6 +244,24 @@ public class PanneauAdminEquipe extends JPanel {
 			Personne p =(Personne) listNewMembres.getSelectedItem();
 			System.out.println(getEquipe());
 			getEquipe().add(p, true);
+			setAll(getEquipe());
+		}
+	}
+	
+	class supprimerMembreListener implements ActionListener 
+	{
+		private Personne p;
+    	 
+	    public supprimerMembreListener(Personne p) {
+	        super();
+	        this.p = p;
+	    }
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			Personne p =(Personne) listMembres.getSelectedItem();
+			System.out.println(getEquipe());
+			getEquipe().remove(p, true);
 			setAll(getEquipe());
 		}
 	}
