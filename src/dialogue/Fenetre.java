@@ -16,7 +16,7 @@ public class Fenetre extends JFrame
 	public Fenetre()
 	{   
 		
-	    this.setTitle("Gestionnaire de compétition");
+	    this.setTitle("Gestionnaire de compÃ©tition");
 	    this.setSize(WIDTH, HEIGHT);
 	    this.setResizable(false);
 	    this.setLocationRelativeTo(null);

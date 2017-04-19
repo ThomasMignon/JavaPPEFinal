@@ -66,8 +66,7 @@ public class TablePersonne extends JPanel{
             public void update(List<Personne> personne) {
                 dataLayer.removeAll();
                 dataLayer.repaint();
-                dataLayer.setPreferredSize(new Dimension(Fenetre.WIDTH/2,(int) (Fenetre.HEIGHT * 0.8)));
-                dataLayer.add(new JLabel("Nom de l'�quipe :"));
+                dataLayer.setPreferredSize(new Dimension((int)(Fenetre.WIDTH * 0.8),(int) (Fenetre.HEIGHT * 0.5)));
                 for(Personne p  : personne){
                 	if(!p.getIsDelete())
                 	{
@@ -82,14 +81,10 @@ public class TablePersonne extends JPanel{
                     	mailPersonne.setPreferredSize(new Dimension(120,25));
                     	panel.add(mailPersonne);
                     	nomPersonne.addKeyListener(new editFieldListener(p, nomPersonne,prenomPersonne,mailPersonne));
-                    	JButton ajouter = new JButton("Ajouter membre");
-                    	panel.add(ajouter);
-                    	ajouter.addActionListener(new boutonAjouterListener(p));
-                        panel.setPreferredSize(new Dimension(460, 35));
                         JButton supprimer = new JButton("Supprimer");
                         supprimer.addActionListener(new boutonSupprimerListener(p));
                         panel.add(supprimer);
-                        panel.setBorder(BorderFactory.createEtchedBorder());
+                        panel.setPreferredSize(new Dimension((int)(Fenetre.WIDTH * 0.9), 35));
                         dataLayer.add(panel);
                 	}
                 }
@@ -171,15 +166,15 @@ public class TablePersonne extends JPanel{
 		{		
 			inscriptions.remove(p);
 			System.out.println(p.getNom()+" supprimer.");
-			refresh();	
+			refresh();
 		}
 	}
     
-    private void refresh() {
-		dataLayer.removeAll();
-		dataLayer.updateUI();
+    private void refresh() 
+    {
+    	this.remove(contentPane);
+    	this.initComponents();
 		dataLayer.repaint();
-		
 	}
     
     /**

@@ -22,18 +22,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import dialogue.PanneauPersonne.ajoutFieldListener;
-import dialogue.PanneauPersonne.boutonAjouteCompetitionListener;
-import dialogue.PanneauPersonne.boutonAjouteEquipeListener;
-import dialogue.PanneauPersonne.boutonAjouteListener;
-import dialogue.PanneauPersonne.boutonEditListener;
-import dialogue.PanneauPersonne.boutonSupprCompetitionListener;
-import dialogue.PanneauPersonne.boutonSupprEquipeListener;
-import dialogue.PanneauPersonne.boutonSupprPersonneListener;
-import dialogue.PanneauPersonne.comboCompetitionDispoListener;
-import dialogue.PanneauPersonne.comboCompetitionListener;
-import dialogue.PanneauPersonne.comboEquipeDispoListener;
-import dialogue.PanneauPersonne.comboEquipeListener;
-import dialogue.PanneauPersonne.comboItemListener;
 import dialogue.PanneauPersonne.fieldListener;
 import dialogue.PanneauAdminEquipe;
 import inscriptions.Competition;
@@ -86,7 +74,7 @@ public class PanneauEquipe extends JPanel {
 		// Menu deroulant pour selectionner personne
 		setTableEquipe();
 		 
-		//Afficher les équipes d'une personne séléctionner 
+		//Afficher les Ã©quipes d'une personne sÃ©lÃ©ctionner 
 		setAdminEquipe();
 	}
 	
