@@ -51,6 +51,7 @@ public class PanneauAdminEquipe extends JPanel {
 	
 	Inscriptions inscriptions = new Inscriptions();
 	JButton addMembre = new JButton("Add");
+	JButton addSupp = createButton("Supprimer");
 	JLabel nomEquipe = new JLabel();
 	JPanel panelMembres = new JPanel();
 	JPanel panelCompetitions = new JPanel();
@@ -72,7 +73,13 @@ public class PanneauAdminEquipe extends JPanel {
 		setTailleAll();
 		this.setVisible(false);
 		this.setPreferredSize(taille);
-		
+		this.setListener();
+	}
+	
+	public void setListener()
+	{
+		addSupp.addActionListener(new supprimerMembreListener(RecupOld()));
+		addMembre.addActionListener(new ajouterMembreListener(RecupNew()));
 	}
 	
 	public void setTailleAll()
@@ -125,16 +132,30 @@ public class PanneauAdminEquipe extends JPanel {
 		{
 			listNewMembres.addItem(pnew);
 		}
-		panelComboMembres.add(labelTitre);
 		labelTitre.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.25),20));
-		panelComboMembres.add(listMembres);
-		JButton addSupp = createButton("Supprimer");
-		addSupp.addActionListener(new supprimerMembreListener(RecupOld()));
-		panelMembres.add(addSupp);
-		panelComboMembres.add(listNewMembres);
-		addMembre.addActionListener(new ajouterMembreListener(RecupNew()));
 		
-		panelMembres.add(addMembre);
+		if(!(listMembres.getItemCount()==0))
+		{
+			panelComboMembres.add(labelTitre);
+			panelComboMembres.add(listMembres);
+			panelMembres.add(addSupp);
+		}
+		else
+		{
+			panelComboMembres.remove(listMembres);
+			panelComboMembres.removeAll();
+		}
+		
+		if(!(listNewMembres.getItemCount() == 0))
+		{
+			panelComboMembres.add(listNewMembres);
+			panelMembres.add(addMembre);
+		}
+		else
+		{
+			panelComboMembres.remove(listNewMembres);
+		}
+			
 		
 		panelMembres.add(panelComboMembres);
 		
@@ -174,8 +195,6 @@ public class PanneauAdminEquipe extends JPanel {
 		this.setMembres(equipe);
 		this.remplirMembres(equipe);
 	}
-	
-<<<<<<< HEAD
 	private void initComponents() {
         dataLayer = new JPanel();
         
@@ -228,8 +247,6 @@ public class PanneauAdminEquipe extends JPanel {
         this.add(contentPane);
         paginationPanel.reset();
     }
-=======
->>>>>>> b6b09001d1eb9f09778f56351e8c66d360d2937b
 	
 	class ajouterMembreListener implements ActionListener 
 	{
@@ -243,7 +260,7 @@ public class PanneauAdminEquipe extends JPanel {
 		public void actionPerformed(ActionEvent e) 
 		{
 			Personne p =(Personne) listNewMembres.getSelectedItem();
-			System.out.println(getEquipe());
+			System.out.println(p);
 			getEquipe().add(p, true);
 			setAll(getEquipe());
 		}

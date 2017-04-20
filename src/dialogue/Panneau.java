@@ -19,7 +19,7 @@ public class Panneau extends JPanel
 	
 	public Panneau()
 	{
-		
+		inscriptions = Inscriptions.getInscriptions();
 		this.setLayout(new BorderLayout());
 		Font police = new Font("Tahoma", Font.BOLD, 18);
 		titre.setFont(police);
@@ -45,7 +45,6 @@ public class Panneau extends JPanel
 	
 	public static Inscriptions getInscriptions()
 	{
-		inscriptions = Inscriptions.getInscriptions();
 		return inscriptions;
 	}
 }
