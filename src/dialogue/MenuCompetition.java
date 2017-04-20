@@ -19,18 +19,18 @@ public class MenuCompetition
 	
 	static Menu getMenuCompetition()
 	{
-		Menu menuCompetition = new Menu("Gestion de compétition","3");
+		Menu menuCompetition = new Menu("Gestion de compÃ©tition","3");
 		menuCompetition.ajoute(getListeCompetition());
 		menuCompetition.ajoute(getOptionAjouterCompetition());
 		menuCompetition.ajouteRevenir("r");
 		return menuCompetition;
 	}
 	
-	//Gestion compétition
+	//Gestion compï¿½tition
 	
 	static Liste<Competition> getListeCompetition()
 	{
-		Liste<Competition> liste = new Liste<>("Gestion de compétition","1",getActionListeGestionCompetition());
+		Liste<Competition> liste = new Liste<>("Gestion de compÃ©tition","1",getActionListeGestionCompetition());
 		liste.ajouteRevenir("r");
 		return liste;
 	}
@@ -71,7 +71,7 @@ public class MenuCompetition
 	
 	static Option getOptionVoirUneCompetition(Competition competition)
 	{
-		Option option = new Option("Détails de "+competition.getNom(),"1",getActionAfficherUneCompetition(competition));
+		Option option = new Option("DÃ©tails de "+competition.getNom(),"1",getActionAfficherUneCompetition(competition));
 		return option;
 	}
 	
@@ -100,7 +100,7 @@ public class MenuCompetition
 					public void elementSelectionne(int indice, Candidat element) 
 					{
 						competition.remove(element,true);
-						System.out.println(element.getNom()+" à bien été supprimer de "+competition.getNom());
+						System.out.println(element.getNom()+" Ã  bien Ã©tÃ© supprimer de "+competition.getNom());
 					}
 
 					@Override
@@ -112,7 +112,7 @@ public class MenuCompetition
 				};
 	}
 	
-	//Liste voir une compétition
+	//Liste voir une compï¿½tition
 	
 	private static Action getActionAfficherUneCompetition(Competition element) 
 	{
@@ -127,7 +127,7 @@ public class MenuCompetition
 						}
 						else
 						{
-							System.out.println("Cette compétition n'as pas encore de participants");
+							System.out.println("Cette compÃ©tition n'as pas encore de participants");
 						}
 						System.out.println("Date de cloture : "+element.getDateCloture());
 					}
@@ -136,7 +136,7 @@ public class MenuCompetition
 	
 	
 	
-	//Ajouter une compétition
+	//Ajouter une compï¿½tition
 	
 	static Option getOptionAjouterCompetition()
 	{
@@ -161,11 +161,11 @@ public class MenuCompetition
 						String reponse="";
 						while(!reponse.equals("o")&&!reponse.equals("n"))
 						{
-							reponse=commandLine.util.InOut.getString("En équipe ? o : Oui n : Non : ");
+							reponse=commandLine.util.InOut.getString("En Ã©quipe ? o : Oui n : Non : ");
 						}
 						enEquipe=reponse.compareTo("o")==0;
 						inscriptions.createCompetition(nom, dateCloture, enEquipe,true);
-						System.out.println(nom+ "à bien été rajouter");
+						System.out.println(nom+ "Ã  bien Ã©tÃ© rajouter");
 					}
 				};
 	}
@@ -192,7 +192,7 @@ public class MenuCompetition
 			
 				};
 	}
-	//Supprimer une compétition
+	//Supprimer une compï¿½tition
 	private static Option getOptionSupprimerUneCompetition(Competition competition)
 	{
 		Option option = new Option("Supprimer "+competition.getNom(),"2",getActionSupprimerUneCompetition(competition));
@@ -207,7 +207,7 @@ public class MenuCompetition
 					public void optionSelectionnee() 
 					{
 						element.delete();
-						System.out.println(element.getNom()+" à été supprimer !");
+						System.out.println(element.getNom()+" Ã  Ã©tÃ© supprimer !");
 					}
 			
 				};

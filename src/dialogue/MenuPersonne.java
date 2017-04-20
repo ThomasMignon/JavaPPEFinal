@@ -34,7 +34,7 @@ public class MenuPersonne
 			return menuPersonne;
 		}
 		
-		//Gérer une personne ou équipe
+		//Gï¿½rer une personne ou ï¿½quipe
 		
 		static Liste<Personne> getListeVoirUnePersonne()
 		{
@@ -82,10 +82,10 @@ public class MenuPersonne
 			
 		}
 		
-		//Détails personne
+		//Dï¿½tails personne
 		private static Option getOptionVoirUnePersonne(Personne element)
 		{
-			return new Option("Détails sur "+element.getPrenom(),"1",getActionVoirPersonne(element));
+			return new Option("DÃ©tails sur "+element.getPrenom(),"1",getActionVoirPersonne(element));
 		}
 		
 		private static Action getActionVoirPersonne(Personne element) 
@@ -94,23 +94,23 @@ public class MenuPersonne
 					{
 						public void optionSelectionnee()
 						{
-							System.out.println("Prénom : "+element.getPrenom()+" | Nom : "+element.getNom()+" | Mail : "+element.getMail());
+							System.out.println("PrÃ©nom : "+element.getPrenom()+" | Nom : "+element.getNom()+" | Mail : "+element.getMail());
 							if(!element.getEquipes().isEmpty())
 							{
 								System.out.println(element.getEquipes().toString());
 							}
 							else
 							{
-								System.out.println(element.getPrenom()+ " n'a pas d'équipe");
+								System.out.println(element.getPrenom()+ " n'a pas d'Ã©quipe");
 							}
 							
 							if(!element.getCompetitions().isEmpty())
 							{
-								System.out.println("Participe à "+element.getCompetitions().toString());
+								System.out.println("Participe Ã  "+element.getCompetitions().toString());
 							}
 							else
 							{
-								System.out.println(element.getPrenom()+" ne participe à aucune compétition");
+								System.out.println(element.getPrenom()+" ne participe Ã  aucune compÃ©tition");
 							}
 						}
 					};
@@ -131,19 +131,19 @@ public class MenuPersonne
 						public void optionSelectionnee()
 						{
 							personne.delete();
-							System.out.println(personne.getPrenom()+" à été supprimer !");
+							System.out.println(personne.getPrenom()+" Ã  Ã©tÃ© supprimer !");
 						}
 					};
 		}
 		
 		static Liste<Competition> getListeAjouterUnePersonneCompetition(Personne personne)
 		{
-			Liste<Competition> liste = new Liste<>("Ajouter "+personne.getPrenom()+" à une compétition","3",getActionListeCompetitionAjoutPersonne(personne));
+			Liste<Competition> liste = new Liste<>("Ajouter "+personne.getPrenom()+" Ã  une compÃ©tition","3",getActionListeCompetitionAjoutPersonne(personne));
 			liste.ajouteRevenir("r");
 			return liste;
 		}
 		
-		//Liste ajouter une personne dans une compétition
+		//Liste ajouter une personne dans une compï¿½tition
 		
 			private static ActionListe<Competition> getActionListeCompetitionAjoutPersonne(Personne personne)
 			{
@@ -176,14 +176,14 @@ public class MenuPersonne
 						{
 							e.printStackTrace();
 						}
-						System.out.println(personne.getPrenom()+" à bien été ajouter à "+element.getNom());
+						System.out.println(personne.getPrenom()+" Ã  bien Ã©tÃ© ajouter Ã  "+element.getNom());
 					}
 
 					@Override
 					public Option getOption(Competition element) 
 					{
 						//return new Option("Supprimer "+element.getNom(),null,getActionSupprimerUneCompetition(element));
-//						Option option = new Option("Ajouter une personne à "+element.getNom(),null,getActionAjouterUnePersonneCompetition(personne,element));
+//						Option option = new Option("Ajouter une personne ï¿½ "+element.getNom(),null,getActionAjouterUnePersonneCompetition(personne,element));
 //						return option;
 						return null;
 					}
@@ -191,11 +191,11 @@ public class MenuPersonne
 				};
 			}
 			
-			//Liste ajouter une personne dans une équipe
+			//Liste ajouter une personne dans une ï¿½quipe
 			
 			private static Liste<Equipe> getListeAjouterUnePersonneEquipe(Personne personne)
 			{
-				Liste<Equipe> liste = new Liste<>("Ajouter "+personne.getPrenom()+" dans une équipe","4",getActionListeAjouterUnePersonneEquipe(personne));
+				Liste<Equipe> liste = new Liste<>("Ajouter "+personne.getPrenom()+" dans une Ã©quipe","4",getActionListeAjouterUnePersonneEquipe(personne));
 				liste.ajouteRevenir("r");
 				return liste;
 			}
@@ -239,10 +239,10 @@ public class MenuPersonne
 							public void optionSelectionnee()
 							{
 								String nom= commandLine.util.InOut.getString("Nom : "),
-						                prenom = commandLine.util.InOut.getString("Prénom : "),
+						                prenom = commandLine.util.InOut.getString("PrÃ©nom : "),
 						                mail = commandLine.util.InOut.getString("Mail : ");
 										inscriptions.editePersonne(personne,nom, prenom, mail);
-								System.out.println(personne.getPrenom()+" à bien été édité !");
+								System.out.println(personne.getPrenom()+" a bien Ã©tÃ© Ã©ditÃ© !");
 							}
 					
 						};
@@ -262,7 +262,7 @@ public class MenuPersonne
 					public void optionSelectionnee()
 					{
 						String nom= commandLine.util.InOut.getString("Nom : "),
-		                prenom = commandLine.util.InOut.getString("Prénom : "),
+		                prenom = commandLine.util.InOut.getString("PrÃ©nom : "),
 		                mail = commandLine.util.InOut.getString("Mail : ");
 						inscriptions.createPersonne(nom, prenom, mail,true);
 					}

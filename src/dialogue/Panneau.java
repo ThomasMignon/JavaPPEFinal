@@ -12,7 +12,7 @@ import inscriptions.Inscriptions;
 
 public class Panneau extends JPanel
 {
-	private JLabel titre = new JLabel("Application de gestion de compétition");
+	private JLabel titre = new JLabel("Application de gestion de compï¿½tition");
 	private static Inscriptions inscriptions;
 	JTabbedPane tab = new JTabbedPane();
 	
@@ -25,8 +25,8 @@ public class Panneau extends JPanel
 		titre.setFont(police);
 		titre.setHorizontalAlignment(JLabel.CENTER);
 		tab.addTab("Gestion de personne", new PanneauPersonne());
-		tab.addTab("Gestion d'équipe", new PanneauEquipe());
-		tab.addTab("Gestion de compétition", new JPanel());
+		tab.addTab("Gestion d'Ã©quipe", new PanneauEquipe());
+		tab.addTab("Gestion de compÃ©tition", new JPanel());
 		tab.setBackground(Color.CYAN);
 		tab.setFont(police);
 		this.add(tab,BorderLayout.CENTER);

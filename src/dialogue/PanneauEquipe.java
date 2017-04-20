@@ -63,9 +63,9 @@ public class PanneauEquipe extends JPanel {
 	private JButton boutonEdit  = new JButton("Editer");
 	private JButton boutonAjouterMembre = new JButton("Ajouter ce membre");
 	private JButton boutonSupprMembre = new JButton("Supprimer de ce membre");
-	private JButton boutonSupprCompetition = new JButton("Supprimer de cette comp�tition");
-	private JButton boutonAjouteCompetition = new JButton("Ajouter � cette comp�tition");
-	private JButton boutonSupprEquipe = new JButton("Supprimer cette �quipe");
+	private JButton boutonSupprCompetition = new JButton("Supprimer de cette compétition");
+	private JButton boutonAjouteCompetition = new JButton("Ajouter à cette compétition");
+	private JButton boutonSupprEquipe = new JButton("Supprimer cette équipe");
 	
 	private Dimension taillePanelAjout = new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.80));
 	
@@ -116,6 +116,7 @@ public class PanneauEquipe extends JPanel {
 		panelTableauEquipe.add(table);
 		return panelTableauEquipe;
 	}
+	
 	public boolean isCellEditable(){  
         return false;  
     }
@@ -126,7 +127,7 @@ public class PanneauEquipe extends JPanel {
 		this.setPanelAdminEquipe(panelAdminEquipe);
 		this.add(panelAdminEquipe);
 		
-		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'�quipe"));
+		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
 		panelAfficherEquipe.setPreferredSize(taillePanelAjout);
 		this.add(panelAfficherEquipe);	
 

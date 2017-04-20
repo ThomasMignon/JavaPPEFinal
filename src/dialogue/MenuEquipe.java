@@ -21,7 +21,7 @@ public class MenuEquipe
 	
 	static Menu getMenuEquipe()
 	{
-		Menu menuEquipe = new Menu("Gestion d'équipe","2");
+		Menu menuEquipe = new Menu("Gestion d'Ã©quipe","2");
 		menuEquipe.ajoute(getListeVoirUneEquipe());
 		menuEquipe.ajoute(getOptionAjouterEquipe());
 		menuEquipe.ajouteRevenir("r");
@@ -31,7 +31,7 @@ public class MenuEquipe
 	static Liste<Equipe> getListeVoirUneEquipe()
 	{
 		
-		Liste<Equipe> liste= new Liste<>("Liste d'équipe","1",getActionListeVoirUneEquipe());
+		Liste<Equipe> liste= new Liste<>("Liste d'Ã©quipe","1",getActionListeVoirUneEquipe());
 		liste.ajouteRevenir("r");
 		return liste;
 	}
@@ -52,7 +52,7 @@ public class MenuEquipe
 						{
 							String nom= commandLine.util.InOut.getString("Nom : ");
 									inscriptions.createEquipe(nom,true);
-							System.out.println(nom+" à bien été créer");
+							System.out.println(nom+" Ã  bien Ã©tÃ© crÃ©er");
 						}
 					};
 		}
@@ -79,7 +79,7 @@ public class MenuEquipe
 				{
 					//return new Option("Afficher "+element.getNom(),null, getActionAfficherEquipe(element));
 					Menu menuEquipe = new Menu("Option pour "+element.getNom(),null);
-					//TODO : Ajouter des options pour les équipes
+					//TODO : Ajouter des options pour les ï¿½quipes
 					menuEquipe.ajoute(getOptionVoirUneEquipe(element));
 					menuEquipe.ajoute(getOptionSupprimerEquipe(element));
 					menuEquipe.ajoute(getOptionEditerEquipe(element));
@@ -95,7 +95,7 @@ public class MenuEquipe
 		
 		private static Option getOptionVoirUneEquipe(Equipe equipe)
 		{
-			return new Option("Détails de l'équipe "+equipe.getNom(),"1",getActionAfficherEquipe(equipe));
+			return new Option("DÃ©tails de l'Ã©quipe "+equipe.getNom(),"1",getActionAfficherEquipe(equipe));
 		}
 		
 		private static Action getActionAfficherEquipe(Equipe element)
@@ -107,7 +107,7 @@ public class MenuEquipe
 							System.out.println("Nom : "+element.getNom());
 							if(!element.getMembres().isEmpty())
 							{
-								System.out.println("Membre de l'équipe: "+element.getMembres().toString());
+								System.out.println("Membre de l'Ã©quipe: "+element.getMembres().toString());
 							}
 							else
 							{
@@ -119,7 +119,7 @@ public class MenuEquipe
 							}
 							else
 							{
-								System.out.println(element.getNom()+" ne participe à aucune compétition");
+								System.out.println(element.getNom()+" ne participe Ã© aucune compÃ©tition");
 							}
 						}
 					};
@@ -140,12 +140,12 @@ public class MenuEquipe
 						{
 							String nom= commandLine.util.InOut.getString("Nom : ");
 							inscriptions.editeEquipe(equipe, nom);
-							System.out.println(equipe.getNom()+" à bien été éditer !");
+							System.out.println(equipe.getNom()+" Ã  bien Ã©tÃ© Ã©diter !");
 						}
 					};
 		}
 		
-		//Supprimer une équipe
+		//Supprimer une ï¿½quipe
 		
 		static Option getOptionSupprimerEquipe(Equipe equipe)
 		{
@@ -159,14 +159,14 @@ public class MenuEquipe
 						public void optionSelectionnee()
 						{
 							equipe.delete();
-							System.out.println(equipe.getNom()+" à été supprimer !");
+							System.out.println(equipe.getNom()+" Ã  Ã©tÃ© supprimer !");
 						}
 					};
 		}
 		
 		static Liste<Competition> getListeAjouterUneEquipeCompetition(Equipe equipe)
 		{
-			Liste<Competition> liste = new Liste<>("Ajouter "+equipe.getNom()+" à une compétition","4",getActionListeAjouterUneEquipeCompetition(equipe));
+			Liste<Competition> liste = new Liste<>("Ajouter "+equipe.getNom()+" Ã  une compÃ©tition","4",getActionListeAjouterUneEquipeCompetition(equipe));
 			liste.ajouteRevenir("r");
 			return liste;
 		}
@@ -202,7 +202,7 @@ public class MenuEquipe
 					{
 						e.printStackTrace();
 					}
-					System.out.println(equipe.getNom()+" à bien été ajouter à "+element.getNom());
+					System.out.println(equipe.getNom()+" a bien Ã©tÃ© ajouter Ã  "+element.getNom());
 				}
 
 				@Override
@@ -215,7 +215,7 @@ public class MenuEquipe
 						
 		}
 		
-		// Supprimer une personne d'une équipe
+		// Supprimer une personne d'une ï¿½quipe
 		
 		public static Liste<Personne> getListeSupprimerUnePersonneEquipe(Equipe equipe)
 		{
@@ -233,7 +233,7 @@ public class MenuEquipe
 				public void elementSelectionne(int arg0, Personne personne) 
 				{
 					equipe.remove(personne,true);
-					System.out.println(personne.getNom()+" à bien été supprimer de "+equipe.getNom());
+					System.out.println(personne.getNom()+" Ã  bien Ã©tÃ© supprimer de "+equipe.getNom());
 				}
 
 				@Override

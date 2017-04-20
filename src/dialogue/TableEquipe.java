@@ -31,7 +31,7 @@ public class TableEquipe extends JPanel{
     private PaginationObserver paginationObserver;
     //Panneau Principale
     private PanneauEquipe panneauEquipe;
-    //Le panneau qui va afficher les donn�es et le panneau principal   
+    //Le panneau qui va afficher les données et le panneau principal   
 
     private JPanel dataLayer, contentPane;
     private Inscriptions inscriptions = Panneau.getInscriptions();
@@ -51,22 +51,21 @@ public class TableEquipe extends JPanel{
         contentPane.setLayout(new BorderLayout());
         
         /*
-         * Construction de notre syst�me de pagination pour la liste
-         * fournie par la m�thode getList()
+         * Construction de notre systéme de pagination pour la liste
+         * fournie par la méthode getList()
          */
         paginationPanel = new PaginationPanel<Equipe>(getList(),10);
         //Instanciation avec classe anonyme de notre observateur
         paginationObserver = new PaginationObserver<Equipe>(){
 
             /*
-             * Impl�mentation de la m�thode update de l'interface
+             * Implmentation de la méthode update de l'interface
              */
             @Override
             public void update(List<Equipe> equipes) {
                 dataLayer.removeAll();
                 dataLayer.repaint();
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
-                dataLayer.add(new JLabel("Nom de l'��quipe :"));
 
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
@@ -104,7 +103,7 @@ public class TableEquipe extends JPanel{
     
     /**
      * 
-     * Cr�ation du listener sur l'�dition
+     * Création du listener sur l'édition
      * 
      */
     
@@ -143,7 +142,7 @@ public class TableEquipe extends JPanel{
     
     /**
      * 
-     * Cr�ation du listener sur le bouton Supprimer
+     * Création du listener sur le bouton Supprimer
      * 
      */
     
@@ -174,7 +173,7 @@ public class TableEquipe extends JPanel{
     
     /**
      * 
-     * Cr�ation du listener sur le bouton Edit
+     * Création du listener sur le bouton Edit
      * 
      */
     
@@ -219,7 +218,7 @@ public class TableEquipe extends JPanel{
 		}
 	}
     /*
-     * Cr�ation d'une liste de donn�es � paginer
+     * Création d'une liste de données é paginer
      */
     private List<Equipe> getList(){
         

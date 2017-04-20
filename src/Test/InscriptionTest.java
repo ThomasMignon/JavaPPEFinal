@@ -40,19 +40,19 @@ public class InscriptionTest
 		
 		equipeTest = new Equipe(inscriptionTest,"blabla",false);
 		
-		assertEquals("getPrenom", "Gaetan", personneTest.getPrenom());//VÈrification du prÈnom
+		assertEquals("getPrenom", "Gaetan", personneTest.getPrenom());//V√©rification du pr√©nom
 		assertEquals("getPrenom", "Moi", personneTest1.getPrenom());
 		assertEquals("getPrenom", "Toi", personneTest2.getPrenom());
 
-		assertEquals("getNom", "Limentour", personneTest.getNom());//VÈrification du nom
+		assertEquals("getNom", "Limentour", personneTest.getNom());//V√©rification du nom
 		assertEquals("getNom", "Blabla", personneTest1.getNom());
 		assertEquals("getNom", "Bloblo", personneTest2.getNom());
 
-		assertEquals("getMail", "gaetalim@gmail.com", personneTest.getMail());//VÈrification du mail
+		assertEquals("getMail", "gaetalim@gmail.com", personneTest.getMail());//V√©rification du mail
 		assertEquals("getMail", "moi@gmail.com", personneTest1.getMail());
 		assertEquals("getMail", "toi@gmail.com", personneTest2.getMail());
 		
-		personneTest.setMail("yoyo@gmail.com");//VÈrification du setMail
+		personneTest.setMail("yoyo@gmail.com");//V√©rification du setMail
 		personneTest1.setMail("lala@gmail.com");
 		personneTest2.setMail("lolo@gmail.com");
 		assertEquals("setMail", "yoyo@gmail.com",personneTest.getMail());
@@ -63,11 +63,11 @@ public class InscriptionTest
 		personneTest1.setNom("papa");
 		personneTest2.setNom("pupu");
 		
-		assertEquals("compareTo",0,personneTest.compareTo(personneTest1));//VÈrification de la fonction CompareTo
+		assertEquals("compareTo",0,personneTest.compareTo(personneTest1));//V√©rification de la fonction CompareTo
 		assertEquals("compareTo",-20,personneTest1.compareTo(personneTest2));
 		assertEquals("compareTo",-20,personneTest.compareTo(personneTest2));
 		
-		personneTest.add(equipeTest); // VÈrification de l'ajout d'une personne dans une Èquipe
+		personneTest.add(equipeTest); // V√©rification de l'ajout d'une personne dans une √©quipe
 		
 		boolean trouver = false;
 		Set<Equipe> getEquipe = personneTest.getEquipes(); // Test du getEquipe
@@ -93,11 +93,11 @@ public class InscriptionTest
 	@Test
 	public void testCompetition()
 	{
-		competitionTest = inscriptionTest.createCompetition("Mondial de basket", LocalDate.now(), true,false); //CrÈation d'une compÈtition
+		competitionTest = inscriptionTest.createCompetition("Mondial de basket", LocalDate.now(), true,false); //Cr√©ation d'une comp√©tition
 		competitionTest1 = inscriptionTest.createCompetition("Mondial de PingPong", LocalDate.now(), false,false);
 		competitionTest2 = inscriptionTest.createCompetition("Mondial de Tennis", LocalDate.now(), false,false);
 		
-		assertEquals("estEnEquipe",true,competitionTest.estEnEquipe());//VÈrification de si la compÈpition se dÈroule en Èquipe ou non
+		assertEquals("estEnEquipe",true,competitionTest.estEnEquipe());//V√©rification de si la comp√©pition se d√©roule en √©quipe ou non
 		assertEquals("estEnEquipe",false,competitionTest1.estEnEquipe());
 		assertEquals("estEnEquipe",false,competitionTest2.estEnEquipe());
 	}
@@ -116,11 +116,11 @@ public class InscriptionTest
 	// test compare 
 	public void testCompareTo() {
 
-		// On crÈÈ une nouvelle compÈtition
+		// On cr√©√© une nouvelle comp√©tition
 
 		Competition competitionQuis = inscriptionTest.createCompetition("Visionnage de Cassettes", null, true,false);
 
-		//Et on compare a la compÈtition dÈj‡ crÈÈe plus haut
+		//Et on compare a la comp√©tition d√©j√† cr√©e plus haut
 
 		assertTrue(competitionTest.compareTo(competitionQuis) == 0);
 
@@ -153,7 +153,7 @@ public class InscriptionTest
 
 			Set<Candidat> candidats = competitionTest.getCandidats();
 
-			Equipe fly = inscriptionTest.createEquipe("Fly - Forces libÈrÈes yaourt",false);
+			Equipe fly = inscriptionTest.createEquipe("Fly - Forces lib√©r√©es yaourt",false);
 
 			try {
 				competitionTest.add(fly);
@@ -193,9 +193,9 @@ public class InscriptionTest
 			}
 			public void testSetPrenom() {
 
-				personneTest.setPrenom("LaPoulette"); // On ajoute une personne appellÈe "LaPoulette"
+				personneTest.setPrenom("LaPoulette"); // On ajoute une personne appell√©e "LaPoulette"
 
-				assertEquals("LaPoulette", personneTest.getPrenom()); // On vÈrifie
+				assertEquals("LaPoulette", personneTest.getPrenom()); // On v√©rifie
 
 			}
 			public void testDelete1() { // on supprime une personne 
@@ -273,7 +273,7 @@ public class InscriptionTest
 				plop.remove(treople,false);
 
 
-				// Si l'Affirmation est fausse, le rÈsultat est correct
+				// Si l'Affirmation est fausse, le r√©sultat est correct
 
 				assertTrue(!membres.contains(personnes));
 
@@ -318,7 +318,7 @@ public class InscriptionTest
 					assertTrue(Competitions.contains(testCompetition));
 
 				}
-				public void testRemove() {//TestRemove, comme pour Add mais on retire la donnÈe ajoutÈe
+				public void testRemove() {//TestRemove, comme pour Add mais on retire la donn√©e ajout√©e
 
 					Set<Competition> Competitions = personne.getCompetitions();
 

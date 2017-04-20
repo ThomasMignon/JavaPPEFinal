@@ -25,31 +25,17 @@ import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
 public class PanneauPersonne extends JPanel {
-	private JComboBox<String> comboPersonne = new JComboBox<>();
-	private JComboBox<String> comboEquipe = new JComboBox<>();
-	private JComboBox<String> comboEquipeDispo = new JComboBox<>();
-	private JComboBox<String> comboCompetition = new JComboBox<>();
-	private JComboBox<String> comboCompetitionDispo = new JComboBox<>();
 
 	private Inscriptions inscriptions = Panneau.getInscriptions();
 
 	private JPanel ajoutePersonne = new JPanel();
-	private JPanel panelSelectPersonne = new JPanel();
 	private JPanel panelAfficherPersonne = new JPanel();
-	private JPanel panelAfficherCompetitionsPersonne = new JPanel();
-	private JPanel panelAfficherEquipePersonne = new JPanel();
 
 	private JTextField nomAjoutField = new JTextField();
 	private JTextField prenomAjoutField = new JTextField();
 	private JTextField mailAjoutField = new JTextField();
 
 	private JButton boutonAjoute = new JButton("Ajouter");
-
-	private Dimension taillePaneTable = new Dimension((int) (Fenetre.WIDTH * 0.80), (int) (Fenetre.HEIGHT * 0.50));
-	private Dimension tailleTable = new Dimension((int) (Fenetre.WIDTH * 0.80), (int) (Fenetre.HEIGHT));
-	private Dimension tailleListPersonne = new Dimension(Fenetre.WIDTH * 80 / 100, Fenetre.HEIGHT * 12 / 100);
-	private Dimension tailleListCompetition = new Dimension(Fenetre.WIDTH * 40 / 100 - 2, Fenetre.HEIGHT * 35 / 100);
-	private Dimension tailleListEquipe = new Dimension(Fenetre.WIDTH * 40 / 100 - 2, Fenetre.HEIGHT * 35 / 100);
 
 	public PanneauPersonne() {
 		// Instantiation
@@ -111,7 +97,7 @@ public class PanneauPersonne extends JPanel {
 		// Ajout des labels et des éléments
 		ajoutePersonne.add(new JLabel("Nom : "));
 		ajoutePersonne.add(nomAjoutField);
-		ajoutePersonne.add(new JLabel("Pr�nom : "));
+		ajoutePersonne.add(new JLabel("Prénom : "));
 		ajoutePersonne.add(prenomAjoutField);
 		ajoutePersonne.add(new JLabel("Email : "));
 		ajoutePersonne.add(mailAjoutField);
@@ -158,21 +144,22 @@ public class PanneauPersonne extends JPanel {
 		boutonAjoute.setEnabled((isValid("nom") && isValid("prenom") && isValid("mail")));
 	}
 
-	private void refresh() {
+	public void refresh() {
 		this.removeAll();
 		this.resetAllPanel();
-		this.setPanneauAfficherPersonne();
-		this.setPanneauAjoutePersonne();
 		this.repaint();
 		System.out.println("Refresh...");
 	}
 
 	private void resetAllPanel() {
 		ajoutePersonne.removeAll();
-		panelSelectPersonne.removeAll();
+//		panelSelectPersonne.removeAll();
 		panelAfficherPersonne.removeAll();
-		panelAfficherEquipePersonne.removeAll();
-		panelAfficherCompetitionsPersonne.removeAll();
+//		panelAfficherEquipePersonne.removeAll();
+//		panelAfficherCompetitionsPersonne.removeAll();
+		
+		this.setPanneauAfficherPersonne();
+		this.setPanneauAjoutePersonne();
 	}
 
 	class fieldListener implements KeyListener {
@@ -219,7 +206,7 @@ public class PanneauPersonne extends JPanel {
 			inscriptions.createPersonne(nomAjoutField.getText(), prenomAjoutField.getText(), mailAjoutField.getText(),
 					true);
 			JOptionPane.showMessageDialog(null,
-					nomAjoutField.getText() + " " + prenomAjoutField.getText() + " � bien �t� ajouter !", "Information",
+					nomAjoutField.getText() + " " + prenomAjoutField.getText() + " à bien été ajouter !", "Information",
 					JOptionPane.INFORMATION_MESSAGE);
 			nomAjoutField.setText("");
 			prenomAjoutField.setText("");

@@ -145,6 +145,23 @@ public class TablePersonne extends JPanel{
 		}
 	}
     
+    private void refresh() 
+    {
+    	this.remove(contentPane);
+    	this.initComponents();
+		dataLayer.repaint();
+		p.refresh();
+		System.out.println("Refresh...");
+	}
+    
+    /*
+     * Cr�ation d'une liste de donn�es � paginer
+     */
+    
+    private List<Personne> getList(){
+        
+        return this.personnes;
+    }
     
     /**
      * 
@@ -169,66 +186,4 @@ public class TablePersonne extends JPanel{
 			refresh();
 		}
 	}
-    
-    private void refresh() 
-    {
-    	this.remove(contentPane);
-    	this.initComponents();
-		dataLayer.repaint();
-	}
-    
-    /**
-     * 
-     * Cr�ation du listener sur le bouton Edit
-     * 
-     */
-    
-    class boutonEditListener implements ActionListener
-	{
-    	private Equipe e;
-    	private String nom;
-    	 
-	    public boutonEditListener(Equipe e,String nom) {
-	        super();
-	        this.e = e;
-	        this.nom = nom;
-	        e.setNom(nom);
-	    }
-    	    
-		@Override
-		public void actionPerformed(ActionEvent arg0) 
-		{		
-			inscriptions.editeEquipe(e,e.getNom());
-			System.out.println(e.getNom());
-			System.out.println(this.nom);
-		}
-	}
-    
-    class boutonAjouterListener implements ActionListener
-	{
-    	private Personne p;
-    	private String nom;
-    	 
-	    public boutonAjouterListener(Personne p) {
-	        super();
-	        this.p = p;
-	    }
-    	    
-		@Override
-		public void actionPerformed(ActionEvent arg0) 
-		{		
-			JComboBox box = new JComboBox();
-			box.addItem(inscriptions.getPersonnes());
-			dataLayer.repaint();
-			dataLayer.updateUI();
-			System.out.println("oui");
-		}
-	}
-    /*
-     * Cr�ation d'une liste de donn�es � paginer
-     */
-    private List<Personne> getList(){
-        
-        return this.personnes;
-    }
 }

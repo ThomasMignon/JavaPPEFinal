@@ -51,14 +51,13 @@ public class PanneauAdminEquipe extends JPanel {
 	
 	Inscriptions inscriptions = new Inscriptions();
 	JButton addMembre = new JButton("Add");
-	JButton suppMembre = new JButton("");
 	JLabel nomEquipe = new JLabel();
 	JPanel panelMembres = new JPanel();
 	JPanel panelCompetitions = new JPanel();
 	JComboBox listMembres = new JComboBox();
 	JComboBox listNewMembres = new JComboBox();
 	JPanel panelComboMembres = new JPanel();
-	JLabel labelTitre = new JLabel("Liste des membres de l'équipe : ");
+	JLabel labelTitre = new JLabel("Liste des membres de l'Ã©quipe : ");
 	private Dimension taille = new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.80));
 	private Dimension size = new Dimension((int) (Fenetre.WIDTH * 0.45),80);
 	
@@ -66,7 +65,7 @@ public class PanneauAdminEquipe extends JPanel {
 	{
 		super();
 		nomEquipe.setPreferredSize(new Dimension((int) taille.getWidth(),40));
-		nomEquipe.setBorder(BorderFactory.createTitledBorder("Administration de l'équipe :"));
+		nomEquipe.setBorder(BorderFactory.createTitledBorder("Administration de l'Ã©quipe :"));
 		nomEquipe.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(nomEquipe);
 		this.add(panelMembres);
@@ -109,7 +108,6 @@ public class PanneauAdminEquipe extends JPanel {
 	public JButton createButton(String s)
 	{
 		return new JButton(s);
-		
 	}
 	
 	
@@ -199,7 +197,7 @@ public class PanneauAdminEquipe extends JPanel {
                 dataLayer.removeAll();
                 dataLayer.repaint();
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.4)));
-                dataLayer.add(new JLabel("Nom de l'ï¿équipe :"));
+                dataLayer.add(new JLabel("Nom de l'Ã©quipe :"));
 
                 for(Personne p : personnes){
                 	if(!p.getIsDelete())
