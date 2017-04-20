@@ -136,10 +136,10 @@ public class PanneauAdminEquipe extends JPanel {
 		panelComboMembres.add(listNewMembres);
 		addMembre.addActionListener(new ajouterMembreListener(RecupNew()));
 		
-		panelComboMembres.add(addMembre);
+		panelMembres.add(addMembre);
 		
 		panelMembres.add(panelComboMembres);
-		initComponents();
+		
 		
 	}
 	
@@ -177,58 +177,6 @@ public class PanneauAdminEquipe extends JPanel {
 		this.remplirMembres(equipe);
 	}
 	
-	private void initComponents() {
-        dataLayer = new JPanel();
-        
-        contentPane = new JPanel();
-        contentPane.setLayout(new BorderLayout());
-        
-        /*
-         * Construction de notre systï¿½me de pagination pour la liste
-         * fournie par la mï¿½thode getList()
-         */
-        paginationPanel = new PaginationPanel<Personne>(getList(),5);
-        //Instanciation avec classe anonyme de notre observateur
-        paginationObserver = new PaginationObserver<Personne>(){
-
-            /*
-             * Implï¿½mentation de la mï¿½thode update de l'interface
-             */
-            @Override
-            public void update(List<Personne> personnes) {
-                dataLayer.removeAll();
-                dataLayer.repaint();
-                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.4)));
-                dataLayer.add(new JLabel("Nom de l'ï¿équipe :"));
-
-                for(Personne p : personnes){
-                	if(!p.getIsDelete())
-                	{
-                		JPanel panel = new JPanel();
-                    	JTextField nomEquipe = new JTextField(p.getNom());
-                    	nomEquipe.setPreferredSize(new Dimension(120,25));
-                    	panel.add(nomEquipe);
-                    	JButton ajouter = new JButton("Ajouter membre");
-                    	panel.add(ajouter);
-                    	ajouter.addActionListener(new ajouterMembreListener(p));
-                        panel.setPreferredSize(new Dimension(460, 35));                                        
-                        dataLayer.add(panel);
-                	}
-                }
-                dataLayer.repaint();
-                dataLayer.updateUI();
-                System.out.println(personnes);
-            }
-            
-        };
-        //Ajout de l'observateur
-        paginationPanel.addPaginationObserver(paginationObserver);
-        
-        contentPane.add(new JScrollPane(dataLayer));
-        contentPane.add(paginationPanel, BorderLayout.SOUTH);
-        this.add(contentPane);
-        paginationPanel.reset();
-    }
 	
 	class ajouterMembreListener implements ActionListener 
 	{

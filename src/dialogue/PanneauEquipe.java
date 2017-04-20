@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import dialogue.PanneauPersonne.ajoutFieldListener;
 import dialogue.PanneauPersonne.fieldListener;
 import dialogue.PanneauAdminEquipe;
+import dialogue.PanneauAdminEquipe.supprimerMembreListener;
 import inscriptions.Competition;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
@@ -58,9 +59,13 @@ public class PanneauEquipe extends JPanel {
 	private JTextField mailAjoutField = new JTextField();
 	
 	private JTextField nomField = new JTextField();
+	
+	TableEquipe table = new TableEquipe(this);
 
 	private JButton boutonAjout = new JButton("Ajouter");
 	private JButton boutonEdit  = new JButton("Editer");
+	private JButton creer  = new JButton("Cr�er");
+	
 	private JButton boutonAjouterMembre = new JButton("Ajouter ce membre");
 	private JButton boutonSupprMembre = new JButton("Supprimer de ce membre");
 	private JButton boutonSupprCompetition = new JButton("Supprimer de cette comp�tition");
@@ -71,10 +76,13 @@ public class PanneauEquipe extends JPanel {
 	
 	public PanneauEquipe()
 	{	
-		// Menu deroulant pour selectionner personne
+		//Panneau ajouter equipe
+		setAddEquipe();
+		
+		//Tableau des equipe
 		setTableEquipe();
 		 
-		//Afficher les équipes d'une personne séléctionner 
+		//Afficher partie administration
 		setAdminEquipe();
 	}
 	
@@ -108,17 +116,55 @@ public class PanneauEquipe extends JPanel {
 	{
 		this.selectEquipe = e;
 	}
+	
+	private void setAddEquipe()
+	{
+		JPanel addPanel = new JPanel();
+		addPanel.add(new JLabel("Nom : "));
+		nomAjoutField.setPreferredSize(new Dimension(120,20));
+		addPanel.add(nomAjoutField);
+		creer.addActionListener(new addEquipeListener());
+		addPanel.add(creer);
+		addPanel.setBorder(BorderFactory.createEtchedBorder());
+		addPanel.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.93),(int) (Fenetre.HEIGHT * 0.08)));
+		this.add(addPanel);
+	}
 
 	
 	private JPanel setAfficherTableauEquipe()
 	{
-		TableEquipe table = new TableEquipe(this);
+		this.repaint();
 		panelTableauEquipe.add(table);
 		return panelTableauEquipe;
 	}
+	
+	public void refresh()
+	{
+		this.removeAll();
+		this.resetAllPanel();
+		setAddEquipe();
+		setTableEquipe();
+		setAdminEquipe();
+	}
+	
+	
+	private void resetAllPanel() {
+		this.ajouteEquipe.removeAll();
+		this.panelSelectEquipe.removeAll();
+		this.panelAfficherEquipe.removeAll();
+		this.panelTableauEquipe.removeAll();
+		
+	}
+
 	public boolean isCellEditable(){  
         return false;  
     }
+	
+	public String Recup()
+	{
+		return nomAjoutField.getText();
+		
+	}
 
 	private void setAdminEquipe() {
 		
@@ -126,7 +172,6 @@ public class PanneauEquipe extends JPanel {
 		this.setPanelAdminEquipe(panelAdminEquipe);
 		this.add(panelAdminEquipe);
 		
-		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'�quipe"));
 		panelAfficherEquipe.setPreferredSize(taillePanelAjout);
 		this.add(panelAfficherEquipe);	
 
@@ -168,6 +213,20 @@ public class PanneauEquipe extends JPanel {
 				nomField.setText(nomEquipe);
 				
 			}
+		}
+	}
+	
+	class addEquipeListener implements ActionListener 
+	{  	 
+	    public addEquipeListener() {
+	        super();
+	    }
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			inscriptions.createEquipe(Recup(), true);
+			table.refresh();
+			setAfficherTableauEquipe();
 		}
 	}
 	
