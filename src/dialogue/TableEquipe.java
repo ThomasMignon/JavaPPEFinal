@@ -33,7 +33,7 @@ public class TableEquipe extends JPanel{
     private PanneauEquipe panneauEquipe;
     //Le panneau qui va afficher les donn√©es et le panneau principal   
 
-    private JPanel dataLayer, contentPane;
+    public JPanel dataLayer, contentPane;
     private Inscriptions inscriptions = Panneau.getInscriptions();
     public SortedSet<Equipe> equi = inscriptions.getEquipes();
     ArrayList equipes = new ArrayList(equi);
@@ -65,7 +65,12 @@ public class TableEquipe extends JPanel{
             public void update(List<Equipe> equipes) {
                 dataLayer.removeAll();
                 dataLayer.repaint();
+<<<<<<< HEAD
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
+=======
+                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.7)));
+                dataLayer.add(new JLabel("Nom de l'ÔøÈquipe :"));
+>>>>>>> b6b09001d1eb9f09778f56351e8c66d360d2937b
 
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
@@ -164,13 +169,15 @@ public class TableEquipe extends JPanel{
 		}
 	}
     
-    private void refresh() {
-		dataLayer.removeAll();
-		dataLayer.updateUI();
-		dataLayer.repaint();
+    public void refresh() {
+    	this.remove(contentPane);
+    	
+    	paginationObserver.update(getList());
+    	this.initComponents();
+		System.out.println("Ca Passe ici");
 		
 	}
-    
+    	
     /**
      * 
      * Cr√©ation du listener sur le bouton Edit

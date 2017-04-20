@@ -134,10 +134,10 @@ public class PanneauAdminEquipe extends JPanel {
 		panelComboMembres.add(listNewMembres);
 		addMembre.addActionListener(new ajouterMembreListener(RecupNew()));
 		
-		panelComboMembres.add(addMembre);
+		panelMembres.add(addMembre);
 		
 		panelMembres.add(panelComboMembres);
-		initComponents();
+		
 		
 	}
 	
@@ -175,6 +175,7 @@ public class PanneauAdminEquipe extends JPanel {
 		this.remplirMembres(equipe);
 	}
 	
+<<<<<<< HEAD
 	private void initComponents() {
         dataLayer = new JPanel();
         
@@ -227,6 +228,8 @@ public class PanneauAdminEquipe extends JPanel {
         this.add(contentPane);
         paginationPanel.reset();
     }
+=======
+>>>>>>> b6b09001d1eb9f09778f56351e8c66d360d2937b
 	
 	class ajouterMembreListener implements ActionListener 
 	{
