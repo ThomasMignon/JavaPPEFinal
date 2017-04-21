@@ -193,7 +193,8 @@ public class PanneauEquipe extends JPanel {
 		this.add(panelSelectEquipe);		
 	}
 
-	private void setPanneauAjouteEquipe() {
+	private void setPanneauAjouteEquipe() 
+	{
 		ajouteEquipe.setBackground(Color.WHITE);
 		nomAjoutField.setPreferredSize(new Dimension(130, 20));
 		ajouteEquipe.add(new JLabel("Nom : "));
@@ -251,24 +252,17 @@ public class PanneauEquipe extends JPanel {
 		}
 	}
 	
-	private void listEquipePersonne(Equipe eq)
-	{
-		if(!eq.getMembres().isEmpty())
-		{
-			for(Personne p : eq.getMembres())
-			{
-				comboPersonne.addItem(p.getNom());
-			}
-		}
-		comboPersonne.addItem("Exemple");
-	}
-	
-	
-
-	private void listEquipeSelectPersonne(Equipe e) {
-		// TODO Auto-generated method stub
-		
-	}
+//	private void listEquipePersonne(Equipe eq)
+//	{
+//		if(!eq.getMembres().isEmpty())
+//		{
+//			for(Personne p : eq.getMembres())
+//			{
+//				comboPersonne.addItem(p.getNom());
+//			}
+//		}
+//		comboPersonne.addItem("Exemple");
+//	}
 	
 	class comboItemListener implements ActionListener 
 	{
@@ -279,28 +273,7 @@ public class PanneauEquipe extends JPanel {
 		}
 	}
 	
-	class fieldListener implements KeyListener
-	{
-
-		@Override
-		public void keyPressed(KeyEvent e) 
-		{
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) 
-		{
-			
-		}
-
-		@Override
-		public void keyTyped(KeyEvent e) 
-		{
-			
-		}
-		
-	}
+	
 	
 	class ajoutFieldListener implements KeyListener
 	{
