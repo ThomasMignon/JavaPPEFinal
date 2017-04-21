@@ -202,10 +202,7 @@ public class PanneauAdminEquipe extends JPanel {
 		this.setMembres(equipe);
 		this.remplirMembres(equipe);
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> b3ce68fabce55522b12a31cb1820846e3c4847cc
+
 	private void initComponents() {
         dataLayer = new JPanel();
         
@@ -257,10 +254,9 @@ public class PanneauAdminEquipe extends JPanel {
         contentPane.add(paginationPanel, BorderLayout.SOUTH);
         this.add(contentPane);
         paginationPanel.reset();
-<<<<<<< HEAD
+
     }
-=======
->>>>>>> b3ce68fabce55522b12a31cb1820846e3c4847cc
+
 	
 	class ajouterMembreListener implements ActionListener 
 	{
