@@ -137,7 +137,10 @@ public class PanneauEquipe extends JPanel {
 		panelTableauEquipe.add(table);
 		return panelTableauEquipe;
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> b3ce68fabce55522b12a31cb1820846e3c4847cc
 	public void refresh()
 	{
 		this.removeAll();
@@ -149,7 +152,8 @@ public class PanneauEquipe extends JPanel {
 	}
 	
 	
-	private void resetAllPanel() {
+	private void resetAllPanel() 
+	{
 		this.ajouteEquipe.removeAll();
 		this.ajouteEquipe.removeAll();
 		this.panelSelectEquipe.removeAll();
@@ -174,6 +178,12 @@ public class PanneauEquipe extends JPanel {
 		this.setPanelAdminEquipe(panelAdminEquipe);
 		this.add(panelAdminEquipe);
 		
+<<<<<<< HEAD
+=======
+
+		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
+
+>>>>>>> b3ce68fabce55522b12a31cb1820846e3c4847cc
 		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
 		panelAfficherEquipe.setPreferredSize(taillePanelAjout);
 		this.add(panelAfficherEquipe);	
@@ -193,7 +203,8 @@ public class PanneauEquipe extends JPanel {
 		this.add(panelSelectEquipe);		
 	}
 
-	private void setPanneauAjouteEquipe() {
+	private void setPanneauAjouteEquipe() 
+	{
 		ajouteEquipe.setBackground(Color.WHITE);
 		nomAjoutField.setPreferredSize(new Dimension(130, 20));
 		ajouteEquipe.add(new JLabel("Nom : "));
@@ -251,24 +262,17 @@ public class PanneauEquipe extends JPanel {
 		}
 	}
 	
-	private void listEquipePersonne(Equipe eq)
-	{
-		if(!eq.getMembres().isEmpty())
-		{
-			for(Personne p : eq.getMembres())
-			{
-				comboPersonne.addItem(p.getNom());
-			}
-		}
-		comboPersonne.addItem("Exemple");
-	}
-	
-	
-
-	private void listEquipeSelectPersonne(Equipe e) {
-		// TODO Auto-generated method stub
-		
-	}
+//	private void listEquipePersonne(Equipe eq)
+//	{
+//		if(!eq.getMembres().isEmpty())
+//		{
+//			for(Personne p : eq.getMembres())
+//			{
+//				comboPersonne.addItem(p.getNom());
+//			}
+//		}
+//		comboPersonne.addItem("Exemple");
+//	}
 	
 	class comboItemListener implements ActionListener 
 	{
@@ -279,28 +283,7 @@ public class PanneauEquipe extends JPanel {
 		}
 	}
 	
-	class fieldListener implements KeyListener
-	{
-
-		@Override
-		public void keyPressed(KeyEvent e) 
-		{
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) 
-		{
-			
-		}
-
-		@Override
-		public void keyTyped(KeyEvent e) 
-		{
-			
-		}
-		
-	}
+	
 	
 	class ajoutFieldListener implements KeyListener
 	{

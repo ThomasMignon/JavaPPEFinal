@@ -55,7 +55,7 @@ public class PanneauPersonne extends JPanel {
 
 		// Menu deroulant pour selectionner personne
 		// setComboPersonne();
-		setAfficherTableauEquipe();
+		setAfficherTableauPersonne();
 		// Afficher une personne séléctionner, éditer
 
 		// setAfficherPersonne();
@@ -78,7 +78,7 @@ public class PanneauPersonne extends JPanel {
 
 	}
 
-	private void setAfficherTableauEquipe() {
+	private void setAfficherTableauPersonne() {
 		TablePersonne personneTable = new TablePersonne(this, 5);
 		panelAfficherPersonne.add(personneTable);
 		// panelAfficherPersonne.setPreferredSize(taillePaneTable);

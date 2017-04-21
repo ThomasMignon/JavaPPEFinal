@@ -122,21 +122,24 @@ public class Inscriptions implements Serializable
 		competitions.add(competition);
 		return competition;
 	}
-	/**
-	 * Créée une Candidat de type Personne. Ceci est le seul moyen, il n'y a pas
-	 * de constructeur public dans {@link Personne}.
-
-	 * @param nom
-	 * @param prenom
-	 * @param mail
-	 * @return
-	 */
 	
 	public Competition editeCompetition(Competition competition, String nom)
 	{
 		competition.setNom(nom);
 		return competition;
 	}
+	
+	/**
+	 * Créée une Candidat de type Personne. Ceci est le seul moyen, il n'y a pas
+	 * de constructeur public dans {@link Personne}. Save est à true lorsque qu'il
+	 * sauvegarder dans la base de donnée, sinon il est à false.
+
+	 * @param nom
+	 * @param prenom
+	 * @param mail
+	 * @param save
+	 * @return
+	 */
 	
 	public Personne createPersonne(String nom, String prenom, String mail , boolean save)
 	{

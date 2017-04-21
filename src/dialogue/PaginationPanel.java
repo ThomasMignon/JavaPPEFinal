@@ -100,7 +100,7 @@ public class PaginationPanel<T> extends JPanel{
         
         next = new JButton("Suivant");
         next.setPreferredSize(new Dimension(85, 25));
-        //next.setIcon(new ImageIcon(getClass().getResource("/miu/openc/pagination/next.png")));
+//      next.setIcon(new ImageIcon(getClass().getResource("res/fleched.png")));
        
         next.setActionCommand("next");
         next.addActionListener(listener);
