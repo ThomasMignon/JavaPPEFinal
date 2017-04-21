@@ -67,6 +67,9 @@ public class PanneauEquipe extends JPanel {
 	
 	public PanneauEquipe()
 	{	
+		//Initialisation des listeners
+		setListener();
+		
 		//Panneau ajouter equipe
 		setAddEquipe();
 		
@@ -75,7 +78,13 @@ public class PanneauEquipe extends JPanel {
 		 
 		//Afficher partie administration
 		setAdminEquipe();
+	}
+	
+	private void setListener()
+	{
 		creer.addActionListener(new addEquipeListener());
+		nomAjoutField.addKeyListener(new ajoutFieldListener());
+		comboEquipe.addActionListener(new comboItemListener());
 	}
 	
 	public PanneauAdminEquipe getPanelAdminEquipe()
@@ -231,19 +240,15 @@ public class PanneauEquipe extends JPanel {
 			{
 				inscriptions.createEquipe(Recup(), true);
 				System.out.println("AJOUT");
+				nomAjoutField.setText("");
 				refresh();
 			}
 			else
 			{
 				System.out.println("Déjà inscrit");
+				nomAjoutField.setText("");
 			}
 		}
-	}
-	
-	private void setListener()
-	{
-		nomAjoutField.addKeyListener(new ajoutFieldListener());
-		comboEquipe.addActionListener(new comboItemListener());
 	}
 	
 	private void listEquipePersonne(Equipe eq)
@@ -301,9 +306,25 @@ public class PanneauEquipe extends JPanel {
 	{
 
 		@Override
-		public void keyPressed(KeyEvent arg0) 
+		public void keyPressed(KeyEvent e) 
 		{
-		
+			if(e.getKeyCode() == KeyEvent.VK_ENTER)
+			{
+				if(verifRecup())
+				{
+					inscriptions.createEquipe(Recup(), true);
+					System.out.println("AJOUT");
+					nomAjoutField.setText("");
+					refresh();
+					nomAjoutField.requestFocus();
+				}
+				else
+				{
+					System.out.println("Déjà inscrit");
+					nomAjoutField.setText("");
+					nomAjoutField.requestFocus();
+				}
+			}
 		}
 
 		@Override

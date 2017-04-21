@@ -59,6 +59,7 @@ public class PanneauAdminEquipe extends JPanel {
 	JComboBox listNewMembres = new JComboBox();
 	JPanel panelComboMembres = new JPanel();
 	JLabel labelTitre = new JLabel("Liste des membres de l'équipe : ");
+	JLabel labelTitre2 = new JLabel("Liste des personnes disponibles : ");
 	private Dimension taille = new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.80));
 	private Dimension size = new Dimension((int) (Fenetre.WIDTH * 0.45),80);
 	
@@ -133,27 +134,33 @@ public class PanneauAdminEquipe extends JPanel {
 			listNewMembres.addItem(pnew);
 		}
 		labelTitre.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.25),20));
-		
+		labelTitre2.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.25),20));
+		panelMembres.add(addSupp);
+		panelMembres.add(addMembre);
 		if(!(listMembres.getItemCount()==0))
 		{
 			panelComboMembres.add(labelTitre);
 			panelComboMembres.add(listMembres);
-			panelMembres.add(addSupp);
+			addSupp.setEnabled(true);
 		}
 		else
 		{
+			addSupp.setEnabled(false);
+			panelComboMembres.remove(labelTitre);
 			panelComboMembres.remove(listMembres);
-			panelComboMembres.removeAll();
 		}
 		
 		if(!(listNewMembres.getItemCount() == 0))
 		{
+			panelComboMembres.add(labelTitre2);
 			panelComboMembres.add(listNewMembres);
-			panelMembres.add(addMembre);
+			addMembre.setEnabled(true);
 		}
 		else
 		{
+			panelComboMembres.remove(labelTitre2);
 			panelComboMembres.remove(listNewMembres);
+			addMembre.setEnabled(false);
 		}
 			
 		
