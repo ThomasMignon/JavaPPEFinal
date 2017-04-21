@@ -59,23 +59,17 @@ public class PanneauEquipe extends JPanel {
 	private JTextField mailAjoutField = new JTextField();
 	
 	private JTextField nomField = new JTextField();
-	
-	TableEquipe table = new TableEquipe(this);
 
 	private JButton boutonAjout = new JButton("Ajouter");
-	private JButton boutonEdit  = new JButton("Editer");
-	private JButton creer  = new JButton("Cr�er");
-	
-	private JButton boutonAjouterMembre = new JButton("Ajouter ce membre");
-	private JButton boutonSupprMembre = new JButton("Supprimer de ce membre");
-	private JButton boutonSupprCompetition = new JButton("Supprimer de cette compétition");
-	private JButton boutonAjouteCompetition = new JButton("Ajouter à cette compétition");
-	private JButton boutonSupprEquipe = new JButton("Supprimer cette équipe");
+	private JButton creer  = new JButton("Créer");
 	
 	private Dimension taillePanelAjout = new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.80));
 	
 	public PanneauEquipe()
 	{	
+		//Initialisation des listeners
+		setListener();
+		
 		//Panneau ajouter equipe
 		setAddEquipe();
 		
@@ -84,6 +78,13 @@ public class PanneauEquipe extends JPanel {
 		 
 		//Afficher partie administration
 		setAdminEquipe();
+	}
+	
+	private void setListener()
+	{
+		creer.addActionListener(new addEquipeListener());
+		nomAjoutField.addKeyListener(new ajoutFieldListener());
+		comboEquipe.addActionListener(new comboItemListener());
 	}
 	
 	public PanneauAdminEquipe getPanelAdminEquipe()
@@ -123,7 +124,6 @@ public class PanneauEquipe extends JPanel {
 		addPanel.add(new JLabel("Nom : "));
 		nomAjoutField.setPreferredSize(new Dimension(120,20));
 		addPanel.add(nomAjoutField);
-		creer.addActionListener(new addEquipeListener());
 		addPanel.add(creer);
 		addPanel.setBorder(BorderFactory.createEtchedBorder());
 		addPanel.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.93),(int) (Fenetre.HEIGHT * 0.08)));
@@ -133,22 +133,28 @@ public class PanneauEquipe extends JPanel {
 	
 	private JPanel setAfficherTableauEquipe()
 	{
-		this.repaint();
+		TableEquipe table = new TableEquipe(this);
 		panelTableauEquipe.add(table);
 		return panelTableauEquipe;
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> origin/master
 	public void refresh()
 	{
 		this.removeAll();
 		this.resetAllPanel();
-		setAddEquipe();
-		setTableEquipe();
-		setAdminEquipe();
+		this.setAddEquipe();
+		this.setTableEquipe();
+		this.setAdminEquipe();
+		this.repaint();
 	}
 	
 	
 	private void resetAllPanel() {
+		this.ajouteEquipe.removeAll();
 		this.ajouteEquipe.removeAll();
 		this.panelSelectEquipe.removeAll();
 		this.panelAfficherEquipe.removeAll();
@@ -156,7 +162,10 @@ public class PanneauEquipe extends JPanel {
 		
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 	public boolean isCellEditable(){  
         return false;  
     }
@@ -173,9 +182,13 @@ public class PanneauEquipe extends JPanel {
 		this.setPanelAdminEquipe(panelAdminEquipe);
 		this.add(panelAdminEquipe);
 		
+<<<<<<< HEAD
 
 		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
 
+=======
+		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
+>>>>>>> origin/master
 		panelAfficherEquipe.setPreferredSize(taillePanelAjout);
 		this.add(panelAfficherEquipe);	
 
@@ -220,24 +233,36 @@ public class PanneauEquipe extends JPanel {
 		}
 	}
 	
+	public boolean verifRecup()
+	{
+		for(Equipe e : inscriptions.getEquipes())
+		{
+			if(e.getNom().equals(Recup()))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	class addEquipeListener implements ActionListener 
-	{  	 
-	    public addEquipeListener() {
-	        super();
-	    }
+	{
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			inscriptions.createEquipe(Recup(), true);
-			table.refresh();
-			setAfficherTableauEquipe();
+			if(verifRecup())
+			{
+				inscriptions.createEquipe(Recup(), true);
+				System.out.println("AJOUT");
+				nomAjoutField.setText("");
+				refresh();
+			}
+			else
+			{
+				System.out.println("Déjà inscrit");
+				nomAjoutField.setText("");
+			}
 		}
-	}
-	
-	private void setListener()
-	{
-		nomAjoutField.addKeyListener(new ajoutFieldListener());
-		comboEquipe.addActionListener(new comboItemListener());
 	}
 	
 	private void listEquipePersonne(Equipe eq)
@@ -295,9 +320,25 @@ public class PanneauEquipe extends JPanel {
 	{
 
 		@Override
-		public void keyPressed(KeyEvent arg0) 
+		public void keyPressed(KeyEvent e) 
 		{
-		
+			if(e.getKeyCode() == KeyEvent.VK_ENTER)
+			{
+				if(verifRecup())
+				{
+					inscriptions.createEquipe(Recup(), true);
+					System.out.println("AJOUT");
+					nomAjoutField.setText("");
+					refresh();
+					nomAjoutField.requestFocus();
+				}
+				else
+				{
+					System.out.println("Déjà inscrit");
+					nomAjoutField.setText("");
+					nomAjoutField.requestFocus();
+				}
+			}
 		}
 
 		@Override

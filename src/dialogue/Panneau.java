@@ -19,15 +19,20 @@ public class Panneau extends JPanel
 	
 	public Panneau()
 	{
-		
+		inscriptions = Inscriptions.getInscriptions();
 		this.setLayout(new BorderLayout());
 		Font police = new Font("Tahoma", Font.BOLD, 18);
 		titre.setFont(police);
 		titre.setHorizontalAlignment(JLabel.CENTER);
 		tab.addTab("Gestion de personne", new PanneauPersonne());
 		tab.addTab("Gestion d'équipe", new PanneauEquipe());
+<<<<<<< HEAD
 		tab.addTab("Gestion de compétition", new PanneauCompetition());
 		tab.setBackground(Color.CYAN);
+=======
+		tab.addTab("Gestion de compétition", new JPanel());
+		tab.setBackground(new Color(208,182,241));
+>>>>>>> origin/master
 		tab.setFont(police);
 		this.add(tab,BorderLayout.CENTER);
 	}
@@ -45,7 +50,6 @@ public class Panneau extends JPanel
 	
 	public static Inscriptions getInscriptions()
 	{
-		inscriptions = Inscriptions.getInscriptions();
 		return inscriptions;
 	}
 }

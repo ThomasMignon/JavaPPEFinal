@@ -73,7 +73,7 @@ public class PaginationPanel<T> extends JPanel{
         displayRange.addItem(nbParPage);
         
         
-        first = new JButton("first");
+        first = new JButton("1");
         first.setPreferredSize(new Dimension(85, 25));
         //first.setIcon(new ImageIcon(getClass().getResource("/miu/openc/pagination/first.png")));
         
@@ -82,7 +82,7 @@ public class PaginationPanel<T> extends JPanel{
       
         this.add(first);
         
-        prev = new JButton("prev");
+        prev = new JButton("Précédent");
         prev.setPreferredSize(new Dimension(85, 25));
         //prev.setIcon(new ImageIcon(getClass().getResource("/miu/openc/pagination/prev.png")));
         prev.setActionCommand("prev");
@@ -98,7 +98,7 @@ public class PaginationPanel<T> extends JPanel{
         pageDisplayer.setPreferredSize(new Dimension(60, 30));
         this.add(pageDisplayer);
         
-        next = new JButton("next");
+        next = new JButton("Suivant");
         next.setPreferredSize(new Dimension(85, 25));
         //next.setIcon(new ImageIcon(getClass().getResource("/miu/openc/pagination/next.png")));
        
@@ -106,8 +106,8 @@ public class PaginationPanel<T> extends JPanel{
         next.addActionListener(listener);
         
         this.add(next);
-        
-        last = new JButton("last");
+        calculate();
+        last = new JButton(""+getTotalPages());
         last.setPreferredSize(new Dimension(85, 25));
         //last.setIcon(new ImageIcon(getClass().getResource("/miu/openc/pagination/last.png")));
         

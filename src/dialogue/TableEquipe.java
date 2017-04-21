@@ -39,9 +39,10 @@ public class TableEquipe extends JPanel{
     ArrayList equipes = new ArrayList(equi);
     Object selectE;
     
-    public TableEquipe(PanneauEquipe p){
+    public TableEquipe(PanneauEquipe p)
+    {
+    	this.initComponents();
     	this.panneauEquipe = p;
-        this.initComponents();
     }
 
     private void initComponents() {
@@ -64,12 +65,19 @@ public class TableEquipe extends JPanel{
             @Override
             public void update(List<Equipe> equipes) {
                 dataLayer.removeAll();
+<<<<<<< HEAD
                 dataLayer.repaint();
 
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
 
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.7)));
                 dataLayer.add(new JLabel("Nom de l'ï¿équipe :"));
+=======
+                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
+
+                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.7)));
+                dataLayer.add(new JLabel("Nom de l'Ã©quipe :"));
+>>>>>>> origin/master
 
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
@@ -164,17 +172,17 @@ public class TableEquipe extends JPanel{
 		{		
 			inscriptions.remove(e);
 			System.out.println(e+" supprimer.");
-			refresh();	
+			refresh();
 		}
 	}
     
-    public void refresh() {
+    public void refresh() 
+    {
     	this.remove(contentPane);
-    	
-    	paginationObserver.update(getList());
     	this.initComponents();
-		System.out.println("Ca Passe ici");
-		
+    	dataLayer.repaint();
+		panneauEquipe.refresh();
+		System.out.println("Refresh...");
 	}
     	
     /**
@@ -214,7 +222,8 @@ public class TableEquipe extends JPanel{
     	    
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
-		{		
+		{	
+			refresh();
 			JComboBox box = new JComboBox();
 			box.addItem(inscriptions.getPersonnes());
 			dataLayer.repaint();
