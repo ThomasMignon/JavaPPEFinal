@@ -137,9 +137,7 @@ public class PanneauEquipe extends JPanel {
 		panelTableauEquipe.add(table);
 		return panelTableauEquipe;
 	}
-	
-<<<<<<< HEAD
-=======
+
 	public void refresh()
 	{
 		this.removeAll();
@@ -158,7 +156,7 @@ public class PanneauEquipe extends JPanel {
 		
 	}
 
->>>>>>> b6b09001d1eb9f09778f56351e8c66d360d2937b
+
 	public boolean isCellEditable(){  
         return false;  
     }
@@ -175,10 +173,9 @@ public class PanneauEquipe extends JPanel {
 		this.setPanelAdminEquipe(panelAdminEquipe);
 		this.add(panelAdminEquipe);
 		
-<<<<<<< HEAD
+
 		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
-=======
->>>>>>> b6b09001d1eb9f09778f56351e8c66d360d2937b
+
 		panelAfficherEquipe.setPreferredSize(taillePanelAjout);
 		this.add(panelAfficherEquipe);	
 

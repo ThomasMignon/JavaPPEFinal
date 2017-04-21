@@ -65,12 +65,11 @@ public class TableEquipe extends JPanel{
             public void update(List<Equipe> equipes) {
                 dataLayer.removeAll();
                 dataLayer.repaint();
-<<<<<<< HEAD
+
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
-=======
+
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.7)));
                 dataLayer.add(new JLabel("Nom de l'ï¿équipe :"));
->>>>>>> b6b09001d1eb9f09778f56351e8c66d360d2937b
 
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
