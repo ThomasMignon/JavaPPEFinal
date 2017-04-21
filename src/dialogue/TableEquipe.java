@@ -65,6 +65,12 @@ public class TableEquipe extends JPanel{
             @Override
             public void update(List<Equipe> equipes) {
                 dataLayer.removeAll();
+                dataLayer.repaint();
+
+                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
+
+                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.7)));
+                dataLayer.add(new JLabel("Nom de l'��quipe :"));
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
 
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.7)));

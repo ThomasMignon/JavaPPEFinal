@@ -137,7 +137,6 @@ public class PanneauEquipe extends JPanel {
 		panelTableauEquipe.add(table);
 		return panelTableauEquipe;
 	}
-	
 	public void refresh()
 	{
 		this.removeAll();
@@ -149,7 +148,8 @@ public class PanneauEquipe extends JPanel {
 	}
 	
 	
-	private void resetAllPanel() {
+	private void resetAllPanel() 
+	{
 		this.ajouteEquipe.removeAll();
 		this.ajouteEquipe.removeAll();
 		this.panelSelectEquipe.removeAll();
@@ -174,6 +174,9 @@ public class PanneauEquipe extends JPanel {
 		this.setPanelAdminEquipe(panelAdminEquipe);
 		this.add(panelAdminEquipe);
 		
+
+		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
+
 		panelAfficherEquipe.setBorder(BorderFactory.createTitledBorder("Informations de l'équipe"));
 		panelAfficherEquipe.setPreferredSize(taillePanelAjout);
 		this.add(panelAfficherEquipe);	
