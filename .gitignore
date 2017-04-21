@@ -7,3 +7,6 @@ mysql-connector-java-5.1.40
 *.class
 *.class
 *.class
+*.class
+bin/dialogue/MenuCompetition$3.class
+*.class

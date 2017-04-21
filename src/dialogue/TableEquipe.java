@@ -130,8 +130,7 @@ public class TableEquipe extends JPanel{
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			inscriptions.editeEquipe(equipe,jt.getText());
-			System.out.println(equipe.getNom()+": nouvelle valeur.");		
+			inscriptions.editeEquipe(equipe,jt.getText());	
 		}
 
 
@@ -162,7 +161,6 @@ public class TableEquipe extends JPanel{
 		public void actionPerformed(ActionEvent arg0) 
 		{		
 			inscriptions.remove(e);
-			System.out.println(e+" supprimer.");
 			refresh();
 		}
 	}
@@ -173,7 +171,6 @@ public class TableEquipe extends JPanel{
     	this.initComponents();
     	dataLayer.repaint();
 		panneauEquipe.refresh();
-		System.out.println("Refresh...");
 	}
     	
     /**
