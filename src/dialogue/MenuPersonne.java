@@ -264,7 +264,7 @@ public class MenuPersonne
 						String nom= commandLine.util.InOut.getString("Nom : "),
 		                prenom = commandLine.util.InOut.getString("Prénom : "),
 		                mail = commandLine.util.InOut.getString("Mail : ");
-						inscriptions.createPersonne(nom, prenom, mail,true);
+						inscriptions.createPersonne(nom, prenom, mail);
 					}
 				};
 			}

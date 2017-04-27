@@ -34,11 +34,11 @@ public class InscriptionTest
 	@Test
 	public void testPersonne() 
 	{
-		personneTest = new Personne(inscriptionTest, "Limentour", "Gaetan", "gaetalim@gmail.com",false); 
-		personneTest1 = new Personne(inscriptionTest, "Blabla", "Moi", "moi@gmail.com",false);
-		personneTest2 = new Personne(inscriptionTest, "Bloblo", "Toi", "toi@gmail.com",false);
+		personneTest = new Personne(inscriptionTest, "Limentour", "Gaetan", "gaetalim@gmail.com"); 
+		personneTest1 = new Personne(inscriptionTest, "Blabla", "Moi", "moi@gmail.com");
+		personneTest2 = new Personne(inscriptionTest, "Bloblo", "Toi", "toi@gmail.com");
 		
-		equipeTest = new Equipe(inscriptionTest,"blabla",false);
+		equipeTest = new Equipe(inscriptionTest,"blabla");
 		
 		assertEquals("getPrenom", "Gaetan", personneTest.getPrenom());//Vérification du prénom
 		assertEquals("getPrenom", "Moi", personneTest1.getPrenom());
@@ -93,9 +93,9 @@ public class InscriptionTest
 	@Test
 	public void testCompetition()
 	{
-		competitionTest = inscriptionTest.createCompetition("Mondial de basket", LocalDate.now(), true,false); //Création d'une compétition
-		competitionTest1 = inscriptionTest.createCompetition("Mondial de PingPong", LocalDate.now(), false,false);
-		competitionTest2 = inscriptionTest.createCompetition("Mondial de Tennis", LocalDate.now(), false,false);
+		competitionTest = inscriptionTest.createCompetition("Mondial de basket", LocalDate.now(), true); //Création d'une compétition
+		competitionTest1 = inscriptionTest.createCompetition("Mondial de PingPong", LocalDate.now(), false);
+		competitionTest2 = inscriptionTest.createCompetition("Mondial de Tennis", LocalDate.now(), false);
 		
 		assertEquals("estEnEquipe",true,competitionTest.estEnEquipe());//Vérification de si la compépition se déroule en équipe ou non
 		assertEquals("estEnEquipe",false,competitionTest1.estEnEquipe());
@@ -105,9 +105,9 @@ public class InscriptionTest
 	@Test
 	public void testEquipe()
 	{
-		equipeTest = inscriptionTest.createEquipe("YoyoTeam",false);
-		equipeTest1 = inscriptionTest.createEquipe("LalaTeam",false);
-		equipeTest2 = inscriptionTest.createEquipe("LoloTeam",false);
+		equipeTest = inscriptionTest.createEquipe("YoyoTeam");
+		equipeTest1 = inscriptionTest.createEquipe("LalaTeam");
+		equipeTest2 = inscriptionTest.createEquipe("LoloTeam");
 		
 		
 		
@@ -118,7 +118,7 @@ public class InscriptionTest
 
 		// On créé une nouvelle compétition
 
-		Competition competitionQuis = inscriptionTest.createCompetition("Visionnage de Cassettes", null, true,false);
+		Competition competitionQuis = inscriptionTest.createCompetition("Visionnage de Cassettes", null, true);
 
 		//Et on compare a la compétition déjà crée plus haut
 
@@ -153,7 +153,7 @@ public class InscriptionTest
 
 			Set<Candidat> candidats = competitionTest.getCandidats();
 
-			Equipe fly = inscriptionTest.createEquipe("Fly - Forces libérées yaourt",false);
+			Equipe fly = inscriptionTest.createEquipe("Fly - Forces libérées yaourt");
 
 			try {
 				competitionTest.add(fly);
@@ -183,7 +183,7 @@ public class InscriptionTest
 
 			Inscriptions inscriptions = Inscriptions.getInscriptions();
 
-			Personne personne = inscriptions.createPersonne("Jannot", "Marcel", "test@foxtrop.com",false);
+			Personne personne = inscriptions.createPersonne("Jannot", "Marcel", "test@foxtrop.com");
 		}
 
 			public void testGetPrenom() {
@@ -211,17 +211,17 @@ public class InscriptionTest
 
 				Inscriptions inscriptions = Inscriptions.getInscriptions();
 
-				Equipe plop = inscriptions.createEquipe("Plop blob",false);
+				Equipe plop = inscriptions.createEquipe("Plop blob");
 
 				//Ajout des  personnnesd dans des equipes
 
-				Personne personnes = inscriptions.createPersonne("Patrick", "Manchot", "test@test.com",false);
+				Personne personnes = inscriptions.createPersonne("Patrick", "Manchot", "test@test.com");
 
-				Personne people = inscriptions.createPersonne("Marin", "Dodouce", "testdouce@test.com",false);
+				Personne people = inscriptions.createPersonne("Marin", "Dodouce", "testdouce@test.com");
 
-				Personne treople = inscriptions.createPersonne("Popol", "Quidur", "testquidur@test.com",false);
+				Personne treople = inscriptions.createPersonne("Popol", "Quidur", "testquidur@test.com");
 
-				Personne qreople = inscriptions.createPersonne("DaBro", "Breaf", "testbreaf@test.com",false);
+				Personne qreople = inscriptions.createPersonne("DaBro", "Breaf", "testbreaf@test.com");
 
 			
 			public void testGetMembres() {//Test GetMembres de l'equipe
@@ -283,9 +283,9 @@ public class InscriptionTest
 
 				Inscriptions inscriptions = Inscriptions.getInscriptions();
 
-				Personne personne = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com",false);
+				Personne personne = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com");
 
-				Personne people = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com",false);
+				Personne people = inscriptions.createPersonne("Jacqueline", "Ferdinand", "test@test.com");
 				//test GetNom
 
 				@Test
@@ -306,7 +306,7 @@ public class InscriptionTest
 
 					Set<Competition> Competitions = personne.getCompetitions();
 
-					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false,false);
+					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false);
 
 					try {
 						testCompetition.add(personne);
@@ -322,7 +322,7 @@ public class InscriptionTest
 
 					Set<Competition> Competitions = personne.getCompetitions();
 
-					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false,false);
+					Competition testCompetition = inscriptions.createCompetition("Concours de saut en travers", null, false);
 
 					try {
 						testCompetition.add(personne);

@@ -26,20 +26,18 @@ public class Competition implements Comparable<Competition>, Serializable
 	BDD bdd = new BDD();
 	boolean isDelete;
 	
-	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe, boolean save)
+	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe)
 	{
 		this.enEquipe = enEquipe;
 		this.inscriptions = inscriptions;
 		this.nom = nom;
 		this.dateCloture = dateCloture;
 		candidats = new TreeSet<>();
-		if(save)
-		{
-			bdd.save(this);
-		}
+		bdd.setSave(inscriptions.getSave());
+		bdd.save(this);
 	}
 	//TODO:: Mettre le save en globale dans insciptions et le if dans le bdd
-	Competition(Inscriptions inscriptions, int id_competition, String nom, LocalDate dateCloture, boolean enEquipe, boolean save)
+	Competition(Inscriptions inscriptions, int id_competition, String nom, LocalDate dateCloture, boolean enEquipe)
 	{
 		this.enEquipe = enEquipe;
 		this.inscriptions = inscriptions;
@@ -47,10 +45,8 @@ public class Competition implements Comparable<Competition>, Serializable
 		this.dateCloture = dateCloture;
 		this.id_competition = id_competition;
 		candidats = new TreeSet<>();
-		if(save)
-		{
-			bdd.save(this);
-		}
+		bdd.setSave(inscriptions.getSave());
+		bdd.save(this);
 	}
 	
 	/**

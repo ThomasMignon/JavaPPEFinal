@@ -203,8 +203,7 @@ public class PanneauPersonne extends JPanel {
 	class boutonAjouteListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			inscriptions.createPersonne(nomAjoutField.getText(), prenomAjoutField.getText(), mailAjoutField.getText(),
-					true);
+			inscriptions.createPersonne(nomAjoutField.getText(), prenomAjoutField.getText(), mailAjoutField.getText());
 			JOptionPane.showMessageDialog(null,
 					nomAjoutField.getText() + " " + prenomAjoutField.getText() + " à bien été ajouter !", "Information",
 					JOptionPane.INFORMATION_MESSAGE);

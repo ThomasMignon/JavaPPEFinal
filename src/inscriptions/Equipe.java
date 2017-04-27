@@ -21,13 +21,11 @@ public class Equipe extends Candidat
 	BDD bdd = new BDD();
 	boolean isDelete;
 	
-	public Equipe(Inscriptions inscriptions, String nom,boolean save)
+	public Equipe(Inscriptions inscriptions, String nom)
 	{
 		super(inscriptions, nom);
-		if(save)
-		{
-			bdd.save(this);
-		}
+		bdd.setSave(inscriptions.getSave());
+		bdd.save(this);
 	}
 	
 	/**

@@ -29,6 +29,8 @@ public class Inscriptions implements Serializable
 	
 	private SortedSet<Competition> competitions = new TreeSet<>();
 	private SortedSet<Candidat> candidats = new TreeSet<>();
+	private boolean save=true;
+	
 	public Inscriptions()
 	{
 		
@@ -107,18 +109,18 @@ public class Inscriptions implements Serializable
 	 */
 	
 	public Competition createCompetition(String nom, 
-			LocalDate dateCloture, boolean enEquipe,boolean save)
+			LocalDate dateCloture, boolean enEquipe)
 	{
-		Competition competition = new Competition(this, nom, dateCloture, enEquipe,save);
+		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
 		competitions.add(competition);
 		return competition;
 	}
 
 
 	public Competition createCompetition(int id_competition,String nom, 
-			LocalDate dateCloture, boolean enEquipe,boolean save)
+			LocalDate dateCloture, boolean enEquipe)
 	{
-		Competition competition = new Competition(this, id_competition, nom, dateCloture, enEquipe,save);
+		Competition competition = new Competition(this, id_competition, nom, dateCloture, enEquipe);
 		competitions.add(competition);
 		return competition;
 	}
@@ -141,9 +143,9 @@ public class Inscriptions implements Serializable
 	 * @return
 	 */
 	
-	public Personne createPersonne(String nom, String prenom, String mail , boolean save)
+	public Personne createPersonne(String nom, String prenom, String mail)
 	{
-		Personne personne = new Personne(this,nom, prenom, mail,save);
+		Personne personne = new Personne(this,nom, prenom, mail);
 		candidats.add(personne);
 		return personne;
 	}
@@ -167,9 +169,9 @@ public class Inscriptions implements Serializable
 	 * @return
 	 */
 	
-	public Equipe createEquipe(String nom , boolean save)
+	public Equipe createEquipe(String nom)
 	{
-		Equipe equipe = new Equipe(this, nom, save);
+		Equipe equipe = new Equipe(this, nom);
 		candidats.add(equipe);
 		return equipe;
 	}
@@ -212,7 +214,8 @@ public class Inscriptions implements Serializable
 //		}
 		//TODO : 
 		BDD bdd = new BDD();
-		inscriptions= new Inscriptions();
+		inscriptions = new Inscriptions();
+		inscriptions.setSave(false);
 		bdd.selectPersonne(inscriptions);
 		System.out.println("Personne récupéré...");
 		bdd.selectEquipe(inscriptions);
@@ -221,6 +224,7 @@ public class Inscriptions implements Serializable
 		System.out.println("Competition récupéré...");
 		bdd.selectAttrEquipe(inscriptions);
 		bdd.selectAttrCompetition(inscriptions);
+		inscriptions.setSave(true);
 		return inscriptions;
 	}
 
@@ -305,6 +309,16 @@ public class Inscriptions implements Serializable
 	{
 		return "Candidats : " + getCandidats().toString()
 			+ "\nCompetitions : " + getCompetitions().toString();
+	}
+	
+	public boolean getSave()
+	{
+		return this.save;
+	}
+	
+	public void setSave(boolean save)
+	{
+		this.save = save;
 	}
 	
 	public static void main(String[] args)

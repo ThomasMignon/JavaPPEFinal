@@ -24,6 +24,7 @@ public class BDD implements Serializable
 //	Connection cn = null;
 //	Statement st = null;
 	private static final long serialVersionUID = -60L;
+	private boolean save = true;
 	
 	public Statement Connection() throws ClassNotFoundException, SQLException
 	{
@@ -51,7 +52,7 @@ public class BDD implements Serializable
 			String requete ="Select * From personnes p,candidats c WHERE p.id_personne = c.id_personne AND c.deleted_at IS NULL";
 			ResultSet result = st.executeQuery(requete);
 			while ( result.next() ) {
-			    Personne personne = inscription.createPersonne(result.getString( "nom" ),result.getString( "prenom" ), result.getString( "mail" ),false);
+			    Personne personne = inscription.createPersonne(result.getString( "nom" ),result.getString( "prenom" ), result.getString( "mail" ));
 			    personne.setId(result.getInt("id_candidat"));
 			}
 			
@@ -70,7 +71,7 @@ public class BDD implements Serializable
 			ResultSet result;
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
-			    Equipe equipe = inscription.createEquipe(result.getString( "nom"),false);
+			    Equipe equipe = inscription.createEquipe(result.getString( "nom"));
 			    equipe.setId(result.getInt("id_candidat"));
 			}
 
@@ -90,7 +91,7 @@ public class BDD implements Serializable
 			result = st.executeQuery(requete);
 			while ( result.next() ) {
 				LocalDate date = Converter(result.getDate("date"));
-			    inscription.createCompetition(result.getInt("id_competition"),result.getString( "nom" ),date, (result.getInt("enequipe") == 1),false);
+			    inscription.createCompetition(result.getInt("id_competition"),result.getString( "nom" ),date, (result.getInt("enequipe") == 1));
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -169,6 +170,8 @@ public class BDD implements Serializable
 	
 	public void save(Personne personne) 
 	{		
+		if(this.save)
+		{
 			try 
 			{
 				Statement st = Connection();
@@ -196,11 +199,11 @@ public class BDD implements Serializable
 			{
 				e.printStackTrace();
 			}
-				
+		}
 	}
 	
 	public void save(Personne personne,Inscriptions inscriptions) 
-	{		
+	{
 			try {
 				Statement st = Connection();
 				String requete;
@@ -214,20 +217,22 @@ public class BDD implements Serializable
 				}
 				else
 				{
+					if(this.save)
+					{
+						requete ="Insert into personnes(prenom,mail) values ('"+personne.getPrenom()+"','"+personne.getMail()+"')";
 					
-					requete ="Insert into personnes(prenom,mail) values ('"+personne.getPrenom()+"','"+personne.getMail()+"')";
-				
-					st.executeUpdate(requete,Statement.RETURN_GENERATED_KEYS);
-					ResultSet idUser = st.getGeneratedKeys();
-					while(idUser.next())
-					{
-						requete ="Insert into candidats(id_personne,nom) values ('"+idUser.getInt(1)+"','"+personne.getNom()+"')";
-					}
-					st.executeUpdate(requete,Statement.RETURN_GENERATED_KEYS);
-					ResultSet idCandidat = st.getGeneratedKeys();
-					while(idCandidat.next())
-					{
-						personne.setId(idCandidat.getInt(1));
+						st.executeUpdate(requete,Statement.RETURN_GENERATED_KEYS);
+						ResultSet idUser = st.getGeneratedKeys();
+						while(idUser.next())
+						{
+							requete ="Insert into candidats(id_personne,nom) values ('"+idUser.getInt(1)+"','"+personne.getNom()+"')";
+						}
+						st.executeUpdate(requete,Statement.RETURN_GENERATED_KEYS);
+						ResultSet idCandidat = st.getGeneratedKeys();
+						while(idCandidat.next())
+						{
+							personne.setId(idCandidat.getInt(1));
+						}
 					}
 				}
 				
@@ -245,32 +250,35 @@ public class BDD implements Serializable
 	
 	public void save(Equipe equipe)
 	{
-		try{
-			Statement st = Connection();	
-			String requete = "SELECT COUNT(*) AS count FROM candidats WHERE id_equipe IS NOT NULL";
-			ResultSet result = st.executeQuery(requete);
-			int idequipe = 0;
-			while(result.next())
-			{
-			    idequipe = result.getInt("count");
+		if(this.save)
+		{
+			try{
+				Statement st = Connection();	
+				String requete = "SELECT COUNT(*) AS count FROM candidats WHERE id_equipe IS NOT NULL";
+				ResultSet result = st.executeQuery(requete);
+				int idequipe = 0;
+				while(result.next())
+				{
+				    idequipe = result.getInt("count");
+				}
+				idequipe++;
+				String requete3 ="Insert into candidats(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
+				st.executeUpdate(requete3);
+				int idCandidat=0;
+				String requete4="SELECT id_candidat FROM candidats";
+				ResultSet result2= st.executeQuery(requete4);
+				while (result2.next()) 
+				{
+				    idCandidat = result2.getInt( "id_candidat" );
+				}
+				equipe.setId(idCandidat);	
+		
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			idequipe++;
-			String requete3 ="Insert into candidats(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
-			st.executeUpdate(requete3);
-			int idCandidat=0;
-			String requete4="SELECT id_candidat FROM candidats";
-			ResultSet result2= st.executeQuery(requete4);
-			while (result2.next()) 
-			{
-			    idCandidat = result2.getInt( "id_candidat" );
-			}
-			equipe.setId(idCandidat);	
-	
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	
@@ -287,24 +295,27 @@ public class BDD implements Serializable
 			}
 			else
 			{
-				requete = "SELECT COUNT(*) AS count FROM candidats WHERE id_equipe IS NOT NULL";
-				ResultSet result = st.executeQuery(requete);
-				int idequipe = 0;
-				while(result.next())
+				if(this.save)
 				{
-				    idequipe = result.getInt("count");
+					requete = "SELECT COUNT(*) AS count FROM candidats WHERE id_equipe IS NOT NULL";
+					ResultSet result = st.executeQuery(requete);
+					int idequipe = 0;
+					while(result.next())
+					{
+					    idequipe = result.getInt("count");
+					}
+					idequipe++;
+					String requete2 ="Insert into candidats(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
+					st.executeUpdate(requete2);
+					int idCandidat=0;
+					String requete3="SELECT id_candidat FROM candidats";
+					ResultSet result2= st.executeQuery(requete3);
+					while (result2.next()) 
+					{
+					    idCandidat = result2.getInt( "id_candidat" );
+					}
+					equipe.setId(idCandidat);
 				}
-				idequipe++;
-				String requete2 ="Insert into candidats(id_equipe,nom) values ('"+idequipe+"','"+equipe.getNom()+"')";
-				st.executeUpdate(requete2);
-				int idCandidat=0;
-				String requete3="SELECT id_candidat FROM candidats";
-				ResultSet result2= st.executeQuery(requete3);
-				while (result2.next()) 
-				{
-				    idCandidat = result2.getInt( "id_candidat" );
-				}
-				equipe.setId(idCandidat);
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -316,53 +327,61 @@ public class BDD implements Serializable
 	}
 	public void save(Competition competition) 
 	{	
-		try {
-			Statement st = Connection();	
-			
-			int equipe = competition.estEnEquipe() ? 1 : 0;
-			
-			String requete ="Insert into competitions(date,nom,enequipe) values ('"+competition.getDateCloture()+"','"+competition.getNom()+"','"+equipe+"')";
-			st.executeUpdate(requete);
-			
-			int idCompetition=0;
-			String requete4="SELECT id_competition FROM competitions";
-			ResultSet result2= st.executeQuery(requete4);
-			while (result2.next()) 
-			{
-			    idCompetition = result2.getInt( "id_competition" );
+		if(this.save)
+		{
+			try {
+				Statement st = Connection();	
+				
+				int equipe = competition.estEnEquipe() ? 1 : 0;
+				
+				String requete ="Insert into competitions(date,nom,enequipe) values ('"+competition.getDateCloture()+"','"+competition.getNom()+"','"+equipe+"')";
+				st.executeUpdate(requete);
+				
+				int idCompetition=0;
+				String requete4="SELECT id_competition FROM competitions";
+				ResultSet result2= st.executeQuery(requete4);
+				while (result2.next()) 
+				{
+				    idCompetition = result2.getInt( "id_competition" );
+				}
+				competition.setId(idCompetition);
+				
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			competition.setId(idCompetition);
-			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 				
 	}
 	public void save(Personne personne,Equipe equipe) 
 	{	
-		try {
-			Statement st = Connection();	
-			String requete ="Insert into attrequipe(id_personne,id_equipe) values ('"+personne.getId()+"','"+equipe.getId()+"')";
-			st.executeUpdate(requete);		
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-				
+		if(this.save)
+		{
+			try {
+				Statement st = Connection();	
+				String requete ="Insert into attrequipe(id_personne,id_equipe) values ('"+personne.getId()+"','"+equipe.getId()+"')";
+				st.executeUpdate(requete);		
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
 	}
 	public void save(Candidat candidat,Competition competition) 
 	{	
-		try {
-			Statement st = Connection();	
-			String requete ="Insert into attrcompetition(id_candidat,id_competition) values ("+candidat.getId()+","+competition.getId()+")";
-			st.executeUpdate(requete);		
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(this.save)
+		{
+			try {
+				Statement st = Connection();	
+				String requete ="Insert into attrcompetition(id_candidat,id_competition) values ("+candidat.getId()+","+competition.getId()+")";
+				st.executeUpdate(requete);		
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 				
 	}
@@ -413,7 +432,7 @@ public class BDD implements Serializable
 		try {
 			Statement st = Connection();	
 			String requete ="UPDATE competitions SET deleted_at = '"+LocalDate.now()+"' WHERE id_candidat = "+competition.getId();
-			st.executeUpdate(requete);	
+			st.executeUpdate(requete);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -446,4 +465,15 @@ public class BDD implements Serializable
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean getSave()
+	{
+		return this.save;
+	}
+	
+	public void setSave(boolean save)
+	{
+		this.save = save; 
+	}
+	
 }

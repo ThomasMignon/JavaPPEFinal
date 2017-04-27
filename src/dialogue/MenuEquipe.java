@@ -51,7 +51,7 @@ public class MenuEquipe
 						public void optionSelectionnee()
 						{
 							String nom= commandLine.util.InOut.getString("Nom : ");
-									inscriptions.createEquipe(nom,true);
+									inscriptions.createEquipe(nom);
 							System.out.println(nom+" à bien été créer");
 						}
 					};

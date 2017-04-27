@@ -241,7 +241,7 @@ public class PanneauEquipe extends JPanel {
 		{
 			if(verifRecup())
 			{
-				inscriptions.createEquipe(Recup(), true);
+				inscriptions.createEquipe(Recup());
 				System.out.println("AJOUT");
 				nomAjoutField.setText("");
 				refresh();
@@ -287,7 +287,7 @@ public class PanneauEquipe extends JPanel {
 			{
 				if(verifRecup())
 				{
-					inscriptions.createEquipe(Recup(), true);
+					inscriptions.createEquipe(Recup());
 					System.out.println("AJOUT");
 					nomAjoutField.setText("");
 					refresh();

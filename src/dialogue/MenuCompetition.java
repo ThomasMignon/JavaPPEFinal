@@ -164,7 +164,7 @@ public class MenuCompetition
 							reponse=commandLine.util.InOut.getString("En équipe ? o : Oui n : Non : ");
 						}
 						enEquipe=reponse.compareTo("o")==0;
-						inscriptions.createCompetition(nom, dateCloture, enEquipe,true);
+						inscriptions.createCompetition(nom, dateCloture, enEquipe);
 						System.out.println(nom+ "à bien été rajouter");
 					}
 				};
