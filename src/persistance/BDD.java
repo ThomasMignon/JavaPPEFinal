@@ -18,7 +18,6 @@ import dialogue.Panneau;
 public class BDD implements Serializable
 {
 	String url = "jdbc:mysql://localhost/ppejava?autoReconnect=true&useSSL=false";
-	//TODO::
 	//String url = "jdbc:mysql://mysql.m2l.local/glimentour?autoReconnect=true&useSSL=false";
 	String login = "root";
 	String password = "";
@@ -101,6 +100,8 @@ public class BDD implements Serializable
 		}	
 	}
 	
+	
+	//TODO:Refaire avec des maps
 	public void selectAttrEquipe(Inscriptions inscription)
 	{
 		try {

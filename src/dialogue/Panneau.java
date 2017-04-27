@@ -28,9 +28,6 @@ public class Panneau extends JPanel
 		tab.addTab("Gestion d'équipe", new PanneauEquipe());
 
 		tab.addTab("Gestion de compétition", new PanneauCompetition());
-		tab.setBackground(Color.CYAN);
-
-		tab.addTab("Gestion de compétition", new JPanel());
 		tab.setBackground(new Color(208,182,241));
 		tab.setFont(police);
 		this.add(tab,BorderLayout.CENTER);

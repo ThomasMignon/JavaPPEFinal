@@ -38,7 +38,7 @@ public class Competition implements Comparable<Competition>, Serializable
 			bdd.save(this);
 		}
 	}
-	
+	//TODO:: Mettre le save en globale dans insciptions et le if dans le bdd
 	Competition(Inscriptions inscriptions, int id_competition, String nom, LocalDate dateCloture, boolean enEquipe, boolean save)
 	{
 		this.enEquipe = enEquipe;

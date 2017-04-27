@@ -309,7 +309,7 @@ public class Inscriptions implements Serializable
 	
 	public static void main(String[] args)
 	{
-//		
+////		
 //        MenuPrincipal menu = new MenuPrincipal();
 //        menu.start();
         Fenetre fenetre = new Fenetre();

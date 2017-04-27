@@ -243,7 +243,6 @@ public class PanneauAdminEquipe extends JPanel {
                 }
                 dataLayer.repaint();
                 dataLayer.updateUI();
-                System.out.println(personnes);
             }
             
         };
@@ -270,7 +269,6 @@ public class PanneauAdminEquipe extends JPanel {
 		public void actionPerformed(ActionEvent e) 
 		{
 			Personne p =(Personne) listNewMembres.getSelectedItem();
-			System.out.println(p);
 			getEquipe().add(p, true);
 			setAll(getEquipe());
 		}
@@ -288,7 +286,6 @@ public class PanneauAdminEquipe extends JPanel {
 		public void actionPerformed(ActionEvent e) 
 		{
 			Personne p =(Personne) listMembres.getSelectedItem();
-			System.out.println(getEquipe());
 			getEquipe().remove(p, true);
 			setAll(getEquipe());
 		}

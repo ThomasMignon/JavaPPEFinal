@@ -90,7 +90,6 @@ public class TablePersonne extends JPanel{
                 }
                 dataLayer.repaint();
                 dataLayer.updateUI();
-                System.out.println(personne);
             }
             
         };
