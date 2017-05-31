@@ -48,7 +48,7 @@ public class PanneauPersonne extends JPanel {
 		setPanneauAfficherPersonne();
 
 		// Ajouter une personne
-		setPanneauAjoutePersonne();
+		//setPanneauAjoutePersonne();
 	}
 
 	private void setPanneauAfficherPersonne() {
@@ -94,10 +94,10 @@ public class PanneauPersonne extends JPanel {
 		prenomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
 		mailAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
 
-		// Ajout des labels et des Ã©lÃ©ments
+		// Ajout des labels et des éléments
 		ajoutePersonne.add(new JLabel("Nom : "));
 		ajoutePersonne.add(nomAjoutField);
-		ajoutePersonne.add(new JLabel("PrÃ©nom : "));
+		ajoutePersonne.add(new JLabel("Prénom : "));
 		ajoutePersonne.add(prenomAjoutField);
 		ajoutePersonne.add(new JLabel("Email : "));
 		ajoutePersonne.add(mailAjoutField);

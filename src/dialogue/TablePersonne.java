@@ -1,6 +1,7 @@
 package dialogue;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.SortedSet;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -18,8 +20,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
+import dialogue.PanneauPersonne.ajoutFieldListener;
+import dialogue.PanneauPersonne.boutonAjouteListener;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
@@ -37,10 +43,16 @@ public class TablePersonne extends JPanel{
     Object selectE;
     PanneauPersonne p;
     int nbParPage = 0;
+    //Champ pour l'ajout de personne
+    private JTextField nomAjoutField;
+    private JTextField prenomAjoutField;
+    private JTextField mailAjoutField;
+    private JButton boutonAjoute;
     
     public TablePersonne(PanneauPersonne p,int nbParPage)
     {
         this.initComponents();
+        boutonAjoute.setEnabled(false);
         this.p = p;
         this.nbParPage = nbParPage;
     }
@@ -66,19 +78,22 @@ public class TablePersonne extends JPanel{
             public void update(List<Personne> personne) {
                 dataLayer.removeAll();
                 dataLayer.repaint();
-                dataLayer.setPreferredSize(new Dimension((int)(Fenetre.WIDTH * 0.8),(int) (Fenetre.HEIGHT * 0.5)));
+                dataLayer.setPreferredSize(new Dimension((int)(Fenetre.WIDTH * 0.8),(int) (Fenetre.HEIGHT * 0.8)));
                 for(Personne p  : personne){
                 	if(!p.getIsDelete())
                 	{
                 		JPanel panel = new JPanel();
                     	JTextField nomPersonne = new JTextField(p.getNom());
                     	nomPersonne.setPreferredSize(new Dimension(120,25));
+                    	panel.add(new JLabel("Nom : "));
                     	panel.add(nomPersonne);
                     	JTextField prenomPersonne = new JTextField(p.getPrenom());
                     	prenomPersonne.setPreferredSize(new Dimension(120,25));
+                    	panel.add(new JLabel("Prénom : "));
                     	panel.add(prenomPersonne);
                     	JTextField mailPersonne = new JTextField(p.getMail());
                     	mailPersonne.setPreferredSize(new Dimension(120,25));
+                    	panel.add(new JLabel("Email : "));
                     	panel.add(mailPersonne);
                     	nomPersonne.addKeyListener(new editFieldListener(p, nomPersonne,prenomPersonne,mailPersonne));
                         JButton supprimer = new JButton("Supprimer");
@@ -88,6 +103,43 @@ public class TablePersonne extends JPanel{
                         dataLayer.add(panel);
                 	}
                 }
+                //Ajout d'une personne 
+                JPanel ajoutePersonne = new JPanel();
+                
+                
+                //Instantiation des champs pour l'ajout d'une personne
+                nomAjoutField = new JTextField();
+                prenomAjoutField = new JTextField();
+                mailAjoutField = new JTextField();
+                boutonAjoute = new JButton("    Ajouter   ");
+                
+                //Listener des champs
+                nomAjoutField.addKeyListener(new ajoutFieldListener());
+        		prenomAjoutField.addKeyListener(new ajoutFieldListener());
+        		mailAjoutField.addKeyListener(new ajoutFieldListener());
+        		boutonAjoute.addActionListener(new boutonAjouteListener());
+                
+        		
+        		//Taille des champs
+                nomAjoutField.setPreferredSize(new Dimension(120,25));
+        		prenomAjoutField.setPreferredSize(new Dimension(120,25));
+        		mailAjoutField.setPreferredSize(new Dimension(120,25));
+        		nomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+        		prenomAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+        		mailAjoutField.setBorder(BorderFactory.createLineBorder(Color.RED));
+
+        		// Ajout des labels et des éléments dans le panel ajoutePersonne
+        		ajoutePersonne.add(new JLabel("Nom : "));
+        		ajoutePersonne.add(nomAjoutField);
+        		ajoutePersonne.add(new JLabel("Prénom : "));
+        		ajoutePersonne.add(prenomAjoutField);
+        		ajoutePersonne.add(new JLabel("Email : "));
+        		ajoutePersonne.add(mailAjoutField);
+        		ajoutePersonne.add(boutonAjoute);
+        		
+        		//Ajout dans la table
+        		dataLayer.add(ajoutePersonne);
+        		
                 dataLayer.repaint();
                 dataLayer.updateUI();
             }
@@ -185,4 +237,72 @@ public class TablePersonne extends JPanel{
 			refresh();
 		}
 	}
+    
+
+	class ajoutFieldListener implements KeyListener {
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			verifyField();
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+
+		}
+
+	}
+	
+	private void verifyField() 
+	{
+		// boutonEdit.setEnabled(verifyRegexField());
+		mailAjoutField.setBorder(BorderFactory.createLineBorder(mailValid() ? Color.GREEN : Color.RED));
+		nomAjoutField.setBorder(BorderFactory.createLineBorder(nomValid() ? Color.GREEN : Color.RED));
+		prenomAjoutField.setBorder(BorderFactory.createLineBorder(prenomValid() ? Color.GREEN : Color.RED));
+		boutonAjoute.setEnabled((isValid("nom") && isValid("prenom") && isValid("mail")));
+	}
+	
+	private boolean isValid(String s) {
+		switch (s) {
+		case "nom":
+			return nomValid();
+		case "prenom":
+			return prenomValid();
+		case "mail":
+			return mailValid();
+		}
+		return false;
+	}
+
+	private boolean mailValid() {
+		return mailAjoutField.getText().matches("[a-zA-Z0-9._-]{1,20}@[a-zA-Z]{3,10}\\.[a-z]{2,6}");
+	}
+
+	private boolean prenomValid() {
+		return prenomAjoutField.getText().matches("[a-zA-Z ]{3,}");
+	}
+
+	private boolean nomValid() {
+		return nomAjoutField.getText().matches("[a-zA-Z ]{3,}");
+	}
+	
+	class boutonAjouteListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			inscriptions.createPersonne(nomAjoutField.getText(), prenomAjoutField.getText(), mailAjoutField.getText());
+			JOptionPane.showMessageDialog(null,
+					nomAjoutField.getText() + " " + prenomAjoutField.getText() + " Ã  bien Ã©tÃ© ajouter !", "Information",
+					JOptionPane.INFORMATION_MESSAGE);
+			nomAjoutField.setText("");
+			prenomAjoutField.setText("");
+			mailAjoutField.setText("");
+			refresh();
+		}
+	}
+	
 }

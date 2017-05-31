@@ -32,11 +32,8 @@ import inscriptions.Personne;
 
 public class PanneauEquipe extends JPanel {
 
-	private JComboBox<String> comboPersonne = new JComboBox<>();
 	private JComboBox<String> comboEquipe = new JComboBox<>();
-	private JComboBox<String> comboPersonneDispo = new JComboBox<>();
-	private JComboBox<String> comboCompetition = new JComboBox<>();
-	private JComboBox<String> comboCompetitionDispo = new JComboBox<>();
+
 	
 	private Inscriptions inscriptions = Panneau.getInscriptions();
 	
@@ -55,13 +52,11 @@ public class PanneauEquipe extends JPanel {
 	private JLabel nomEquipe = new JLabel();
 	
 	private JTextField nomAjoutField = new JTextField();
-	private JTextField prenomAjoutField = new JTextField();
-	private JTextField mailAjoutField = new JTextField();
 	
 	private JTextField nomField = new JTextField();
 
 	private JButton boutonAjout = new JButton("Ajouter");
-	private JButton creer  = new JButton("CrÃ©er");
+	private JButton creer  = new JButton("Créer");
 	
 	private Dimension taillePanelAjout = new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.80));
 	
@@ -71,7 +66,7 @@ public class PanneauEquipe extends JPanel {
 		setListener();
 		
 		//Panneau ajouter equipe
-		setAddEquipe();
+		//setAddEquipe();
 		
 		//Tableau des equipe
 		setTableEquipe();
@@ -142,7 +137,7 @@ public class PanneauEquipe extends JPanel {
 	{
 		this.removeAll();
 		this.resetAllPanel();
-		this.setAddEquipe();
+		//this.setAddEquipe();
 		this.setTableEquipe();
 		this.setAdminEquipe();
 		this.repaint();
@@ -189,8 +184,8 @@ public class PanneauEquipe extends JPanel {
 			equipe.getMembres();
 	}
 
-	private void setTableEquipe() {
-
+	private void setTableEquipe() 
+	{
 		panelSelectEquipe.add(setAfficherTableauEquipe());
 		this.add(panelSelectEquipe);		
 	}

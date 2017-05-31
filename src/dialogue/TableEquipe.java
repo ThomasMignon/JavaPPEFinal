@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import dialogue.PanneauEquipe.addEquipeListener;
+import dialogue.PanneauEquipe.ajoutFieldListener;
 import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
@@ -38,6 +40,9 @@ public class TableEquipe extends JPanel{
     public SortedSet<Equipe> equi = inscriptions.getEquipes();
     ArrayList equipes = new ArrayList(equi);
     Object selectE;
+    private JTextField nomAjoutField; 
+    private JButton boutonAjout;
+    
     
     public TableEquipe(PanneauEquipe p)
     {
@@ -67,17 +72,8 @@ public class TableEquipe extends JPanel{
                 dataLayer.removeAll();
 
                 dataLayer.repaint();
-
-                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
-
+                
                 dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.7)));
-                dataLayer.add(new JLabel("Nom de l'équipe :"));
-
-                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.8)));
-
-                dataLayer.setPreferredSize(new Dimension((int) (Fenetre.WIDTH * 0.45),(int) (Fenetre.HEIGHT * 0.7)));
-                dataLayer.add(new JLabel("Nom de l'équipe :"));
-
                 for(Equipe e : equipes){
                 	if(!e.getIsDelete())
                 	{
@@ -85,6 +81,7 @@ public class TableEquipe extends JPanel{
                     	JTextField nomEquipe = new JTextField(e.getNom());
                     	nomEquipe.setPreferredSize(new Dimension(120,25));
                     	nomEquipe.addKeyListener(new editFieldListener(e,nomEquipe));
+                    	panel.add(new JLabel("Nom : "));
                     	panel.add(nomEquipe);
                     	JButton ajouter = new JButton("Ajouter membre");
                     	panel.add(ajouter);
@@ -97,6 +94,24 @@ public class TableEquipe extends JPanel{
                         dataLayer.add(panel);
                 	}
                 }
+                //Ajout d'une �quipe
+                JPanel addPanel = new JPanel();
+                
+                //Instantiation des champs pour le panel d'ajout
+                nomAjoutField = new JTextField();
+                boutonAjout = new JButton("Ajouter");
+              
+                //Listener des champs
+                boutonAjout.addActionListener(new addEquipeListener());
+        		nomAjoutField.addKeyListener(new ajoutFieldListener());
+                
+        		addPanel.add(new JLabel("Nom : "));
+        		nomAjoutField.setPreferredSize(new Dimension(120,20));
+        		addPanel.add(nomAjoutField);
+        		addPanel.add(boutonAjout);
+        		addPanel.setPreferredSize(new Dimension(460, 35));
+        		dataLayer.add(addPanel);
+                
                 dataLayer.repaint();
                 dataLayer.updateUI();
             }
@@ -227,6 +242,79 @@ public class TableEquipe extends JPanel{
 			panneauEquipe.getPanelAdminEquipe().setVisible(true);
 		}
 	}
+    
+    class ajoutFieldListener implements KeyListener
+	{
+
+		@Override
+		public void keyPressed(KeyEvent e) 
+		{
+			if(e.getKeyCode() == KeyEvent.VK_ENTER)
+			{
+				if(verifRecup())
+				{
+					inscriptions.createEquipe(nomAjoutField.getText());
+					System.out.println("AJOUT");
+					nomAjoutField.setText("");
+					refresh();
+					nomAjoutField.requestFocus();
+				}
+				else
+				{
+					System.out.println("Déjà inscrit");
+					nomAjoutField.setText("");
+					nomAjoutField.requestFocus();
+				}
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) 
+		{
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) 
+		{
+			
+		}
+		
+	}
+    
+    class addEquipeListener implements ActionListener 
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			if(verifRecup())
+			{
+				inscriptions.createEquipe(nomAjoutField.getText());
+				System.out.println("AJOUT");
+				nomAjoutField.setText("");
+				refresh();
+			}
+			else
+			{
+				System.out.println("D�j�inscrit");
+				nomAjoutField.setText("");
+			}
+		}
+	}
+    
+    public boolean verifRecup()
+	{
+		for(Equipe e : inscriptions.getEquipes())
+		{
+			if(e.getNom().equals(nomAjoutField.getText()))
+			{
+				System.out.println(e.getNom()+"="+nomAjoutField.getText());
+				return false;
+			}
+		}
+		return true;
+	}
+    
     /*
      * Création d'une liste de données é paginer
      */
